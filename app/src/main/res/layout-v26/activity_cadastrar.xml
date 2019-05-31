@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activities.ActivityCadastrar">
+
+    <!--Tipo-->
+
+    <!--Destino-->
+
+    <TextView
+        android:id="@+id/id_de"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/de" />
+
+    <Spinner
+        android:id="@+id/spinner_de"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/id_de"
+        android:layout_marginStart="31dp"
+        android:layout_marginLeft="31dp"
+        android:layout_toEndOf="@+id/id_de"
+        android:layout_toRightOf="@+id/id_de"
+        android:entries="@array/cidades"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/id_para"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/para" />
+
+    <Spinner
+        android:id="@+id/spinner_para"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/id_para"
+        android:layout_marginStart="19dp"
+        android:layout_marginLeft="19dp"
+        android:layout_toEndOf="@+id/id_para"
+        android:layout_toRightOf="@+id/id_para"
+        android:entries="@array/cidades"
+        android:textSize="20sp"
+        android:textAlignment="center"/>
+
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data"
+        android:textSize="15sp"
+        android:layout_marginTop="120dp"
+        /> <!--Text Data-->
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/text_date"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="200dp"
+        android:layout_toEndOf="@+id/text_date"
+        android:layout_toRightOf="@+id/text_date"
+        android:text="@string/hora"
+        android:textSize="15sp" /> <!--Text Hora-->
+
+    <EditText
+        android:id="@+id/edit_Data"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/dd_mm"
+        android:inputType="date"
+        android:layout_marginTop="140dp"/>
+
+    <EditText
+        android:id="@+id/edit_Hora"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/xx_xx"
+        android:inputType="time"
+        android:layout_alignTop="@+id/edit_Data"
+        android:layout_toRightOf="@+id/edit_Data"
+        android:layout_toEndOf="@+id/edit_Data"
+        android:layout_marginLeft="220dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/text_comentarios"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/coment_rio"
+        android:textSize="15sp"
+        android:layout_marginTop="200dp"
+        />
+
+
+    <EditText
+        android:id="@+id/edit_coment"
+        android:layout_width="match_parent"
+        android:layout_height="318dp"
+        android:layout_marginTop="230dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+
+    <Button
+        android:id="@+id/bot_cadastrar"
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cadastrar"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="600dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
+
+
+</RelativeLayout>
