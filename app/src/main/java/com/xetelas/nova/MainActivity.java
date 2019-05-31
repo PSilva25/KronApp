@@ -77,13 +77,7 @@ public class MainActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_button);
 
-
-
-
         loginButton.setReadPermissions(Arrays.asList("email"));
-
-
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -91,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser != null) {
-
-
 
                 }
             }
@@ -160,13 +152,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void buttonclick(View v){
-
-
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                Toast.makeText(getApplicationContext(),"aaaaaaaaaaaa", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Perai", Toast.LENGTH_LONG).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
@@ -193,20 +183,17 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseUser myuse = firebaseAuth.getCurrentUser();
                     goMainScreem();
                 }else{
-                    Toast.makeText(getApplicationContext(),"aaaaaaaaaaaa", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Deu certo não", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-
-
     }
 
     private void goMainScreem() {
-        Toast.makeText(getApplicationContext(),"aaaaaaaaaaaa", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Conectado com Facebook", Toast.LENGTH_LONG).show();
 
 
-        Intent intent = new Intent(MainActivity.this,Profile.class );
+        Intent intent = new Intent(MainActivity.this, Profile.class );
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
