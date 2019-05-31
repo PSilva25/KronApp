@@ -65,17 +65,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
-
-
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/googlebtn"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/buttonshape3">
-    </com.google.android.gms.common.SignInButton>
+        android:layout_height="70dp" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
@@ -84,8 +74,19 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/buttonshape3"
         android:onClick="buttonclick" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googlebtn"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+    </com.google.android.gms.common.SignInButton>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button1"

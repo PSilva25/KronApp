@@ -266,7 +266,7 @@
     <string name="facebook_app_id">678753119224687</string> <string name="fb_login_protocol_scheme">fb678753119224687</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Sem pstagens</string>
+    <string name="hello_blank_fragment">Sem postagens</string>
     <string name="sair">Sair</string>
     <string name="para">Para:</string>
     <string name="de">De:</string>
