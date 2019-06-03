@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient  = GoogleSignIn.getClient(this,gso);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -135,13 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient  = GoogleSignIn.getClient(this,gso);
     }
 
     public void buttonclick(View v){
@@ -149,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-                Toast.makeText(getApplicationContext(),"Perai", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Deu certo!", Toast.LENGTH_LONG).show();
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
 
