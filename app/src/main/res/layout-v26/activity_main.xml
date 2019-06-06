@@ -7,118 +7,32 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="602dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/imageView1"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="324dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/todo"
+            app:srcCompat="@drawable/ic_krona" />
 
-    </android.support.design.widget.AppBarLayout>
+    </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="190dp" />
-
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <EditText
-        android:id="@+id/senha"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:autofillHints=""
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/senha"
-        android:inputType="textPassword" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="70dp" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:onClick="buttonclick" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/googlebtn"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-    </com.google.android.gms.common.SignInButton>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/buttonshape2"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="@string/login"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#A8A8A8"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="@string/registrar"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp" />
+        android:layout_marginBottom="30dp" />
 
 
 </LinearLayout>

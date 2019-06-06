@@ -263,7 +263,8 @@
     <string name="fire">Ok</string>
     <string name="cancel">Cancelar</string>
 
-    <string name="facebook_app_id">678753119224687</string> <string name="fb_login_protocol_scheme">fb678753119224687</string>
+    <string name="facebook_app_id">678753119224687</string>
+    <string name="fb_login_protocol_scheme">fb678753119224687</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Sem postagens</string>
@@ -271,4 +272,7 @@
     <string name="para">Para:</string>
     <string name="de">De:</string>
     <string name="hora">Horário</string>
+    <string name="button">Button</string>
+    <string name="todo">TODO</string>
+    <string name="kronapp">KronApp</string>
 </resources>

@@ -1,7 +1,11 @@
 package com.xetelas.nova.Objects;
 
+import java.util.ArrayList;
+
 public class Caronas {
     String origem, destino, data, hora, coment;
+
+    public ArrayList<Caronas> caronas = new ArrayList<>();
 
     public Caronas() {
     }
