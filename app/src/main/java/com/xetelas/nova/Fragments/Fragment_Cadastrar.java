@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +19,7 @@ public class Fragment_Cadastrar extends Fragment {
 
     Spinner de, para;
     EditText data, hora, coment;
-    Caronas opa = new Caronas();
-    Caronas uma;
+    Fragment_Minhas opa = new Fragment_Minhas();
 
     private View view;
     private Button button;
@@ -56,11 +53,9 @@ public class Fragment_Cadastrar extends Fragment {
                 String time = hora.getText().toString();
                 String com = coment.getText().toString();
 
-                uma = new Caronas(bora, indo, date, time, com);
-                opa.caronas.add(uma);
+                opa.car.add(new Caronas(bora, indo, date, time, com));
 
                 Toast.makeText(getContext(), "Cadastro concluído!!", Toast.LENGTH_LONG).show();
-
             }
         });
 

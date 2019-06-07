@@ -26,10 +26,8 @@
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/id_de"
-            android:layout_marginStart="31dp"
-            android:layout_marginLeft="31dp"
-            android:layout_toEndOf="@+id/id_de"
-            android:layout_toRightOf="@+id/id_de"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
             android:entries="@array/cidades"
             android:textSize="20sp"
             android:textAlignment="center"/>
@@ -46,10 +44,8 @@
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/id_para"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="19dp"
-            android:layout_toEndOf="@+id/id_para"
-            android:layout_toRightOf="@+id/id_para"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
             android:entries="@array/cidades"
             android:textSize="20sp"
             android:textAlignment="center"/>
@@ -69,37 +65,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/text_date"
-            android:layout_marginStart="180dp"
+            android:layout_marginStart="188dp"
             android:layout_marginLeft="200dp"
             android:layout_toEndOf="@+id/text_date"
             android:layout_toRightOf="@+id/text_date"
             android:text="@string/hora"
-            android:textSize="15sp" /> <!--Text Hora-->
+            android:textSize="15sp"
+            /> <!--Text Hora-->
 
         <EditText
             android:id="@+id/edit_Data"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:ems="10"
             android:hint="@string/dd_mm"
             android:inputType="date"
-            android:layout_marginTop="140dp"/>
+            android:layout_marginTop="140dp"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/edit_Hora"
-            android:layout_width="190dp"
+            android:layout_width="193dp"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/edit_Data"
+            android:layout_alignParentEnd="true"
             android:layout_gravity="end"
-            android:autofillHints=""
-            android:ems="10"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="220dp"
             android:hint="@string/xx_xx"
             android:inputType="time"
-            android:layout_alignTop="@+id/edit_Data"
-            android:layout_toRightOf="@+id/edit_Data"
-            android:layout_toEndOf="@+id/edit_Data"
-            android:layout_marginLeft="220dp"
-            android:layout_marginStart="20dp"/>
+            android:autofillHints="" />
 
     </RelativeLayout>
 
@@ -110,7 +104,6 @@
         android:layout_height="376dp"
         android:layout_marginTop="20dp"
         android:autofillHints=""
-        android:ems="10"
         android:gravity="start|top"
         android:hint="Comentário"
         android:inputType="textMultiLine" />
@@ -120,8 +113,6 @@
         android:id="@+id/bot_cadastrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_coment"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="52dp"
         android:background="@drawable/buttonshape"

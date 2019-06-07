@@ -18,6 +18,12 @@ public class Caronas {
         this.coment = coment;
     }
 
+    @Override
+    public String toString() {
+        return "Origem: " + origem + "\nDestino: " +
+                destino + "\nData: " + data + "\nHora: " + hora + "\nComentário: " + coment;
+    }
+
     public String getOrigem() {
         return origem;
     }
