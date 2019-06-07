@@ -27,7 +27,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        adapter.adicionar(new Fragment_Minhas() , "Minhas");
+        adapter.adicionar(new Fragment_Minhas(), "Minhas");
         adapter.adicionar(new Fragment_Cadastrar(), "Cadastrar");
         adapter.adicionar(new Fragment_Procurar(), "Procurar");
 

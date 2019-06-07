@@ -5,19 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Fragment_Minhas">
 
-    <FrameLayout
+    <ListView
+        android:id="@+id/lista_minhas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/lista_minhas"
-            android:layout_width="match_parent"
-            android:layout_height="729dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="0dp"
-            android:choiceMode="singleChoice">
-
-        </ListView>
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice">
+    </ListView>
 
 </FrameLayout>

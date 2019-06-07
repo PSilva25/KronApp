@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
@@ -24,10 +26,12 @@ public class Fragment_Minhas extends Fragment {
 
         ListView lv = view.findViewById(R.id.lista_minhas);
 
-        ArrayAdapter<Caronas> ad = new ArrayAdapter<>(
-                getActivity(),
+        ArrayList<Caronas> todos = opa.caronas;
+
+        ArrayAdapter<Caronas> ad = new ArrayAdapter<Caronas>(
+                getContext(),
                 android.R.layout.simple_list_item_1,
-                opa.caronas
+                todos
         );
         lv.setAdapter(ad);
 
