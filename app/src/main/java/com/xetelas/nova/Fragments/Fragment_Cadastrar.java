@@ -56,6 +56,11 @@ public class Fragment_Cadastrar extends Fragment {
                 opa.car.add(new Caronas(bora, indo, date, time, com));
 
                 Toast.makeText(getContext(), "Cadastro concluído!!", Toast.LENGTH_LONG).show();
+                de.setAdapter(adapter);
+                para.setAdapter(adapter);
+                data.setText("");
+                hora.setText("");
+                coment.setText("");
             }
         });
 
