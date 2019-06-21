@@ -4,26 +4,31 @@ import java.util.ArrayList;
 
 public class Caronas {
 
-    String Id,origem, destino, data, hora, coment;
-
-    public ArrayList<Caronas> caronas = new ArrayList<>();
+    String Id,origem, destino, data, hora, coment, nome, order;
 
     public Caronas() {
     }
 
-    public Caronas(String Id, String origem, String destino, String data, String hora, String coment) {
-        this.Id = Id;
-        this.origem = origem;
-        this.destino = destino;
-        this.data = data;
-        this.hora = hora;
-        this.coment = coment;
-    }
-
     @Override
     public String toString() {
-        return "Origem: " + origem + "\nDestino: " +
+        return "Usuário: " + nome + "\nOrigem: " + origem + "\nDestino: " +
                 destino + "\nData: " + data + "\nHora: " + hora + "\nComentário: " + coment;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getOrigem() {

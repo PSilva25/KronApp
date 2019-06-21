@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.SwipeRefreshLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_refresh_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".Fragments.Fragment_Minhas">
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ListView
+        android:id="@+id/lista_minhas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Fragments.Fragment_Minhas">
+        android:choiceMode="singleChoice"
+        android:scrollbars="vertical"></ListView>
 
-        <ListView
-            android:id="@+id/lista_minhas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice"
-            android:scrollbars="vertical"></ListView>
-
-    </FrameLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

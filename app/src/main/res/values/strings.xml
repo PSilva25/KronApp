@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">KronApp</string>
+    <string name="app_name">Quero Carona</string>
     <string name="action_settings">Settings</string>
 
     <string name="text_fragment_minha">Suas caronas postadas: </string>
 
     <string name="destino">Destino:</string>
-    <string name="picos_teresina"><![CDATA[Picos > Teresina]]></string>
-    <string name="teresina_picos"><![CDATA[Teresina > Picos]]></string>
 
     <string name="tipo">Tipo:</string>
     <string name="oferecer">Oferecer</string>
@@ -14,7 +12,7 @@
 
     <string name="data">Data:</string>
     <string name="hor_rio">Horário:</string>
-    <string name="dd_mm">DD/MM</string>
+    <string name="dd_mm">DD/MM/AAAA</string>
 
     <string name="cadastrar">Cadastrar</string>
     <string name="xx_xx">XX:XX</string>
@@ -275,4 +273,6 @@
     <string name="todo">TODO</string>
     <string name="kronapp">KronApp</string>
     <string name="nenhuma_carona_cadastrada">Nenhuma carona cadastrada</string>
+    <string name="main_menu">main_menu</string>
+
 </resources>

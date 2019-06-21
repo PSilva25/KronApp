@@ -1,15 +1,17 @@
 package com.xetelas.nova.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.Spinner;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,9 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Objects;
 
-public class Fragment_Minhas extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    SwipeRefreshLayout mSwipeToRefresh;
+public class Fragment_Minhas extends Fragment {
     ListView lv;
 
     FirebaseDatabase firebaseDatabase;
@@ -40,34 +43,39 @@ public class Fragment_Minhas extends Fragment implements SwipeRefreshLayout.OnRe
 
         FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference().child("user");
 
         View view = inflater.inflate(R.layout.fragment_minhas, container, false);
 
         lv = view.findViewById(R.id.lista_minhas);
 
-        databaseReference.child("user").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dados.clear();
+                String opa;
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
+                    opa = objSnapshot.child("id").getValue().toString();
 
-                    Caronas car = new Caronas();
+                    if(opa.equals(user.getUid())){
+                        Caronas car = new Caronas();
 
-                    car.setOrigem((String) objSnapshot.child("origem").getValue());
-                    car.setDestino((String) objSnapshot.child("destino").getValue());
-                    car.setData((String) objSnapshot.child("data").getValue());
-                    car.setId((String) objSnapshot.child("id").getValue());
-                    car.setHora((String) objSnapshot.child("hora").getValue());
-                    car.setComent((String)objSnapshot.child("comentario").getValue());
+                        car.setNome((String) objSnapshot.child("usuario").getValue());
+                        car.setOrigem((String) objSnapshot.child("origem").getValue());
+                        car.setDestino((String) objSnapshot.child("destino").getValue());
+                        car.setData((String) objSnapshot.child("data").getValue());
+                        car.setId((String) objSnapshot.child("id").getValue());
+                        car.setHora((String) objSnapshot.child("hora").getValue());
+                        car.setComent((String)objSnapshot.child("comentario").getValue());
 
-                    dados.add(car);
-
+                        dados.add(car);
+                    }
                 }
 
                 ad = new ArrayAdapter<>(
-                        getContext(),
+                        Objects.requireNonNull(getContext()),
                         android.R.layout.simple_list_item_1,
                         dados
                 );
@@ -81,27 +89,6 @@ public class Fragment_Minhas extends Fragment implements SwipeRefreshLayout.OnRe
             }
         });
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-
-        databaseReference = firebaseDatabase.getReference().child(user.getUid());
-
-        mSwipeToRefresh = view.findViewById(R.id.swipe_refresh_container);
-
-        mSwipeToRefresh.setOnRefreshListener(this);
-
-        mSwipeToRefresh.setColorSchemeResources(
-                R.color.colorPrimary
-        );
-
         return view;
-    }
-
-    @Override
-    public void onRefresh() {
-
-        Toast.makeText(getContext(),"Atualizado!",Toast.LENGTH_SHORT).show();
-
-
-        mSwipeToRefresh.setRefreshing(false);
     }
 }
