@@ -23,14 +23,4 @@
         android:src="@android:drawable/ic_menu_search"
         app:backgroundTint="#315A96" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="70dp"
-        android:src="@android:drawable/ic_menu_delete"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorAccent" />
-
 </FrameLayout>

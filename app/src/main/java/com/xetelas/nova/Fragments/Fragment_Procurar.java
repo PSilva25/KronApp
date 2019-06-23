@@ -43,11 +43,10 @@ import java.util.Objects;
 public class Fragment_Procurar extends Fragment implements View.OnClickListener {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    FloatingActionButton fab, delete;
+    FloatingActionButton fab;
     ArrayList<Caronas> dados = new ArrayList<>();
     ArrayAdapter<Caronas> ad;
 
-    Boolean isFilter = false;
     Dialog myDialog;
     TextView origem, destino, date;
     EditText data;
@@ -65,12 +64,9 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
 
         View view = inflater.inflate(R.layout.fragment_procurar, container, false);
         fab = view.findViewById(R.id.fab);
-        delete = view.findViewById(R.id.fab2);
-        delete.setVisibility(view.INVISIBLE);
         lv = view.findViewById(R.id.lista_geral);
 
         fab.setOnClickListener(this);
-        delete.setOnClickListener(this);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -109,113 +105,111 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
 
         if(or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")){
             Toast.makeText(getContext(), "Selecione um filtro...", Toast.LENGTH_SHORT).show();
-        }else {
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    dados.clear();
+        }else databaseReference.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dados.clear();
 
-                    for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                        String prim = objSnapshot.child("origem").getValue().toString();
-                        String seg = Objects.requireNonNull(objSnapshot.child("destino").getValue()).toString();
-                        String ter = Objects.requireNonNull(objSnapshot.child("data").getValue()).toString();
-                        if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")) {
-                            if (prim.equals(or)) {
-                                Caronas car = new Caronas();
+                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
+                    String prim = objSnapshot.child("origem").getValue().toString();
+                    String seg = objSnapshot.child("destino").getValue().toString();
+                    String ter = objSnapshot.child("data").getValue().toString();
 
-                                car.setNome((String) objSnapshot.child("usuario").getValue());
-                                car.setOrigem((String) objSnapshot.child("origem").getValue());
-                                car.setDestino((String) objSnapshot.child("destino").getValue());
-                                car.setData((String) objSnapshot.child("data").getValue());
-                                car.setId((String) objSnapshot.child("id").getValue());
-                                car.setHora((String) objSnapshot.child("hora").getValue());
-                                car.setComent((String) objSnapshot.child("comentario").getValue());
+                    if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")) {
+                        if (prim.equals(or)) {
+                            Caronas car = new Caronas();
 
-                                dados.add(car);
-                            }
-                        } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
-                            if (seg.equals(des)) {
-                                Caronas car = new Caronas();
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                                car.setNome((String) objSnapshot.child("usuario").getValue());
-                                car.setOrigem((String) objSnapshot.child("origem").getValue());
-                                car.setDestino((String) objSnapshot.child("destino").getValue());
-                                car.setData((String) objSnapshot.child("data").getValue());
-                                car.setId((String) objSnapshot.child("id").getValue());
-                                car.setHora((String) objSnapshot.child("hora").getValue());
-                                car.setComent((String) objSnapshot.child("comentario").getValue());
+                            dados.add(car);
+                        }
+                    } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
+                        if (seg.equals(des)) {
+                            Caronas car = new Caronas();
 
-                                dados.add(car);
-                            }
-                        } else if (or.equals("-- Selecione --") && des.equals("-- Selecione --")) {
-                            if (ter.equals(da)) {
-                                Caronas car = new Caronas();
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                                car.setNome((String) objSnapshot.child("usuario").getValue());
-                                car.setOrigem((String) objSnapshot.child("origem").getValue());
-                                car.setDestino((String) objSnapshot.child("destino").getValue());
-                                car.setData((String) objSnapshot.child("data").getValue());
-                                car.setId((String) objSnapshot.child("id").getValue());
-                                car.setHora((String) objSnapshot.child("hora").getValue());
-                                car.setComent((String) objSnapshot.child("comentario").getValue());
+                            dados.add(car);
+                        }
+                    } else if (or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
+                        if (ter.equals(da)) {
+                            Caronas car = new Caronas();
 
-                                dados.add(car);
-                            }
-                        } else if (!or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
-                            if (prim.equals(or) && seg.equals(des)) {
-                                Caronas car = new Caronas();
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                                car.setNome((String) objSnapshot.child("usuario").getValue());
-                                car.setOrigem((String) objSnapshot.child("origem").getValue());
-                                car.setDestino((String) objSnapshot.child("destino").getValue());
-                                car.setData((String) objSnapshot.child("data").getValue());
-                                car.setId((String) objSnapshot.child("id").getValue());
-                                car.setHora((String) objSnapshot.child("hora").getValue());
-                                car.setComent((String) objSnapshot.child("comentario").getValue());
+                            dados.add(car);
+                        }
+                    } else if (!or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
+                        if (prim.equals(or) && seg.equals(des)) {
+                            Caronas car = new Caronas();
 
-                                dados.add(car);
-                            }
-                        } else if (!or.equals("-- Selecione --") && des.equals("-- Selecione --")) {
-                            if (prim.equals(or) && ter.equals(da)) {
-                                Caronas car = new Caronas();
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                                car.setNome((String) objSnapshot.child("usuario").getValue());
-                                car.setOrigem((String) objSnapshot.child("origem").getValue());
-                                car.setDestino((String) objSnapshot.child("destino").getValue());
-                                car.setData((String) objSnapshot.child("data").getValue());
-                                car.setId((String) objSnapshot.child("id").getValue());
-                                car.setHora((String) objSnapshot.child("hora").getValue());
-                                car.setComent((String) objSnapshot.child("comentario").getValue());
+                            dados.add(car);
+                        }
+                    } else if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
+                        if (prim.equals(or) && ter.equals(da)) {
+                            Caronas car = new Caronas();
 
-                                dados.add(car);
-                            }
-                        } else if (or.equals("-- Selecione --")) {
-                            if (seg.equals(des) && ter.equals(da)) {
-                                Caronas car = new Caronas();
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                                car.setNome((String) objSnapshot.child("usuario").getValue());
-                                car.setOrigem((String) objSnapshot.child("origem").getValue());
-                                car.setDestino((String) objSnapshot.child("destino").getValue());
-                                car.setData((String) objSnapshot.child("data").getValue());
-                                car.setId((String) objSnapshot.child("id").getValue());
-                                car.setHora((String) objSnapshot.child("hora").getValue());
-                                car.setComent((String) objSnapshot.child("comentario").getValue());
+                            dados.add(car);
+                        }
+                    } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && !da.equals("")) {
+                        if (seg.equals(des) && ter.equals(da)) {
+                            Caronas car = new Caronas();
 
-                                dados.add(car);
-                            }
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
+
+                            dados.add(car);
                         }
                     }
-                    setListView();
                 }
+                setListView();
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
-            isFilter = true;
-        }
+            }
+        });
     }
 
     public void setListView(){
@@ -252,9 +246,6 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
                 filtro(de.getSelectedItem().toString(), para.getSelectedItem().toString(), data.getText().toString());
 
                 myDialog.dismiss();
-
-                if (isFilter){
-                }
             }
         });
 
@@ -290,42 +281,6 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
-    }
-
-    public void apagarFiltro(){
-        if (isFilter){
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    dados.clear();
-
-                    for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
-
-                        Caronas car = new Caronas();
-
-                        car.setNome((String) objSnapshot.child("usuario").getValue());
-                        car.setOrigem((String) objSnapshot.child("origem").getValue());
-                        car.setDestino((String) objSnapshot.child("destino").getValue());
-                        car.setData((String) objSnapshot.child("data").getValue());
-                        car.setId((String) objSnapshot.child("id").getValue());
-                        car.setHora((String) objSnapshot.child("hora").getValue());
-                        car.setComent((String)objSnapshot.child("comentario").getValue());
-
-                        dados.add(car);
-                    }
-
-                    setListView();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        } else {
-
-        }
     }
 
     private void updateLabel () {
