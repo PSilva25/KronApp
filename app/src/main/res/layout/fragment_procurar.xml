@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="10dp"
     tools:context=".Fragments.Fragment_Procurar">
 
     <ListView
@@ -22,5 +22,15 @@
         android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_menu_search"
         app:backgroundTint="#315A96" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="70dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorAccent" />
 
 </FrameLayout>
