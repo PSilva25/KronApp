@@ -35,16 +35,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_Procurar extends Fragment implements View.OnClickListener {
+public class Fragment_Procurar extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    FloatingActionButton fab;
+    FloatingActionButton fab, fabpause;
     ArrayList<Caronas> dados = new ArrayList<>();
+    ArrayList<Caronas> dados2 = new ArrayList<>();
     ArrayAdapter<Caronas> ad;
 
     Dialog myDialog;
@@ -53,8 +53,7 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
     Button cancel, filtro;
     Spinner de, para;
     Calendar myCalendar = Calendar.getInstance();
-    ListView lv;
-
+    ListView lv, lv2;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +65,13 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
         fab = view.findViewById(R.id.fab);
         lv = view.findViewById(R.id.lista_geral);
 
-        fab.setOnClickListener(this);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog = new Dialog(getContext());
+                ShowPopup();
+            }
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -102,119 +107,70 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
     }
 
     public void filtro(final String or, final String des, final String da){
-
         if(or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")){
             Toast.makeText(getContext(), "Selecione um filtro...", Toast.LENGTH_SHORT).show();
-        }else databaseReference.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dados.clear();
+        }else  {
+            dados2.clear();
 
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                    String prim = objSnapshot.child("origem").getValue().toString();
-                    String seg = objSnapshot.child("destino").getValue().toString();
-                    String ter = objSnapshot.child("data").getValue().toString();
+            for (int x = 0; x < dados.size(); x++) {
+                String prim = dados.get(x).getOrigem();
+                String seg = dados.get(x).getDestino();
+                String ter = dados.get(x).getData();
 
-                    if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")) {
-                        if (prim.equals(or)) {
-                            Caronas car = new Caronas();
-
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
-
-                            dados.add(car);
-                        }
-                    } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
-                        if (seg.equals(des)) {
-                            Caronas car = new Caronas();
-
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
-
-                            dados.add(car);
-                        }
-                    } else if (or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
-                        if (ter.equals(da)) {
-                            Caronas car = new Caronas();
-
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
-
-                            dados.add(car);
-                        }
-                    } else if (!or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
-                        if (prim.equals(or) && seg.equals(des)) {
-                            Caronas car = new Caronas();
-
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
-
-                            dados.add(car);
-                        }
-                    } else if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
-                        if (prim.equals(or) && ter.equals(da)) {
-                            Caronas car = new Caronas();
-
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
-
-                            dados.add(car);
-                        }
-                    } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && !da.equals("")) {
-                        if (seg.equals(des) && ter.equals(da)) {
-                            Caronas car = new Caronas();
-
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
-
-                            dados.add(car);
-                        }
+                if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")) {
+                    if (prim.equals(or)) {
+                        encherFiltro(x);
+                    }
+                } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
+                    if (seg.equals(des)) {
+                        encherFiltro(x);
+                    }
+                } else if (or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
+                    if (ter.equals(da)) {
+                        encherFiltro(x);
+                    }
+                } else if (!or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
+                    if (prim.equals(or) && seg.equals(des)) {
+                        encherFiltro(x);
+                    }
+                } else if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
+                    if (prim.equals(or) && ter.equals(da)) {
+                        encherFiltro(x);
+                    }
+                } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && !da.equals("")) {
+                    if (seg.equals(des) && ter.equals(da)) {
+                        encherFiltro(x);
                     }
                 }
-                setListView();
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            ad = new ArrayAdapter<>(
+                    getContext().getApplicationContext(),
+                    android.R.layout.simple_list_item_1,
+                    dados2
+            );
 
-            }
-        });
+            lv.setAdapter(ad);
+        }
+    }
+
+    public void encherFiltro (int x){
+        Caronas car = new Caronas();
+
+        car.setNome(dados.get(x).getNome());
+        car.setOrigem(dados.get(x).getOrigem());
+        car.setDestino(dados.get(x).getDestino());
+        car.setData(dados.get(x).getData());
+        car.setId(dados.get(x).getId());
+        car.setHora(dados.get(x).getHora());
+        car.setComent(dados.get(x).getComent());
+
+        dados2.add(car);
     }
 
     public void setListView(){
         ad = new ArrayAdapter<>(
-                getContext(),
+                getContext().getApplicationContext(),
                 android.R.layout.simple_list_item_1,
                 dados
         );
@@ -244,7 +200,6 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 filtro(de.getSelectedItem().toString(), para.getSelectedItem().toString(), data.getText().toString());
-
                 myDialog.dismiss();
             }
         });
@@ -288,11 +243,5 @@ public class Fragment_Procurar extends Fragment implements View.OnClickListener 
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
 
         data.setText(sdf.format(myCalendar.getTime()));
-    }
-
-    @Override
-    public void onClick(View v) {
-        myDialog = new Dialog(getContext());
-        ShowPopup();
     }
 }

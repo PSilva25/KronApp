@@ -19,8 +19,6 @@ public class Profile extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
-    public Profile(){}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +26,7 @@ public class Profile extends AppCompatActivity {
 
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         adapter.adicionar(new Fragment_Procurar(), "Procurar");
-        adapter.adicionar(new Fragment_Cadastrar(), "Cadastrar");
+        adapter.adicionar(new Fragment_Cadastrar(), "Oferecer");
         adapter.adicionar(new Fragment_Minhas(), "Minhas");
 
         ViewPager viewPager = findViewById(R.id.view_pager);

@@ -75,7 +75,7 @@ public class Fragment_Minhas extends Fragment {
                 }
 
                 ad = new ArrayAdapter<>(
-                        Objects.requireNonNull(getContext()),
+                        getContext().getApplicationContext(),
                         android.R.layout.simple_list_item_1,
                         dados
                 );
