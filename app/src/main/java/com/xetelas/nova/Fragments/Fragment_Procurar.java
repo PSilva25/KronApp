@@ -31,9 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
 
 /**
@@ -176,7 +179,7 @@ public class Fragment_Procurar extends Fragment {
             ad = new ArrayAdapter<>(
                     getContext().getApplicationContext(),
                     android.R.layout.simple_list_item_1,
-                    dados2
+                    dados
             );
 
             lv.setAdapter(ad);
