@@ -134,11 +134,11 @@ public class Fragment_Procurar extends Fragment {
     }
 
     public void filtro(final String or, final String des, final String da){
-        isFilter = true;
-        fabdelete.show();
         if(or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")){
             Toast.makeText(getContext(), "Selecione um filtro...", Toast.LENGTH_SHORT).show();
         }else  {
+            isFilter = true;
+            fabdelete.show();
             dados2.clear();
 
             for (int x = 0; x < dados.size(); x++) {
