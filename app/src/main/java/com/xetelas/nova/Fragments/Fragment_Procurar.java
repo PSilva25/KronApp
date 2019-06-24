@@ -179,7 +179,7 @@ public class Fragment_Procurar extends Fragment {
             ad = new ArrayAdapter<>(
                     getContext().getApplicationContext(),
                     android.R.layout.simple_list_item_1,
-                    dados
+                    dados2
             );
 
             lv.setAdapter(ad);
