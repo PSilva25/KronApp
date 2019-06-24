@@ -42,27 +42,40 @@ import java.util.Locale;
 public class Fragment_Procurar extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-    FloatingActionButton fab, fabpause;
+    FloatingActionButton fab, fabdelete;
     ArrayList<Caronas> dados = new ArrayList<>();
     ArrayList<Caronas> dados2 = new ArrayList<>();
     ArrayAdapter<Caronas> ad;
 
+    Boolean isFilter = false;
     Dialog myDialog;
     TextView origem, destino, date;
     EditText data;
     Button cancel, filtro;
     Spinner de, para;
     Calendar myCalendar = Calendar.getInstance();
-    ListView lv, lv2;
+    ListView lv;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        FirebaseApp.initializeApp(getContext());
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("user");
-
         View view = inflater.inflate(R.layout.fragment_procurar, container, false);
         fab = view.findViewById(R.id.fab);
+        fabdelete = view.findViewById(R.id.delete);
+        if (isFilter){
+            fabdelete.show();
+        }else {
+            fabdelete.hide();
+        }
+
+        fabdelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                preencher();
+                isFilter = false;
+                fabdelete.hide();
+            }
+        });
+
         lv = view.findViewById(R.id.lista_geral);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +85,16 @@ public class Fragment_Procurar extends Fragment {
                 ShowPopup();
             }
         });
+
+        preencher();
+
+        return view;
+    }
+
+    public void preencher (){
+        FirebaseApp.initializeApp(getContext());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("user");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -94,7 +117,13 @@ public class Fragment_Procurar extends Fragment {
                     dados.add(car);
                 }
 
-                setListView();
+                ad = new ArrayAdapter<>(
+                        getContext().getApplicationContext(),
+                        android.R.layout.simple_list_item_1,
+                        dados
+                );
+
+                lv.setAdapter(ad);
             }
 
             @Override
@@ -102,11 +131,11 @@ public class Fragment_Procurar extends Fragment {
 
             }
         });
-
-        return view;
     }
 
     public void filtro(final String or, final String des, final String da){
+        isFilter = true;
+        fabdelete.show();
         if(or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")){
             Toast.makeText(getContext(), "Selecione um filtro...", Toast.LENGTH_SHORT).show();
         }else  {
@@ -166,16 +195,6 @@ public class Fragment_Procurar extends Fragment {
         car.setComent(dados.get(x).getComent());
 
         dados2.add(car);
-    }
-
-    public void setListView(){
-        ad = new ArrayAdapter<>(
-                getContext().getApplicationContext(),
-                android.R.layout.simple_list_item_1,
-                dados
-        );
-
-        lv.setAdapter(ad);
     }
 
     public void ShowPopup() {

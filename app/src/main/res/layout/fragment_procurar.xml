@@ -23,4 +23,13 @@
         android:src="@android:drawable/ic_menu_search"
         app:backgroundTint="#315A96" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="70dp"
+        android:src="@android:drawable/ic_menu_delete"
+        app:backgroundTint="@color/colorAccent" />
+
 </FrameLayout>
