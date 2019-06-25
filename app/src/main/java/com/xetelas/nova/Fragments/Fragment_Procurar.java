@@ -104,7 +104,7 @@ public class Fragment_Procurar extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                    dados.clear();
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
 

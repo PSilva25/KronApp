@@ -30,6 +30,7 @@ import com.xetelas.nova.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -91,7 +92,25 @@ public class Fragment_Cadastrar extends Fragment {
                 hora.setText("");
                 coment.setText("");
 
-                databaseReference.child("id").setValue(user);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
+
+                SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+
+                Date data = new Date();
+
+                Calendar  cal = Calendar.getInstance();
+                cal.setTime(data);
+                Date data_atual = cal.getTime();
+
+                String data_completa = dateFormat.format(data_atual);
+
+                String hora_atual = dateFormat_hora.format(data_atual);
+
+
+
+                databaseReference.child("id").setValue(user.getUid());
+                databaseReference.child("id_post").setValue(x);
+                databaseReference.child("tempo_post").setValue(data_completa);
                 databaseReference.child("usuario").setValue(user.getDisplayName());
                 databaseReference.child("origem").setValue(dados.getOrigem());
                 databaseReference.child("destino").setValue(dados.getDestino());
