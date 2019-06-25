@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.xetelas.nova.Adapter.CaronasAdapter;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class Fragment_Minhas extends Fragment {
     FirebaseUser user = firebaseAuth.getCurrentUser();
 
     ArrayList<Caronas> dados = new ArrayList<>();
-    ArrayAdapter<Caronas> ad;
+    CaronasAdapter ad;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,11 +83,7 @@ public class Fragment_Minhas extends Fragment {
                     }
                 }
 
-                ad = new ArrayAdapter<>(
-                        getContext().getApplicationContext(),
-                        android.R.layout.simple_list_item_1,
-                        dados
-                );
+                ad = new CaronasAdapter(getContext().getApplicationContext(), dados);
 
                 lv.setAdapter(ad);
             }

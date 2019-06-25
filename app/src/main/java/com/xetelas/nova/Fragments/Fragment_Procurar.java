@@ -21,7 +21,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,21 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Adapter.CaronasAdapter;
-import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-<<<<<<< HEAD
-import java.util.LinkedList;
 import java.util.List;
-=======
-import java.util.Collections;
->>>>>>> 5da24e53807beff5694e1390c5ecda94c2a95fd7
 import java.util.Locale;
 
 /**
@@ -129,11 +119,9 @@ public class Fragment_Procurar extends Fragment {
                     car.setComent((String)objSnapshot.child("comentario").getValue());
 
                     dados.add(car);
-
-
                 }
 
-                ad = new CaronasAdapter(getContext().getApplicationContext(),dados);
+                ad = new CaronasAdapter(getContext().getApplicationContext(), dados);
 
                 lv.setAdapter(ad);
             }

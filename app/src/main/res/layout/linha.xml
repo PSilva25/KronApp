@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/buttonshape3"
+    android:padding="10dp"
     tools:context=".Fragments.Fragment_Procurar">
 
 
@@ -13,46 +15,131 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        android:textSize="40dp" />
+        android:textSize="25dp" />
 
-    <TextView
-        android:id="@+id/origem"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textColor="@color/title_text_color"
-        android:text="TextView" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/destino"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textColor="@color/title_text_color"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/origem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp" />
 
-    <TextView
-        android:id="@+id/data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/title_text_color"
-        android:textSize="30dp"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/origem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/origem"
+            android:layout_toEndOf="@+id/origem"
+            android:layout_toRightOf="@+id/origem"
+            android:textColor="@color/title_text_color"
+            android:textSize="15dp"
+            android:text="TextView" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/hora"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textColor="@color/title_text_color"
-        android:text="TextView" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/comentario"
+        <TextView
+            android:id="@+id/destino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/destino2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/destino"
+            android:layout_toEndOf="@+id/destino"
+            android:layout_toRightOf="@+id/destino"
+            android:textColor="@color/title_text_color"
+            android:textSize="15dp"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:textColor="@color/title_text_color"
-        android:text="TextView" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/data2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/data"
+            android:layout_toEndOf="@+id/data"
+            android:layout_toRightOf="@+id/data"
+            android:textColor="@color/title_text_color"
+            android:textSize="15dp"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/hora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/hora2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hora"
+            android:layout_toEndOf="@+id/hora"
+            android:layout_toRightOf="@+id/hora"
+            android:textColor="@color/title_text_color"
+            android:textSize="15dp"
+            android:text="TextView" />
+
+    </RelativeLayout>
+
+
+
+        <TextView
+            android:id="@+id/comentario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/comentario2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textStyle="italic"
+            android:layout_marginLeft="30dp"
+            android:textColor="@color/title_text_color"
+            android:text="TextView" />
 </LinearLayout>

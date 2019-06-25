@@ -41,7 +41,7 @@ public class Fragment_Cadastrar extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser  user= firebaseAuth.getCurrentUser();
+    FirebaseUser  user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
 
     private View view;
@@ -65,9 +65,6 @@ public class Fragment_Cadastrar extends Fragment {
         para.setAdapter(adapter);
 
         button = view.findViewById(R.id.bot_cadastrar);
-
-        int maxLength = 140;
-        coment.setFilters(new InputFilter[] {new InputFilter.LengthFilter(maxLength)});
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +91,7 @@ public class Fragment_Cadastrar extends Fragment {
                 hora.setText("");
                 coment.setText("");
 
-                databaseReference.child("id").setValue(user.getUid());
+                databaseReference.child("id").setValue(user);
                 databaseReference.child("usuario").setValue(user.getDisplayName());
                 databaseReference.child("origem").setValue(dados.getOrigem());
                 databaseReference.child("destino").setValue(dados.getDestino());

@@ -1,18 +1,18 @@
 package com.xetelas.nova.Objects;
 
-import java.util.ArrayList;
 
 public class Caronas {
 
-    String Id,origem, destino, data, hora, coment, nome, order;
+    String Id,origem, destino, data, hora, coment, nome, order, perfil;
 
-    public Caronas() {
+    public Caronas() {}
+
+    public String getPerfil() {
+        return perfil;
     }
 
-    @Override
-    public String toString() {
-        return "Usuário: " + nome + "\nOrigem: " + origem + "\nDestino: " +
-                destino + "\nData: " + data + "\nHora: " + hora + "\nComentário: " + coment;
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
 
     public String getOrder() {
