@@ -33,11 +33,17 @@ import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+<<<<<<< HEAD
 import java.util.LinkedList;
 import java.util.List;
+=======
+import java.util.Collections;
+>>>>>>> 5da24e53807beff5694e1390c5ecda94c2a95fd7
 import java.util.Locale;
 
 /**
