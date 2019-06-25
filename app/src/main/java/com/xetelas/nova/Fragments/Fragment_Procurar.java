@@ -28,12 +28,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.xetelas.nova.Adapter.CaronasAdapter;
+import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -43,9 +47,11 @@ public class Fragment_Procurar extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     FloatingActionButton fab, fabdelete;
-    ArrayList<Caronas> dados = new ArrayList<>();
-    ArrayList<Caronas> dados2 = new ArrayList<>();
-    ArrayAdapter<Caronas> ad;
+    List<Caronas> dados = new ArrayList<>();
+    List<Caronas> dados2 = new ArrayList<>();
+    CaronasAdapter ad;
+
+
 
     Boolean isFilter = false;
     Dialog myDialog;
@@ -61,6 +67,8 @@ public class Fragment_Procurar extends Fragment {
         View view = inflater.inflate(R.layout.fragment_procurar, container, false);
         fab = view.findViewById(R.id.fab);
         fabdelete = view.findViewById(R.id.delete);
+
+
         if (isFilter){
             fabdelete.show();
         }else {
@@ -100,7 +108,7 @@ public class Fragment_Procurar extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dados.clear();
+
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
 
@@ -115,13 +123,11 @@ public class Fragment_Procurar extends Fragment {
                     car.setComent((String)objSnapshot.child("comentario").getValue());
 
                     dados.add(car);
+
+
                 }
 
-                ad = new ArrayAdapter<>(
-                        getContext().getApplicationContext(),
-                        android.R.layout.simple_list_item_1,
-                        dados
-                );
+                ad = new CaronasAdapter(getContext().getApplicationContext(),dados);
 
                 lv.setAdapter(ad);
             }
@@ -173,11 +179,7 @@ public class Fragment_Procurar extends Fragment {
                 }
             }
 
-            ad = new ArrayAdapter<>(
-                    getContext().getApplicationContext(),
-                    android.R.layout.simple_list_item_1,
-                    dados2
-            );
+            ad = new CaronasAdapter(getContext().getApplicationContext(),dados2);
 
             lv.setAdapter(ad);
         }
