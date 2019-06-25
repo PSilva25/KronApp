@@ -91,7 +91,7 @@ public class Fragment_Cadastrar extends Fragment {
                 hora.setText("");
                 coment.setText("");
 
-                databaseReference.child("id").setValue(user);
+                databaseReference.child("id").setValue(user.getUid());
                 databaseReference.child("usuario").setValue(user.getDisplayName());
                 databaseReference.child("origem").setValue(dados.getOrigem());
                 databaseReference.child("destino").setValue(dados.getDestino());

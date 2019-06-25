@@ -3,7 +3,7 @@ package com.xetelas.nova.Objects;
 
 public class Caronas {
 
-    String Id,origem, destino, data, hora, coment, nome, order, perfil;
+    String Id,origem, destino, data, hora, coment, nome, perfil;
 
     public Caronas() {}
 
@@ -13,14 +13,6 @@ public class Caronas {
 
     public void setPerfil(String perfil) {
         this.perfil = perfil;
-    }
-
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
     }
 
     public String getNome() {

@@ -5,14 +5,12 @@
         />
     <gradient
         android:type="radial"
-        android:centerX="50%"
-        android:centerY="50%"
+        android:centerX="30%"
+        android:centerY="70%"
         android:startColor="#FFFFFFFF"
-        android:endColor="#FF008080"
-        android:gradientRadius="100"/>
-    <solid
-        android:color="#FFFFFF"
-        />
+        android:endColor="@color/colorPrimary"
+        android:gradientRadius="4000"/>
+
     <size
         android:width="215dp"
         android:height="45dp"

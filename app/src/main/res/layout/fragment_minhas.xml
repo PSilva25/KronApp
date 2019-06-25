@@ -12,7 +12,9 @@
         android:id="@+id/lista_minhas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
-        android:scrollbars="vertical"></ListView>
+        android:choiceMode="multipleChoice"
+        android:dividerHeight="10dp"
+        android:divider="#FFFFFFFF"
+        tools:listitem="@layout/linha"/>
 
 </FrameLayout>
