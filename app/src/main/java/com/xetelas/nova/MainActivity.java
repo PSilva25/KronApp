@@ -116,11 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (user != null) {
 
-            Intent intent = new Intent(MainActivity.this, Profile.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-
-        } else {
+            FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
+            opa.show(getSupportFragmentManager(), "missiles");
 
         }
     }

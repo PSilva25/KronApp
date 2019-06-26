@@ -256,9 +256,9 @@
         <item>Wall Ferraz</item>
     </string-array>
 
-    <string name="dialog_fire_missiles">Confirmar carona?</string>
-    <string name="fire">Ok</string>
-    <string name="cancel">Cancelar</string>
+    <string name="dialog_fire_missiles">Ao entrar com o Facebook você concorda com a disponibilidada do seu perfil público do Facebook.</string>
+    <string name="fire">Concordo</string>
+    <string name="cancel">Discordo</string>
 
     <string name="facebook_app_id">678753119224687</string>
     <string name="fb_login_protocol_scheme">fb678753119224687</string>
