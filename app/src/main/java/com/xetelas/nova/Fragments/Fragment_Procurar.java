@@ -2,6 +2,7 @@ package com.xetelas.nova.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -36,6 +37,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -46,6 +49,8 @@ public class Fragment_Procurar extends Fragment {
     List<Caronas> dados = new ArrayList<>();
     List<Caronas> dados2 = new ArrayList<>();
     CaronasAdapter ad;
+
+    Context context;
 
     Boolean isFilter = false;
     Dialog myDialog;
@@ -62,6 +67,8 @@ public class Fragment_Procurar extends Fragment {
         fab = view.findViewById(R.id.fab);
         fabdelete = view.findViewById(R.id.delete);
 
+
+        context = getApplicationContext();
 
         if (isFilter){
             fabdelete.show();
@@ -102,6 +109,11 @@ public class Fragment_Procurar extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ac4770accdc513eaba12131a07cbcd76cc026b7b
                 dados.clear();
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
@@ -119,7 +131,7 @@ public class Fragment_Procurar extends Fragment {
                     dados.add(car);
                 }
 
-                ad = new CaronasAdapter(getContext().getApplicationContext(), dados);
+                ad = new CaronasAdapter(context, dados);
 
                 lv.setAdapter(ad);
             }
