@@ -20,7 +20,9 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -92,7 +94,6 @@ public class Fragment_Cadastrar extends Fragment {
                 hora.setText("");
                 coment.setText("");
 
-<<<<<<< HEAD
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
 
                 SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
@@ -108,13 +109,10 @@ public class Fragment_Cadastrar extends Fragment {
                 String hora_atual = dateFormat_hora.format(data_atual);
 
 
-
                 databaseReference.child("id").setValue(user.getUid());
                 databaseReference.child("id_post").setValue(x);
                 databaseReference.child("tempo_post").setValue(data_completa);
-=======
                 databaseReference.child("id").setValue(user.getUid());
->>>>>>> 43ed61b5c100f4a8910e2bb661912377dde8659b
                 databaseReference.child("usuario").setValue(user.getDisplayName());
                 databaseReference.child("origem").setValue(dados.getOrigem());
                 databaseReference.child("destino").setValue(dados.getDestino());

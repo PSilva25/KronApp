@@ -142,4 +142,9 @@
             android:layout_marginLeft="30dp"
             android:textColor="@color/title_text_color"
             android:text="TextView" />
+        <Button
+            android:id="@+id/whats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WhatsApp"/>
 </LinearLayout>
