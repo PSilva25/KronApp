@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -38,7 +39,7 @@ import java.util.UUID;
 
 public class Fragment_Cadastrar extends Fragment {
 
-    Spinner de, para;
+    AutoCompleteTextView de, para;
     EditText data, hora, coment;
 
     FirebaseDatabase firebaseDatabase;
@@ -62,7 +63,8 @@ public class Fragment_Cadastrar extends Fragment {
         hora = view.findViewById(R.id.edit_Hora);
         coment = view.findViewById(R.id.edit_coment);
 
-        final ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.cidades, R.layout.support_simple_spinner_dropdown_item);
+        String[] cities = getResources().getStringArray(R.array.cidades);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
 
         de.setAdapter(adapter);
         para.setAdapter(adapter);
@@ -74,48 +76,37 @@ public class Fragment_Cadastrar extends Fragment {
             public void onClick(View v) {
                 String x = UUID.randomUUID().toString().replace("-", "");
 
+                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
+
+                Date dat = new Date();
+
+                Calendar  cal = Calendar.getInstance();
+                cal.setTime(dat);
+                Date data_atual = cal.getTime();
+                String data_completa = dateFormat.format(data_atual);
+
                 FirebaseApp.initializeApp(getContext());
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference().child("user").child(x);
+                databaseReference = firebaseDatabase.getReference().child(data_completa + " - " + x);
 
                 Caronas dados = new Caronas();
 
-                dados.setId(x);
+                dados.setId(data_completa + " - " + x);
 
-                dados.setOrigem(de.getSelectedItem().toString());
-                dados.setDestino(para.getSelectedItem().toString());
+                dados.setOrigem(de.getText().toString());
+                dados.setDestino(para.getText().toString());
                 dados.setData(data.getText().toString());
                 dados.setHora(hora.getText().toString());
                 dados.setComent(coment.getText().toString());
 
-                de.setAdapter(adapter);
-                para.setAdapter(adapter);
+                de.setText("");
+                para.setText("");
                 data.setText("");
                 hora.setText("");
                 coment.setText("");
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy-HH:mm:ss");
-
-                Date data = new Date();
-
-                Calendar  cal = Calendar.getInstance();
-                cal.setTime(data);
-                Date data_atual = cal.getTime();
-                String data_completa = dateFormat.format(data_atual);
-
-<<<<<<< HEAD
                 databaseReference.child("id").setValue(user.getUid());
-                databaseReference.child("id_post").setValue(x);
-                databaseReference.child("tempo_post").setValue(data_completa);
-=======
-                String hora_atual = dateFormat_hora.format(data_atual);
-
-
-                databaseReference.child("id").setValue(user.getUid());
-                databaseReference.child("id_post").setValue(x);
-                databaseReference.child("tempo_post").setValue(data_completa);
-                databaseReference.child("id").setValue(user.getUid());
->>>>>>> ac4770accdc513eaba12131a07cbcd76cc026b7b
+                databaseReference.child("id_post").setValue(data_completa + " - " + x);
                 databaseReference.child("usuario").setValue(user.getDisplayName());
                 databaseReference.child("origem").setValue(dados.getOrigem());
                 databaseReference.child("destino").setValue(dados.getDestino());
@@ -123,7 +114,7 @@ public class Fragment_Cadastrar extends Fragment {
                 databaseReference.child("hora").setValue(dados.getHora());
                 databaseReference.child("comentario").setValue(dados.getComent());
 
-                Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cadastro concluído!" + data_completa, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -135,7 +126,9 @@ public class Fragment_Cadastrar extends Fragment {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
+                data.setText(sdf.format(myCalendar.getTime()));
             }
 
         };
@@ -172,10 +165,8 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-    private void updateLabel () {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
-
-        data.setText(sdf.format(myCalendar.getTime()));
+    public boolean isTelefone(String numeroTelefone) {
+        return numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}") ||
+                numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
     }
 }

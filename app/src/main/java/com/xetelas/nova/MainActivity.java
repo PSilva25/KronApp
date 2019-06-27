@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText email;
     FirebaseAuth firebaseAuth;
     LoginButton loginButton;
+    FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
     private static final String TAG = "FacebookLogin";
     private CallbackManager callbackManager;
 
@@ -52,13 +53,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                updateUI(null);
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                updateUI(null);
             }
         });
 
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        updateUI(currentUser);
+        updateUI(currentUser, true);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -98,13 +97,12 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            updateUI(user);
+                            updateUI(user, false);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
 
 
@@ -112,13 +110,14 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI(FirebaseUser user, Boolean sim) {
 
-        if (user != null) {
-
-            FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
+        if (user != null && sim) {
+            Intent intent = new Intent(MainActivity.this, Profile.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (user != null){
             opa.show(getSupportFragmentManager(), "missiles");
-
         }
     }
 }

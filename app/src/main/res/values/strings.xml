@@ -29,7 +29,6 @@
     </string-array>
 
     <string-array name="cidades">
-        <item>-- Selecione --</item>
         <item>Acauã</item>
         <item>Agricolândia</item>
         <item>Água Branca</item>
@@ -268,10 +267,8 @@
     <string name="sair">Sair</string>
     <string name="para">Para:</string>
     <string name="de">De:</string>
-    <string name="hora">Horário</string>
+    <string name="hora">Horário:</string>
     <string name="button">Button</string>
-    <string name="todo">TODO</string>
-    <string name="kronapp">KronApp</string>
     <string name="nenhuma_carona_cadastrada">Nenhuma carona cadastrada</string>
     <string name="main_menu">main_menu</string>
 

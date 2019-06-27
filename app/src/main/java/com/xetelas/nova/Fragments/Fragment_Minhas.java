@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Adapter.CaronasAdapter;
+import com.xetelas.nova.Adapter.CaronasAdapterMinhas;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 import java.util.ArrayList;
@@ -38,14 +39,14 @@ public class Fragment_Minhas extends Fragment {
     FirebaseUser user = firebaseAuth.getCurrentUser();
 
     ArrayList<Caronas> dados = new ArrayList<>();
-    CaronasAdapter ad;
+    CaronasAdapterMinhas ad;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("user");
+        databaseReference = firebaseDatabase.getReference();
 
         View view = inflater.inflate(R.layout.fragment_minhas, container, false);
 
@@ -76,6 +77,7 @@ public class Fragment_Minhas extends Fragment {
                         car.setDestino((String) objSnapshot.child("destino").getValue());
                         car.setData((String) objSnapshot.child("data").getValue());
                         car.setId((String) objSnapshot.child("id").getValue());
+                        car.setId_post((String) objSnapshot.child("id_post").getValue());
                         car.setHora((String) objSnapshot.child("hora").getValue());
                         car.setComent((String)objSnapshot.child("comentario").getValue());
 
@@ -83,7 +85,7 @@ public class Fragment_Minhas extends Fragment {
                     }
                 }
 
-                ad = new CaronasAdapter(getContext().getApplicationContext(), dados);
+                ad = new CaronasAdapterMinhas(getContext().getApplicationContext(), dados);
 
                 lv.setAdapter(ad);
             }

@@ -3,9 +3,17 @@ package com.xetelas.nova.Objects;
 
 public class Caronas {
 
-    String Id,origem, destino, data, hora, coment, nome, perfil;
+    String Id, id_post, origem, destino, data, hora, coment, nome, perfil;
 
     public Caronas() {}
+
+    public String getId_post() {
+        return id_post;
+    }
+
+    public void setId_post(String id_post) {
+        this.id_post = id_post;
+    }
 
     public String getPerfil() {
         return perfil;

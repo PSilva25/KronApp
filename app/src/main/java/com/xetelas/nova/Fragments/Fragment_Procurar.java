@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -57,7 +58,7 @@ public class Fragment_Procurar extends Fragment {
     TextView origem, destino, date;
     EditText data;
     Button cancel, filtro;
-    Spinner de, para;
+    AutoCompleteTextView de, para;
     Calendar myCalendar = Calendar.getInstance();
     ListView lv;
 
@@ -103,17 +104,13 @@ public class Fragment_Procurar extends Fragment {
     public void preencher (){
         FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference().child("user");
+        databaseReference = firebaseDatabase.getReference();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-<<<<<<< HEAD
-=======
 
-
->>>>>>> ac4770accdc513eaba12131a07cbcd76cc026b7b
                 dados.clear();
 
                 for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
@@ -144,7 +141,7 @@ public class Fragment_Procurar extends Fragment {
     }
 
     public void filtro(final String or, final String des, final String da){
-        if(or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")){
+        if(or.equals("") && des.equals("") && da.equals("")){
             Toast.makeText(getContext(), "Selecione um filtro...", Toast.LENGTH_SHORT).show();
         }else  {
             isFilter = true;
@@ -156,27 +153,27 @@ public class Fragment_Procurar extends Fragment {
                 String seg = dados.get(x).getDestino();
                 String ter = dados.get(x).getData();
 
-                if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && da.equals("")) {
+                if (!or.equals("") && des.equals("") && da.equals("")) {
                     if (prim.equals(or)) {
                         encherFiltro(x);
                     }
-                } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
+                } else if (or.equals("") && !des.equals("") && da.equals("")) {
                     if (seg.equals(des)) {
                         encherFiltro(x);
                     }
-                } else if (or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
+                } else if (or.equals("") && des.equals("") && !da.equals("")) {
                     if (ter.equals(da)) {
                         encherFiltro(x);
                     }
-                } else if (!or.equals("-- Selecione --") && !des.equals("-- Selecione --") && da.equals("")) {
+                } else if (!or.equals("") && !des.equals("") && da.equals("")) {
                     if (prim.equals(or) && seg.equals(des)) {
                         encherFiltro(x);
                     }
-                } else if (!or.equals("-- Selecione --") && des.equals("-- Selecione --") && !da.equals("")) {
+                } else if (!or.equals("") && des.equals("") && !da.equals("")) {
                     if (prim.equals(or) && ter.equals(da)) {
                         encherFiltro(x);
                     }
-                } else if (or.equals("-- Selecione --") && !des.equals("-- Selecione --") && !da.equals("")) {
+                } else if (or.equals("") && !des.equals("") && !da.equals("")) {
                     if (seg.equals(des) && ter.equals(da)) {
                         encherFiltro(x);
                     }
@@ -197,6 +194,7 @@ public class Fragment_Procurar extends Fragment {
         car.setDestino(dados.get(x).getDestino());
         car.setData(dados.get(x).getData());
         car.setId(dados.get(x).getId());
+        car.setId_post(dados.get(x).getId_post());
         car.setHora(dados.get(x).getHora());
         car.setComent(dados.get(x).getComent());
 
@@ -215,7 +213,8 @@ public class Fragment_Procurar extends Fragment {
         para = myDialog.findViewById(R.id.spinner_para);
         data = myDialog.findViewById(R.id.edit_Data);
 
-        final ArrayAdapter adapter = ArrayAdapter.createFromResource(getContext(), R.array.cidades, R.layout.support_simple_spinner_dropdown_item);
+        String[] cities = getResources().getStringArray(R.array.cidades);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
 
         de.setAdapter(adapter);
         para.setAdapter(adapter);
@@ -224,7 +223,7 @@ public class Fragment_Procurar extends Fragment {
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                filtro(de.getSelectedItem().toString(), para.getSelectedItem().toString(), data.getText().toString());
+                filtro(de.getText().toString(), para.getText().toString(), data.getText().toString());
                 myDialog.dismiss();
             }
         });

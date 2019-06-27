@@ -15,6 +15,6 @@
         android:choiceMode="multipleChoice"
         android:dividerHeight="10dp"
         android:divider="#FFFFFFFF"
-        tools:listitem="@layout/linha"/>
+        tools:listitem="@layout/linha2"/>
 
 </FrameLayout>

@@ -1,31 +1,42 @@
 package com.xetelas.nova.Adapter;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.telephony.PhoneNumberUtils;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.xetelas.nova.Fragments.Fragment_Minhas;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
 import java.util.List;
 
-public class CaronasAdapter extends BaseAdapter {
+public class CaronasAdapterMinhas extends BaseAdapter {
 
 
     private Context context;
     private List<Caronas> fragments;
 
-    public CaronasAdapter(Context context, List<Caronas> fragments) {
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
+
+    public CaronasAdapterMinhas(Context context, List<Caronas> fragments) {
         this.context = context;
         this.fragments = fragments;
 
@@ -43,12 +54,11 @@ public class CaronasAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(context, R.layout.linha,null);
-        TextView usuario,origem, or, destino, des, data, da, hora, ho, comentario, coment2;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        View view = View.inflate(context, R.layout.linha2,null);
+        TextView origem, or, destino, des, data, da, hora, ho, comentario, coment2;
         ImageView button;
 
-        usuario = view.findViewById(R.id.usuario);
         origem = view.findViewById(R.id.origem);
         or = view.findViewById(R.id.origem2);
         destino = view.findViewById(R.id.destino);
@@ -60,28 +70,28 @@ public class CaronasAdapter extends BaseAdapter {
         comentario = view.findViewById(R.id.comentario);
         coment2 = view.findViewById(R.id.comentario2);
 
-        button = view.findViewById(R.id.whats);
+        button = view.findViewById(R.id.del);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String contact = "+55 8988185767"; // use country code with your phone number
-                String url = "https://api.whatsapp.com/send?phone=" + contact;
-                try {
-                    PackageManager pm = context.getPackageManager();
-                    pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(url));
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(i);
-                } catch (PackageManager.NameNotFoundException e) {
-                    Toast.makeText(context, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
+
+                DatabaseReference desertRef = databaseReference.child(fragments.get(position).getId_post());
+
+                desertRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                    }
+                });
             }
         });
 
-        usuario.setText(fragments.get(position).getNome());
         origem.setText("Origem: ");
         or.setText(fragments.get(position).getOrigem());
         destino.setText("Destino: ");
