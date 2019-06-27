@@ -114,7 +114,7 @@ public class Fragment_Cadastrar extends Fragment {
                 databaseReference.child("hora").setValue(dados.getHora());
                 databaseReference.child("comentario").setValue(dados.getComent());
 
-                Toast.makeText(getContext(), "Cadastro concluído!" + data_completa, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
             }
         });
 

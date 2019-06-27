@@ -1,30 +1,31 @@
 package com.xetelas.nova.Adapter;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.xetelas.nova.Fragments.Fragment_Minhas;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class CaronasAdapterMinhas extends BaseAdapter {
@@ -32,6 +33,8 @@ public class CaronasAdapterMinhas extends BaseAdapter {
 
     private Context context;
     private List<Caronas> fragments;
+    boolean confirmar;
+    Dialog myDialog;
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -76,19 +79,23 @@ public class CaronasAdapterMinhas extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                DatabaseReference desertRef = databaseReference.child(fragments.get(position).getId_post());
+                myDialog = new Dialog(context);
+                if (ShowPopup()){
+                    confirmar = false;
+                    DatabaseReference desertRef = databaseReference.child(fragments.get(position).getId_post());
 
-                desertRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+                    desertRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Uh-oh, an error occurred!
-                    }
-                });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Uh-oh, an error occurred!
+                        }
+                    });
+                }
             }
         });
 
@@ -113,7 +120,31 @@ public class CaronasAdapterMinhas extends BaseAdapter {
         return this.fragments.size();
     }
 
+    public boolean ShowPopup() {
+        myDialog.setContentView(R.layout.popup_delete);
 
+        Button filtro = myDialog.findViewById(R.id.bot_deletar);
+        filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmar = true;
+                myDialog.dismiss();
+            }
+        });
+
+        Button cancel = myDialog.findViewById(R.id.bot_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        myDialog.show();
+
+        return confirmar;
+    }
 
 }
 

@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
@@ -219,7 +218,7 @@ public class Fragment_Procurar extends Fragment {
         de.setAdapter(adapter);
         para.setAdapter(adapter);
 
-        filtro = myDialog.findViewById(R.id.bot_filtrar);
+        filtro = myDialog.findViewById(R.id.bot_deletar);
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

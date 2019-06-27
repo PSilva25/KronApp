@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/buttonshape3"
+    android:padding="10dp"
+    android:layout_gravity="center">
+
+
+    <TextView
+        android:id="@+id/exclusao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exclusão"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/deseja"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Deseja mesmo excluir essa carona?"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/bot_cancel"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Cancelar"
+            android:background="@drawable/buttonshape2"
+            android:textColor="#FFFFFF"/>
+
+
+        <Button
+            android:id="@+id/bot_deletar"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bot_cancel"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/buttonshape"
+            android:text="Deletar"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+
+</LinearLayout>
