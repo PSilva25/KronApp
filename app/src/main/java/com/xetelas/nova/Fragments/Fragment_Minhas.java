@@ -1,5 +1,6 @@
 package com.xetelas.nova.Fragments;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -39,6 +40,7 @@ public class Fragment_Minhas extends Fragment {
     FirebaseUser user = firebaseAuth.getCurrentUser();
 
     ArrayList<Caronas> dados = new ArrayList<>();
+    Context context;
     CaronasAdapterMinhas ad;
 
     @Override
@@ -50,6 +52,7 @@ public class Fragment_Minhas extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_minhas, container, false);
 
+        context=getContext().getApplicationContext();
         lv = view.findViewById(R.id.lista_minhas);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -80,7 +83,7 @@ public class Fragment_Minhas extends Fragment {
                     dados.add(car);
                 }
 
-                ad = new CaronasAdapterMinhas(getContext().getApplicationContext(), dados);
+                ad = new CaronasAdapterMinhas(context,dados);
 
                 lv.setAdapter(ad);
             }
