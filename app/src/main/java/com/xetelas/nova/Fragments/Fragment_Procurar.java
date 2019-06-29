@@ -113,11 +113,11 @@ public class Fragment_Procurar extends Fragment {
                 dados.clear();
 
                 for (DataSnapshot userSnapshot:dataSnapshot.getChildren()){
-                    //tellphone = (String) userSnapshot.child("telefone").getValue();
+                    tellphone = (String) userSnapshot.child("telefone").getValue();
                     for (DataSnapshot objSnapshot:userSnapshot.child("Caronas").getChildren()){
                         Caronas car = new Caronas();
 
-                        car.setTell("89988185767");
+                        car.setTell(tellphone);
                         car.setNome((String) objSnapshot.child("usuario").getValue());
                         car.setOrigem((String) objSnapshot.child("origem").getValue());
                         car.setDestino((String) objSnapshot.child("destino").getValue());
