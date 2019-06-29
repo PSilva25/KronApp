@@ -64,25 +64,20 @@ public class Fragment_Minhas extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dados.clear();
-                String opa;
 
-                for (DataSnapshot objSnapshot:dataSnapshot.getChildren()){
-                    opa = objSnapshot.child("id").getValue().toString();
+                for (DataSnapshot objSnapshot:dataSnapshot.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").getChildren()){
+                    Caronas car = new Caronas();
 
-                    if(opa.equals(user.getUid())){
-                        Caronas car = new Caronas();
+                    car.setNome((String) objSnapshot.child("usuario").getValue());
+                    car.setOrigem((String) objSnapshot.child("origem").getValue());
+                    car.setDestino((String) objSnapshot.child("destino").getValue());
+                    car.setData((String) objSnapshot.child("data").getValue());
+                    car.setId((String) objSnapshot.child("id").getValue());
+                    car.setId_post((String) objSnapshot.child("id_post").getValue());
+                    car.setHora((String) objSnapshot.child("hora").getValue());
+                    car.setComent((String)objSnapshot.child("comentario").getValue());
 
-                        car.setNome((String) objSnapshot.child("usuario").getValue());
-                        car.setOrigem((String) objSnapshot.child("origem").getValue());
-                        car.setDestino((String) objSnapshot.child("destino").getValue());
-                        car.setData((String) objSnapshot.child("data").getValue());
-                        car.setId((String) objSnapshot.child("id").getValue());
-                        car.setId_post((String) objSnapshot.child("id_post").getValue());
-                        car.setHora((String) objSnapshot.child("hora").getValue());
-                        car.setComent((String)objSnapshot.child("comentario").getValue());
-
-                        dados.add(car);
-                    }
+                    dados.add(car);
                 }
 
                 ad = new CaronasAdapterMinhas(getContext().getApplicationContext(), dados);

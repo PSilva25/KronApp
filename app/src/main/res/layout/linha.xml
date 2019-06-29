@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@drawable/buttonshape3"
     android:padding="10dp"
+    android:shadowColor="#000000"
     tools:context=".Fragments.Fragment_Procurar">
 
     <RelativeLayout

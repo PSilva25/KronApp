@@ -87,7 +87,7 @@ public class Fragment_Cadastrar extends Fragment {
 
                 FirebaseApp.initializeApp(getContext());
                 firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference().child(data_completa + " - " + x);
+                databaseReference = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x);
 
                 Caronas dados = new Caronas();
 

@@ -3,7 +3,7 @@ package com.xetelas.nova.Objects;
 
 public class Caronas {
 
-    String Id, id_post, origem, destino, data, hora, coment, nome, perfil;
+    String Id, id_post, origem, destino, data, hora, coment, nome, tell;
 
     public Caronas() {}
 
@@ -15,12 +15,12 @@ public class Caronas {
         this.id_post = id_post;
     }
 
-    public String getPerfil() {
-        return perfil;
+    public String getTell() {
+        return tell;
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
+    public void setTell(String tell) {
+        this.tell = tell;
     }
 
     public String getNome() {

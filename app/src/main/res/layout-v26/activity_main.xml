@@ -35,13 +35,13 @@
             android:visibility="gone" />
 
         <Button
-            android:background="#3B5998"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:background="@drawable/buttonshape"
+            android:layout_width="245dp"
+            android:layout_height="wrap_content"
             android:id="@+id/fb"
             android:onClick="onClickFacebookButton"
-            android:text="Sign up with Facebook"
-            android:textSize="22sp"
+            android:text="Entre com Facebook"
+            android:textSize="20sp"
             android:textColor="#ffffff"
             android:layout_gravity="center_vertical|center"
             android:shadowColor="#A8A8A8"
