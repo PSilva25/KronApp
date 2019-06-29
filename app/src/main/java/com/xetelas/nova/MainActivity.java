@@ -7,6 +7,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.facebook.AccessToken;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     EditText email;
     FirebaseAuth firebaseAuth;
     LoginButton loginButton;
+     Button fb;
     FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
     private static final String TAG = "FacebookLogin";
     private CallbackManager callbackManager;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_button);
+
+        fb = (Button) findViewById(R.id.fb);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -62,6 +67,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    public void onClickFacebookButton(View view) {
+        if (view == fb) {
+            loginButton.performClick();
+
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d(TAG, "facebook:onCancel");
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d(TAG, "facebook:onError", error);
+                }
+            });
+
+
+
+        }
     }
 
     public void onStart() {

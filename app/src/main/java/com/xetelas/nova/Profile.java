@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
 import com.xetelas.nova.Fragments.Fragment_Cadastrar;
@@ -48,6 +49,7 @@ public class Profile extends AppCompatActivity {
 
         if (id == R.id.sair) {
             firebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
             finish();
             Intent intent = new Intent(this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

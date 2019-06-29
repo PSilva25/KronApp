@@ -30,11 +30,26 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
-            android:layout_width="269dp"
-            android:layout_height="69dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <Button
+            android:background="#3B5998"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/fb"
+            android:onClick="onClickFacebookButton"
+            android:text="Sign up with Facebook"
+            android:textSize="22sp"
+            android:textColor="#ffffff"
             android:layout_gravity="center_vertical|center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textStyle="bold"
+            />
 
 
     </FrameLayout>
