@@ -32,7 +32,7 @@
             android:layout_alignParentRight="true"
             android:entries="@array/cidades"
             android:gravity="center"
-            android:hint="Origem"
+            android:hint="Cidade de saida"
             android:textAlignment="center"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -60,7 +60,7 @@
             android:gravity="center"
             android:entries="@array/cidades"
             android:textSize="20sp"
-            android:hint="Destino"
+            android:hint="Cidade de destino"
             android:textAlignment="center"/>
     </RelativeLayout>
 
