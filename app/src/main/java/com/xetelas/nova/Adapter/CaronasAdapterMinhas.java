@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.xetelas.nova.Objects.Caronas;
@@ -35,6 +37,9 @@ public class CaronasAdapterMinhas extends BaseAdapter {
     private List<Caronas> fragments;
     boolean confirmar;
     Dialog myDialog;
+
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -82,7 +87,7 @@ public class CaronasAdapterMinhas extends BaseAdapter {
                 myDialog = new Dialog(context);
                 if (ShowPopup()){
                     confirmar = false;
-                    DatabaseReference desertRef = databaseReference.child(fragments.get(position).getId_post());
+                    DatabaseReference desertRef = databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(fragments.get(position).getId_post());
 
                     desertRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
