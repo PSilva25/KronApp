@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     EditText email;
     FirebaseAuth firebaseAuth;
     LoginButton loginButton;
-     Button fb;
+
+    Button fb;
     FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
     private static final String TAG = "FacebookLogin";
     private CallbackManager callbackManager;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_button);
 
-        fb = (Button) findViewById(R.id.fb);
+        fb = findViewById(R.id.fb);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -65,10 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "facebook:onError", error);
             }
         });
-
-
     }
-
 
     public void onClickFacebookButton(View view) {
         if (view == fb) {
@@ -91,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "facebook:onError", error);
                 }
             });
-
-
-
         }
     }
 
@@ -107,44 +102,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Pass the activity result back to the Facebook SDK
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
-
-
         Log.d(TAG, "handleFacebookAccessToken:" + accessToken);
-        // [START_EXCLUDE silent]
-        // [END_EXCLUDE]
 
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithCredential:success");
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                            updateUI(user, false);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-
-                    }
-                });
+                    updateUI(user, false);
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void updateUI(FirebaseUser user, Boolean sim) {
-
         if (user != null && sim) {
             Intent intent = new Intent(MainActivity.this, Profile.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -271,5 +271,6 @@
     <string name="button">Button</string>
     <string name="nenhuma_carona_cadastrada">Nenhuma carona cadastrada</string>
     <string name="main_menu">main_menu</string>
+    <string name="para_oferecer_uma_carona">Para oferecer uma carona, é necessário inserir seu número do WhatsApp para que os usuários entrem em contato. Por favor, insira seu número válido abaixo:</string>
 
 </resources>

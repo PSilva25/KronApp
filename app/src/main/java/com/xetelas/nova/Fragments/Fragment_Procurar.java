@@ -52,6 +52,7 @@ public class Fragment_Procurar extends Fragment {
 
     Context context;
 
+    String tellphone;
     Boolean isFilter = false;
     Dialog myDialog;
     TextView origem, destino, date;
@@ -109,13 +110,14 @@ public class Fragment_Procurar extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 dados.clear();
 
                 for (DataSnapshot userSnapshot:dataSnapshot.getChildren()){
+                    //tellphone = (String) userSnapshot.child("telefone").getValue();
                     for (DataSnapshot objSnapshot:userSnapshot.child("Caronas").getChildren()){
                         Caronas car = new Caronas();
 
+                        car.setTell("89988185767");
                         car.setNome((String) objSnapshot.child("usuario").getValue());
                         car.setOrigem((String) objSnapshot.child("origem").getValue());
                         car.setDestino((String) objSnapshot.child("destino").getValue());
@@ -203,7 +205,7 @@ public class Fragment_Procurar extends Fragment {
 
     public void ShowPopup() {
 
-        myDialog.setContentView(R.layout.custom_popup);
+        myDialog.setContentView(R.layout.filtro_popup);
 
         origem = myDialog.findViewById(R.id.id_de);
         destino = myDialog.findViewById(R.id.id_para);
@@ -219,7 +221,7 @@ public class Fragment_Procurar extends Fragment {
         de.setAdapter(adapter);
         para.setAdapter(adapter);
 
-        filtro = myDialog.findViewById(R.id.bot_deletar);
+        filtro = myDialog.findViewById(R.id.bot_filtro);
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

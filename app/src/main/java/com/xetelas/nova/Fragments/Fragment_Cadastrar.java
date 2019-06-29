@@ -1,15 +1,17 @@
 package com.xetelas.nova.Fragments;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -17,17 +19,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
@@ -47,6 +49,9 @@ public class Fragment_Cadastrar extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser  user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
+    String num = null;
+    Dialog myDialog;
+    EditText tell;
 
     private View view;
     private Button button;
@@ -54,115 +59,163 @@ public class Fragment_Cadastrar extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FirebaseApp.initializeApp(getContext());
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
-        view = inflater.inflate(R.layout.activity_cadastrar, container, false);
+        num = verificaTell();
 
-        de = view.findViewById(R.id.spinner_de);
-        para = view.findViewById(R.id.spinner_para);
-        data = view.findViewById(R.id.edit_Data);
-        hora = view.findViewById(R.id.edit_Hora);
-        coment = view.findViewById(R.id.edit_coment);
+        if (num == null){
+            myDialog = new Dialog(getContext());
+            ShowPopup();
+            Toast.makeText(getContext(), "Vamo vê: " + num, Toast.LENGTH_SHORT).show();
 
-        String[] cities = getResources().getStringArray(R.array.cidades);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
+        } else {
+            view = inflater.inflate(R.layout.activity_cadastrar, container, false);
 
-        de.setAdapter(adapter);
-        para.setAdapter(adapter);
+            de = view.findViewById(R.id.spinner_de);
+            para = view.findViewById(R.id.spinner_para);
+            data = view.findViewById(R.id.edit_Data);
+            hora = view.findViewById(R.id.edit_Hora);
+            coment = view.findViewById(R.id.edit_coment);
 
-        button = view.findViewById(R.id.bot_cadastrar);
+            String[] cities = getResources().getStringArray(R.array.cidades);
+            final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String x = UUID.randomUUID().toString().replace("-", "");
+            de.setAdapter(adapter);
+            para.setAdapter(adapter);
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
+            button = view.findViewById(R.id.bot_cadastrar);
 
-                Date dat = new Date();
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String x = UUID.randomUUID().toString().replace("-", "");
 
-                Calendar  cal = Calendar.getInstance();
-                cal.setTime(dat);
-                Date data_atual = cal.getTime();
-                String data_completa = dateFormat.format(data_atual);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
 
-                FirebaseApp.initializeApp(getContext());
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x);
+                    Date dat = new Date();
 
-                Caronas dados = new Caronas();
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(dat);
+                    Date data_atual = cal.getTime();
+                    String data_completa = dateFormat.format(data_atual);
 
-                dados.setId(data_completa + " - " + x);
+                    Caronas dados = new Caronas();
 
-                dados.setOrigem(de.getText().toString());
-                dados.setDestino(para.getText().toString());
-                dados.setData(data.getText().toString());
-                dados.setHora(hora.getText().toString());
-                dados.setComent(coment.getText().toString());
+                    dados.setId(data_completa + " - " + x);
 
-                de.setText("");
-                para.setText("");
-                data.setText("");
-                hora.setText("");
-                coment.setText("");
+                    dados.setOrigem(de.getText().toString());
+                    dados.setDestino(para.getText().toString());
+                    dados.setData(data.getText().toString());
+                    dados.setHora(hora.getText().toString());
+                    dados.setComent(coment.getText().toString());
 
-                databaseReference.child("id").setValue(user.getUid());
-                databaseReference.child("id_post").setValue(data_completa + " - " + x);
-                databaseReference.child("usuario").setValue(user.getDisplayName());
-                databaseReference.child("origem").setValue(dados.getOrigem());
-                databaseReference.child("destino").setValue(dados.getDestino());
-                databaseReference.child("data").setValue(dados.getData());
-                databaseReference.child("hora").setValue(dados.getHora());
-                databaseReference.child("comentario").setValue(dados.getComent());
+                    de.setText("");
+                    para.setText("");
+                    data.setText("");
+                    hora.setText("");
+                    coment.setText("");
 
-                Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id").setValue(user.getUid());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id_post").setValue(data_completa + " - " + x);
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("usuario").setValue(user.getDisplayName());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("origem").setValue(dados.getOrigem());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("destino").setValue(dados.getDestino());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("data").setValue(dados.getData());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("hora").setValue(dados.getHora());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("comentario").setValue(dados.getComent());
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+                    Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
-                data.setText(sdf.format(myCalendar.getTime()));
-            }
+            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-        };
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    String myFormat = "dd/MM/yyyy"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
+                    data.setText(sdf.format(myCalendar.getTime()));
+                }
 
-        data.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(getContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+            };
 
-        hora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+            data.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new DatePickerDialog(getContext(), date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
 
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        hora.setText( selectedHour + ":" + selectedMinute);
-                    }
-                }, hour, minute, true);
-                mTimePicker.setTitle("Selecione a hora:");
-                mTimePicker.show();
-            }
-        });
+            hora.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    Calendar mcurrentTime = Calendar.getInstance();
+                    int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                    int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            hora.setText(selectedHour + ":" + selectedMinute);
+                        }
+                    }, hour, minute, true);
+                    mTimePicker.setTitle("Selecione a hora:");
+                    mTimePicker.show();
+                }
+            });
+
+        }
 
         return view;
+    }
+
+    public void ShowPopup() {
+        myDialog.setContentView(R.layout.tell_popup);
+        tell = myDialog.findViewById(R.id.edit_tell);
+
+        Button filtro = myDialog.findViewById(R.id.bot_addtell);
+        filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num = tell.getText().toString();
+                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        myDialog.show();
+    }
+
+    public String verificaTell(){
+        final String[] num = {null};
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot objSnapshot:dataSnapshot.child(user.getDisplayName() + " - " + user.getUid()).getChildren()){
+                    num[0] = (String) objSnapshot.child("telefone").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return num[0];
     }
 
     public boolean isTelefone(String numeroTelefone) {

@@ -1,20 +1,14 @@
 package com.xetelas.nova.Adapter;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class CaronasAdapterMinhas extends BaseAdapter {
@@ -85,7 +78,7 @@ public class CaronasAdapterMinhas extends BaseAdapter {
             public void onClick(View v) {
 
                 myDialog = new Dialog(context);
-                if (ShowPopup()){
+                //if (ShowPopup()){
                     confirmar = false;
                     DatabaseReference desertRef = databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(fragments.get(position).getId_post());
 
@@ -100,7 +93,7 @@ public class CaronasAdapterMinhas extends BaseAdapter {
                             // Uh-oh, an error occurred!
                         }
                     });
-                }
+                //}
             }
         });
 
@@ -128,7 +121,7 @@ public class CaronasAdapterMinhas extends BaseAdapter {
     public boolean ShowPopup() {
         myDialog.setContentView(R.layout.popup_delete);
 
-        Button filtro = myDialog.findViewById(R.id.bot_deletar);
+        Button filtro = myDialog.findViewById(R.id.bot_filtro);
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

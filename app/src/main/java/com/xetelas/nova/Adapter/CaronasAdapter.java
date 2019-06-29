@@ -43,7 +43,7 @@ public class CaronasAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = View.inflate(context, R.layout.linha,null);
         TextView usuario,origem, or, destino, des, data, da, hora, ho, comentario, coment2;
         ImageView button;
@@ -65,8 +65,8 @@ public class CaronasAdapter extends BaseAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String contact = "+55 8988185767"; // use country code with your phone number
-                String url = "https://api.whatsapp.com/send?phone=" + contact;
+                String contact = "+55 "; // use country code with your phone number
+                String url = "https://api.whatsapp.com/send?phone=" + contact + fragments.get(position).getTell();
                 try {
                     PackageManager pm = context.getPackageManager();
                     pm.getPackageInfo("com.whatsapp", PackageManager.GET_ACTIVITIES);
