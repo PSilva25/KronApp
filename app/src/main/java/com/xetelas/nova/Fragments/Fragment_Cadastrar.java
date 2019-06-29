@@ -67,23 +67,38 @@ public class Fragment_Cadastrar extends Fragment {
 
         num = verificaTell();
 
+<<<<<<< HEAD
 
             view = inflater.inflate(R.layout.activity_cadastrar, container, false);
+=======
+        if (num == null) {
+            myDialog = new Dialog(getContext());
+            ShowPopup();
+        }
 
-            de = view.findViewById(R.id.spinner_de);
-            para = view.findViewById(R.id.spinner_para);
-            data = view.findViewById(R.id.edit_Data);
-            hora = view.findViewById(R.id.edit_Hora);
-            coment = view.findViewById(R.id.edit_coment);
+        view = inflater.inflate(R.layout.activity_cadastrar, container, false);
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
+        de = view.findViewById(R.id.spinner_de);
+        para = view.findViewById(R.id.spinner_para);
+        data = view.findViewById(R.id.edit_Data);
+        hora = view.findViewById(R.id.edit_Hora);
+        coment = view.findViewById(R.id.edit_coment);
+
+<<<<<<< HEAD
             cities = getResources().getStringArray(R.array.cidades);
             final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
+=======
+        cities = getResources().getStringArray(R.array.cidades);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
-            de.setAdapter(adapter);
-            para.setAdapter(adapter);
+        de.setAdapter(adapter);
+        para.setAdapter(adapter);
 
-            button = view.findViewById(R.id.bot_cadastrar);
+        button = view.findViewById(R.id.bot_cadastrar);
 
+<<<<<<< HEAD
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,6 +132,38 @@ public class Fragment_Cadastrar extends Fragment {
                         Caronas dados = new Caronas();
 
                         dados.setId(data_completa + " - " + x);
+=======
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int z;
+                z = verify(de.getText().toString(), para.getText().toString());
+
+                if (de.getText().toString().equals("") || de.getText().toString().equals("") || data.toString().equals("") || hora.getText().toString().equals("")) {
+                    Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS *  ", Toast.LENGTH_LONG).show();
+                } else if (z == -1) {
+                    Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG).show();
+                } else if (z == 1 || z == 0) {
+                    Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG).show();
+                }
+                if (z == 2) {
+                    String x = UUID.randomUUID().toString().replace("-", "");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
+                    Date dat = new Date();
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(dat);
+                    Date data_atual = cal.getTime();
+                    String data_completa = dateFormat.format(data_atual);
+                    Caronas dados = new Caronas();
+
+                    dados.setId(data_completa + " - " + x);
+                    dados.setOrigem(de.getText().toString());
+                    dados.setDestino(para.getText().toString());
+                    dados.setData(data.getText().toString());
+                    dados.setHora(hora.getText().toString());
+                    dados.setComent(coment.getText().toString());
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
                         dados.setOrigem(de.getText().toString());
                         dados.setDestino(para.getText().toString());
@@ -142,52 +189,53 @@ public class Fragment_Cadastrar extends Fragment {
                         Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            }
+        });
 
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
+                data.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
 
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                      int dayOfMonth) {
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    String myFormat = "dd/MM/yyyy"; //In which you need put here
-                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
-                    data.setText(sdf.format(myCalendar.getTime()));
-                }
+        data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
-            };
+<<<<<<< HEAD
+=======
+        hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
 
-            data.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new DatePickerDialog(getContext(), date, myCalendar
-                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            });
-
-            hora.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    Calendar mcurrentTime = Calendar.getInstance();
-                    int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                    int minute = mcurrentTime.get(Calendar.MINUTE);
-
-                    TimePickerDialog mTimePicker;
-                    mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                            hora.setText(selectedHour + ":" + selectedMinute);
-                        }
-                    }, hour, minute, true);
-                    mTimePicker.setTitle("Selecione a hora:");
-                    mTimePicker.show();
-                }
-            });
-
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        hora.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Selecione a hora:");
+                mTimePicker.show();
+            }
+        });
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
         return view;
     }
@@ -202,6 +250,7 @@ public class Fragment_Cadastrar extends Fragment {
             public void onClick(View v) {
                 num = tell.getText().toString();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
+                Toast.makeText(getContext(), "Vamo vê: " + num, Toast.LENGTH_SHORT).show();
                 myDialog.dismiss();
             }
         });
@@ -213,7 +262,11 @@ public class Fragment_Cadastrar extends Fragment {
     public String verificaTell() {
         final String[] num = {null};
 
+<<<<<<< HEAD
         databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").addValueEventListener(new ValueEventListener() {
+=======
+        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).addValueEventListener(new ValueEventListener() {
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -236,28 +289,47 @@ public class Fragment_Cadastrar extends Fragment {
                 numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
     }
 
+<<<<<<< HEAD
     public int verify() {
+=======
+    public int verify(String de, String para) {
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
         int x = 0;
         int y = 0;
         int z = 0;
 
         for (int i = 0; i < cities.length; i++) {
+<<<<<<< HEAD
             if (de.getText().toString().equals(cities[i])) {
+=======
+            if (de.equals(cities[i])) {
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
                 x = x + 1;
                 break;
             }
         }
 
         for (int j = 0; j < cities.length; j++) {
+<<<<<<< HEAD
             if (para.getText().toString().equals(cities[j])) {
+=======
+            if (para.equals(cities[j])) {
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
                 y = y + 1;
                 break;
             }
         }
+<<<<<<< HEAD
 
         z = x + y;
 
         if (para.getText().toString().equals(de.getText().toString())) {
+=======
+
+        z = x + y;
+
+        if (para.equals(de)) {
+>>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
             z = -1;
         }
 

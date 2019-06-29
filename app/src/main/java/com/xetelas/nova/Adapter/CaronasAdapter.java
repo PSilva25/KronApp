@@ -102,8 +102,5 @@ public class CaronasAdapter extends BaseAdapter {
     public int getCount() {
         return this.fragments.size();
     }
-
-
-
 }
 
