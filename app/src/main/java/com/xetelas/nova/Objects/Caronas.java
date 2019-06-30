@@ -1,7 +1,8 @@
 package com.xetelas.nova.Objects;
 
+import java.util.Comparator;
 
-public class Caronas {
+public class Caronas implements Comparator<Caronas> {
 
     String Id, id_post, origem, destino, data, hora, coment, nome, tell;
 
@@ -73,5 +74,9 @@ public class Caronas {
 
     public void setComent(String coment) {
         this.coment = coment;
+    }
+
+    public int compare(Caronas o1, Caronas o2) {
+        return o1.getId_post().compareTo(o2.getId());
     }
 }

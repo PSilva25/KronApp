@@ -34,6 +34,7 @@ import com.xetelas.nova.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -118,6 +119,7 @@ public class Fragment_Procurar extends Fragment {
                         Caronas car = new Caronas();
 
                         car.setTell(tellphone);
+                        car.setId_post((String) objSnapshot.child("id_post").getValue());
                         car.setNome((String) objSnapshot.child("usuario").getValue());
                         car.setOrigem((String) objSnapshot.child("origem").getValue());
                         car.setDestino((String) objSnapshot.child("destino").getValue());
@@ -125,6 +127,8 @@ public class Fragment_Procurar extends Fragment {
                         car.setId((String) objSnapshot.child("id").getValue());
                         car.setHora((String) objSnapshot.child("hora").getValue());
                         car.setComent((String)objSnapshot.child("comentario").getValue());
+
+                        Collections.sort(dados, car);
 
                         dados.add(car);
                     }
@@ -199,6 +203,8 @@ public class Fragment_Procurar extends Fragment {
         car.setId_post(dados.get(x).getId_post());
         car.setHora(dados.get(x).getHora());
         car.setComent(dados.get(x).getComent());
+
+        Collections.sort(dados2, car);
 
         dados2.add(car);
     }

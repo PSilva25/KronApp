@@ -17,7 +17,7 @@
             android:id="@+id/id_de"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/de"
+            android:text="De:"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="18sp"/>
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:text="@string/para"
+            android:text="Para:"
             android:textSize="18sp"/>
 
         <AutoCompleteTextView
@@ -72,7 +72,7 @@
             android:id="@+id/text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/data"
+            android:text="Data:"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" /> <!--Text Data-->

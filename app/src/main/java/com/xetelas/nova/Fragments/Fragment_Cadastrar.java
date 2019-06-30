@@ -65,19 +65,7 @@ public class Fragment_Cadastrar extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        num = verificaTell();
-
-<<<<<<< HEAD
-
-            view = inflater.inflate(R.layout.activity_cadastrar, container, false);
-=======
-        if (num == null) {
-            myDialog = new Dialog(getContext());
-            ShowPopup();
-        }
-
         view = inflater.inflate(R.layout.activity_cadastrar, container, false);
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
         de = view.findViewById(R.id.spinner_de);
         para = view.findViewById(R.id.spinner_para);
@@ -85,60 +73,19 @@ public class Fragment_Cadastrar extends Fragment {
         hora = view.findViewById(R.id.edit_Hora);
         coment = view.findViewById(R.id.edit_coment);
 
-<<<<<<< HEAD
-            cities = getResources().getStringArray(R.array.cidades);
-            final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
-=======
         cities = getResources().getStringArray(R.array.cidades);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
         de.setAdapter(adapter);
         para.setAdapter(adapter);
 
         button = view.findViewById(R.id.bot_cadastrar);
-
-<<<<<<< HEAD
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    int z;
-                    z = verify();
-
-
-                    if (de.getText().toString().equals("") || de.getText().toString().equals("") || data.toString().equals("") || hora.getText().toString().equals("")) {
-
-                        Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS *  ", Toast.LENGTH_LONG).show();
-
-                    } else if (z == -1) {
-                        Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG).show();
-                    } else if (z == 1 || z == 0) {
-
-                        Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG).show();
-                    }
-                    if (z == 2) {
-                        String x = UUID.randomUUID().toString().replace("-", "");
-
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
-
-                        Date dat = new Date();
-
-                        Calendar cal = Calendar.getInstance();
-                        cal.setTime(dat);
-                        Date data_atual = cal.getTime();
-                        String data_completa = dateFormat.format(data_atual);
-
-                        Caronas dados = new Caronas();
-
-                        dados.setId(data_completa + " - " + x);
-=======
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int z;
-                z = verify(de.getText().toString(), para.getText().toString());
+                z = verify();
 
                 if (de.getText().toString().equals("") || de.getText().toString().equals("") || data.toString().equals("") || hora.getText().toString().equals("")) {
                     Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS *  ", Toast.LENGTH_LONG).show();
@@ -149,12 +96,16 @@ public class Fragment_Cadastrar extends Fragment {
                 }
                 if (z == 2) {
                     String x = UUID.randomUUID().toString().replace("-", "");
+
                     SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
+
                     Date dat = new Date();
+
                     Calendar cal = Calendar.getInstance();
                     cal.setTime(dat);
                     Date data_atual = cal.getTime();
                     String data_completa = dateFormat.format(data_atual);
+
                     Caronas dados = new Caronas();
 
                     dados.setId(data_completa + " - " + x);
@@ -163,36 +114,30 @@ public class Fragment_Cadastrar extends Fragment {
                     dados.setData(data.getText().toString());
                     dados.setHora(hora.getText().toString());
                     dados.setComent(coment.getText().toString());
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
 
-                        dados.setOrigem(de.getText().toString());
-                        dados.setDestino(para.getText().toString());
-                        dados.setData(data.getText().toString());
-                        dados.setHora(hora.getText().toString());
-                        dados.setComent(coment.getText().toString());
+                    de.setText("");
+                    para.setText("");
+                    data.setText("");
+                    hora.setText("");
+                    coment.setText("");
 
-                        de.setText("");
-                        para.setText("");
-                        data.setText("");
-                        hora.setText("");
-                        coment.setText("");
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id").setValue(user.getUid());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id_post").setValue(data_completa + " - " + x);
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("usuario").setValue(user.getDisplayName());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("origem").setValue(dados.getOrigem());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("destino").setValue(dados.getDestino());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("data").setValue(dados.getData());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("hora").setValue(dados.getHora());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("comentario").setValue(dados.getComent());
 
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id").setValue(user.getUid());
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id_post").setValue(data_completa + " - " + x);
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("usuario").setValue(user.getDisplayName());
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("origem").setValue(dados.getOrigem());
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("destino").setValue(dados.getDestino());
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("data").setValue(dados.getData());
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("hora").setValue(dados.getHora());
-                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("comentario").setValue(dados.getComent());
-
-                        Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
@@ -203,6 +148,7 @@ public class Fragment_Cadastrar extends Fragment {
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
                 data.setText(sdf.format(myCalendar.getTime()));
             }
+
         };
 
         data.setOnClickListener(new View.OnClickListener() {
@@ -214,8 +160,6 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-=======
         hora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,7 +179,7 @@ public class Fragment_Cadastrar extends Fragment {
                 mTimePicker.show();
             }
         });
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
+
 
         return view;
     }
@@ -250,7 +194,6 @@ public class Fragment_Cadastrar extends Fragment {
             public void onClick(View v) {
                 num = tell.getText().toString();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
-                Toast.makeText(getContext(), "Vamo vê: " + num, Toast.LENGTH_SHORT).show();
                 myDialog.dismiss();
             }
         });
@@ -260,13 +203,9 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public String verificaTell() {
-        final String[] num = {null};
+        final String[] num = new String[0];
 
-<<<<<<< HEAD
-        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").addValueEventListener(new ValueEventListener() {
-=======
-        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).addValueEventListener(new ValueEventListener() {
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -289,47 +228,28 @@ public class Fragment_Cadastrar extends Fragment {
                 numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
     }
 
-<<<<<<< HEAD
     public int verify() {
-=======
-    public int verify(String de, String para) {
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
         int x = 0;
         int y = 0;
         int z = 0;
 
         for (int i = 0; i < cities.length; i++) {
-<<<<<<< HEAD
             if (de.getText().toString().equals(cities[i])) {
-=======
-            if (de.equals(cities[i])) {
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
                 x = x + 1;
                 break;
             }
         }
 
         for (int j = 0; j < cities.length; j++) {
-<<<<<<< HEAD
             if (para.getText().toString().equals(cities[j])) {
-=======
-            if (para.equals(cities[j])) {
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
                 y = y + 1;
                 break;
             }
         }
-<<<<<<< HEAD
 
         z = x + y;
 
         if (para.getText().toString().equals(de.getText().toString())) {
-=======
-
-        z = x + y;
-
-        if (para.equals(de)) {
->>>>>>> 70520d8be6a48dc5e172d3fdec656bd182d6e31f
             z = -1;
         }
 

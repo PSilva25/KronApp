@@ -29,6 +29,7 @@ import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Objects;
 
 public class Fragment_Minhas extends Fragment {
@@ -73,6 +74,8 @@ public class Fragment_Minhas extends Fragment {
                     car.setId_post((String) objSnapshot.child("id_post").getValue());
                     car.setHora((String) objSnapshot.child("hora").getValue());
                     car.setComent((String)objSnapshot.child("comentario").getValue());
+
+                    Collections.sort(dados, car);
 
                     dados.add(car);
                 }
