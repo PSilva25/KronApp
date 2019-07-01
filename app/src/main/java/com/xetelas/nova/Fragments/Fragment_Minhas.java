@@ -79,7 +79,7 @@ public class Fragment_Minhas extends Fragment {
                     car.setHora((String) objSnapshot.child("hora").getValue());
                     car.setComent((String)objSnapshot.child("comentario").getValue());
 
-                    Collections.sort(dados, car);
+
 
                     dados.add(car);
                 }
