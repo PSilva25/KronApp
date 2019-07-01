@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
 import com.xetelas.nova.Fragments.Fragment_Cadastrar;
@@ -19,17 +20,15 @@ public class Profile extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
-    public Profile(){}
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
-        adapter.adicionar(new Fragment_Minhas(), "Minhas");
-        adapter.adicionar(new Fragment_Cadastrar(), "Cadastrar");
-        adapter.adicionar(new Fragment_Procurar(), "Procurar");
+        adapter.adicionar(new Fragment_Procurar(), "Caronas\nDisponíveis");
+        adapter.adicionar(new Fragment_Cadastrar(), "Oferecer\nCarona");
+        adapter.adicionar(new Fragment_Minhas(), "Minhas\nOfertas");
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
@@ -50,6 +49,7 @@ public class Profile extends AppCompatActivity {
 
         if (id == R.id.sair) {
             firebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
             finish();
             Intent intent = new Intent(this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

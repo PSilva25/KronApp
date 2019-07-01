@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_origem"
+        android:icon="@mipmap/ic_origem"
+        android:title="Origem"
+        />
+
+    <item
+        android:id="@+id/item_destino"
+        android:icon="@mipmap/ic_destino"
+        android:title="Destino"
+        />
+
+    <item
+        android:id="@+id/item_data"
+        android:icon="@mipmap/ic_data"
+        android:title="Data"
+        />
+
+</menu>

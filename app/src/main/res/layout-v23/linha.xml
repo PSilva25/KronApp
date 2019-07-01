@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/buttonshape3"
+    android:padding="10dp"
+    tools:context=".Fragments.Fragment_Procurar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/usuario"
+            android:layout_width="268dp"
+            android:layout_height="wrap_content"
+            android:text="textview"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/face"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@+id/usuario"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/usuario"
+            android:contentDescription="TODO"
+            android:foreground="@drawable/com_facebook_button_icon_blue"
+            android:gravity="end" />
+
+        <ImageView
+            android:id="@+id/whats"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_alignTop="@id/usuario"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="3.5dp"
+            android:layout_toRightOf="@+id/usuario"
+            android:contentDescription="TODO"
+            android:foreground="@mipmap/ic_whatsapp2"
+            android:gravity="end" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/origem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="textview"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/origem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/origem"
+            android:layout_toEndOf="@+id/origem"
+            android:layout_toRightOf="@+id/origem"
+            android:textColor="@color/title_text_color"
+            android:textSize="15sp"
+            android:text="textview" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/destino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="textview" />
+
+        <TextView
+            android:id="@+id/destino2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/destino"
+            android:layout_toEndOf="@+id/destino"
+            android:layout_toRightOf="@+id/destino"
+            android:textColor="@color/title_text_color"
+            android:textSize="15sp"
+            android:text="textview" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:text="textview" />
+
+        <TextView
+            android:id="@+id/data2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/data"
+            android:layout_toEndOf="@+id/data"
+            android:layout_toRightOf="@+id/data"
+            android:textColor="@color/title_text_color"
+            android:textSize="15sp"
+            android:text="textview" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/hora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:text="textview" />
+
+        <TextView
+            android:id="@+id/hora2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/hora"
+            android:layout_toEndOf="@+id/hora"
+            android:layout_toRightOf="@+id/hora"
+            android:textColor="@color/title_text_color"
+            android:textSize="15sp"
+            android:text="textview" />
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/comentario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:text="textview" />
+
+    <TextView
+        android:id="@+id/comentario2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/title_text_color"
+        android:text="TextView"
+        android:layout_marginStart="30dp" />
+
+</LinearLayout>

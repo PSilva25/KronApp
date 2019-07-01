@@ -1,20 +1,18 @@
 <resources>
-    <string name="app_name">KronApp</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Carona Fácil</string>
+    <string name="action_settings">Alterar número</string>
 
     <string name="text_fragment_minha">Suas caronas postadas: </string>
 
     <string name="destino">Destino:</string>
-    <string name="picos_teresina"><![CDATA[Picos > Teresina]]></string>
-    <string name="teresina_picos"><![CDATA[Teresina > Picos]]></string>
 
     <string name="tipo">Tipo:</string>
     <string name="oferecer">Oferecer</string>
     <string name="buscar">Buscar</string>
 
-    <string name="data">Data:</string>
-    <string name="hor_rio">Horário:</string>
-    <string name="dd_mm">DD/MM</string>
+    <string name="data">Data:*</string>
+    <string name="hor_rio">Horário:*</string>
+    <string name="dd_mm">DD/MM/AAAA</string>
 
     <string name="cadastrar">Cadastrar</string>
     <string name="xx_xx">XX:XX</string>
@@ -31,7 +29,6 @@
     </string-array>
 
     <string-array name="cidades">
-        <item>-- Selecione --</item>
         <item>Acauã</item>
         <item>Agricolândia</item>
         <item>Água Branca</item>
@@ -258,9 +255,9 @@
         <item>Wall Ferraz</item>
     </string-array>
 
-    <string name="dialog_fire_missiles">Confirmar carona?</string>
-    <string name="fire">Ok</string>
-    <string name="cancel">Cancelar</string>
+    <string name="dialog_fire_missiles">Ao entrar com o Facebook você concorda com a disponibilidada do seu perfil público do Facebook.</string>
+    <string name="fire">Concordo</string>
+    <string name="cancel">Discordo</string>
 
     <string name="facebook_app_id">678753119224687</string>
     <string name="fb_login_protocol_scheme">fb678753119224687</string>
@@ -268,11 +265,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Sem postagens</string>
     <string name="sair">Sair</string>
-    <string name="para">Para:</string>
-    <string name="de">De:</string>
-    <string name="hora">Horário</string>
+    <string name="para">Para:*</string>
+    <string name="de">De:*</string>
+    <string name="hora">Horário:*</string>
     <string name="button">Button</string>
-    <string name="todo">TODO</string>
-    <string name="kronapp">KronApp</string>
     <string name="nenhuma_carona_cadastrada">Nenhuma carona cadastrada</string>
+    <string name="main_menu">main_menu</string>
+    <string name="para_oferecer_uma_carona">Para oferecer uma carona, é necessário inserir seu número do WhatsApp para que os usuários entrem em contato. Por favor, insira seu número válido abaixo:</string>
+
 </resources>
