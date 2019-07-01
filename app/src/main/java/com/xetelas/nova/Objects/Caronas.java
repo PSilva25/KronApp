@@ -45,7 +45,6 @@ public class Caronas implements Comparator<Caronas> {
     public String getDestino() {
         return destino;
     }
-    public String setId(String Id) { return Id;  }
 
     public String setId(String Id) { return Id;  }
 

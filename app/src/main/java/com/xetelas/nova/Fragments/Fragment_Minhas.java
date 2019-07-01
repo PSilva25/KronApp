@@ -47,8 +47,6 @@ public class Fragment_Minhas extends Fragment {
     Context context;
     CaronasAdapterMinhas ad;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -78,12 +76,6 @@ public class Fragment_Minhas extends Fragment {
                     car.setId_post((String) objSnapshot.child("id_post").getValue());
                     car.setHora((String) objSnapshot.child("hora").getValue());
                     car.setComent((String)objSnapshot.child("comentario").getValue());
-
-<<<<<<< HEAD
-                    //Collections.sort(dados, car);
-=======
-
->>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
 
                     dados.add(car);
                 }

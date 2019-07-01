@@ -9,15 +9,15 @@
     android:padding="10dp"
     tools:context=".Fragments.Fragment_Minhas">
 
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ListView
+        android:id="@+id/lista_minhas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:choiceMode="multipleChoice"
         android:dividerHeight="10dp"
         android:divider="#00000000"
-        tools:listitem="@layout/linha2"/>
+        tools:listitem="@layout/linha2">
 
-    </FrameLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+    </ListView>
+
+</FrameLayout>
+
