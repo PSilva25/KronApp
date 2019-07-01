@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="10dp"
-        android:shadowColor="#353434"
-        android:divider="#FFFFFFFF"
+        android:divider="#00000000"
         tools:listitem="@layout/linha">
 
     </ListView>

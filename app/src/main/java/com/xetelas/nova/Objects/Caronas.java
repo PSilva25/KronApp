@@ -77,6 +77,6 @@ public class Caronas implements Comparator<Caronas> {
     }
 
     public int compare(Caronas o1, Caronas o2) {
-        return o1.getId_post().compareTo(o2.getId());
+        return o1.getId_post().compareTo(o2.getId()) * -1;
     }
 }

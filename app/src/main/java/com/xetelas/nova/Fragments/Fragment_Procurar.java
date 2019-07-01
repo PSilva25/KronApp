@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Adapter.CaronasAdapter;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,11 +50,10 @@ public class Fragment_Procurar extends Fragment {
     DatabaseReference databaseReference;
     FloatingActionButton fab, fabdelete;
     List<Caronas> dados = new ArrayList<>();
+    List<Caronas> ordenado = new ArrayList<>();
     List<Caronas> dados2 = new ArrayList<>();
     CaronasAdapter ad;
-
     Context context;
-
     String tellphone;
     Boolean isFilter = false;
     Dialog myDialog;
@@ -72,9 +73,9 @@ public class Fragment_Procurar extends Fragment {
 
         context = getApplicationContext();
 
-        if (isFilter){
+        if (isFilter) {
             fabdelete.show();
-        }else {
+        } else {
             fabdelete.hide();
         }
 
@@ -102,7 +103,7 @@ public class Fragment_Procurar extends Fragment {
         return view;
     }
 
-    public void preencher (){
+    public void preencher() {
         FirebaseApp.initializeApp(getContext());
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -113,9 +114,9 @@ public class Fragment_Procurar extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dados.clear();
 
-                for (DataSnapshot userSnapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     tellphone = (String) userSnapshot.child("telefone").getValue();
-                    for (DataSnapshot objSnapshot:userSnapshot.child("Caronas").getChildren()){
+                    for (DataSnapshot objSnapshot : userSnapshot.child("Caronas").getChildren()) {
                         Caronas car = new Caronas();
 
                         car.setTell(tellphone);
@@ -126,15 +127,13 @@ public class Fragment_Procurar extends Fragment {
                         car.setData((String) objSnapshot.child("data").getValue());
                         car.setId((String) objSnapshot.child("id").getValue());
                         car.setHora((String) objSnapshot.child("hora").getValue());
-                        car.setComent((String)objSnapshot.child("comentario").getValue());
-
-                        Collections.sort(dados, car);
+                        car.setComent((String) objSnapshot.child("comentario").getValue());
 
                         dados.add(car);
                     }
                 }
 
-                ad = new CaronasAdapter(context, dados);
+                ad = new CaronasAdapter(context, ordena());
 
                 lv.setAdapter(ad);
             }
@@ -146,10 +145,10 @@ public class Fragment_Procurar extends Fragment {
         });
     }
 
-    public void filtro(final String or, final String des, final String da){
-        if(or.equals("") && des.equals("") && da.equals("")){
+    public void filtro(final String or, final String des, final String da) {
+        if (or.equals("") && des.equals("") && da.equals("")) {
             Toast.makeText(getContext(), "Selecione um filtro...", Toast.LENGTH_SHORT).show();
-        }else  {
+        } else {
             isFilter = true;
             fabdelete.show();
             dados2.clear();
@@ -186,13 +185,13 @@ public class Fragment_Procurar extends Fragment {
                 }
             }
 
-            ad = new CaronasAdapter(getContext().getApplicationContext(),dados2);
+            ad = new CaronasAdapter(getContext().getApplicationContext(), dados2);
 
             lv.setAdapter(ad);
         }
     }
 
-    public void encherFiltro (int x){
+    public void encherFiltro(int x) {
         Caronas car = new Caronas();
 
         car.setNome(dados.get(x).getNome());
@@ -270,7 +269,27 @@ public class Fragment_Procurar extends Fragment {
         myDialog.show();
     }
 
-    private void updateLabel () {
+    public int returnCount (){
+        int count;
+        if (dados.size() <= 0){
+            count = 0;
+        } else {
+            count = Integer.parseInt(dados.get(dados.size()).getId_post());
+        }
+        return count + 1;
+    }
+
+    public List<Caronas> ordena() {
+        ordenado.clear();
+
+        for (int i = dados.size() - 1; i >= 0; i--) {
+            ordenado.add(dados.get(i));
+        }
+
+        return ordenado;
+    }
+
+    private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
 

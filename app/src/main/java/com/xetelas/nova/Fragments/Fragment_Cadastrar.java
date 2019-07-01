@@ -49,6 +49,7 @@ public class Fragment_Cadastrar extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
+    Fragment_Procurar pegaId = new Fragment_Procurar();
     String num = null;
     Dialog myDialog;
     EditText tell;
@@ -95,20 +96,12 @@ public class Fragment_Cadastrar extends Fragment {
                     Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG).show();
                 }
                 if (z == 2) {
-                    String x = UUID.randomUUID().toString().replace("-", "");
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
-
-                    Date dat = new Date();
-
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(dat);
-                    Date data_atual = cal.getTime();
-                    String data_completa = dateFormat.format(data_atual);
+                    String countId = String.valueOf(pegaId.returnCount());
 
                     Caronas dados = new Caronas();
 
-                    dados.setId(data_completa + " - " + x);
+                    dados.setId(countId);
                     dados.setOrigem(de.getText().toString());
                     dados.setDestino(para.getText().toString());
                     dados.setData(data.getText().toString());
@@ -121,14 +114,14 @@ public class Fragment_Cadastrar extends Fragment {
                     hora.setText("");
                     coment.setText("");
 
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id").setValue(user.getUid());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("id_post").setValue(data_completa + " - " + x);
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("usuario").setValue(user.getDisplayName());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("origem").setValue(dados.getOrigem());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("destino").setValue(dados.getDestino());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("data").setValue(dados.getData());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("hora").setValue(dados.getHora());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("comentario").setValue(dados.getComent());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("id").setValue(user.getUid());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("id_post").setValue(countId);
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("usuario").setValue(user.getDisplayName());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("origem").setValue(dados.getOrigem());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("destino").setValue(dados.getDestino());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("data").setValue(dados.getData());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("hora").setValue(dados.getHora());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("comentario").setValue(dados.getComent());
 
                     Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
                 }
