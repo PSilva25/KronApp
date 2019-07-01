@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +47,8 @@ public class Fragment_Minhas extends Fragment {
     Context context;
     CaronasAdapterMinhas ad;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -75,7 +79,11 @@ public class Fragment_Minhas extends Fragment {
                     car.setHora((String) objSnapshot.child("hora").getValue());
                     car.setComent((String)objSnapshot.child("comentario").getValue());
 
+<<<<<<< HEAD
                     //Collections.sort(dados, car);
+=======
+
+>>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
 
                     dados.add(car);
                 }

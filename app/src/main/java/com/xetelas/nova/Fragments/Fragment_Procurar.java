@@ -51,6 +51,10 @@ public class Fragment_Procurar extends Fragment {
     FloatingActionButton fab, fabdelete;
     List<Caronas> dados = new ArrayList<>();
     List<Caronas> ordenado = new ArrayList<>();
+<<<<<<< HEAD
+=======
+
+>>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
     List<Caronas> dados2 = new ArrayList<>();
     CaronasAdapter ad;
     Context context;
@@ -127,12 +131,23 @@ public class Fragment_Procurar extends Fragment {
                         car.setData((String) objSnapshot.child("data").getValue());
                         car.setId((String) objSnapshot.child("id").getValue());
                         car.setHora((String) objSnapshot.child("hora").getValue());
+<<<<<<< HEAD
                         car.setComent((String) objSnapshot.child("comentario").getValue());
+=======
+                        car.setComent((String)objSnapshot.child("comentario").getValue());
+
+
+>>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
 
                         dados.add(car);
                     }
                 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
                 ad = new CaronasAdapter(context, ordena());
 
                 lv.setAdapter(ad);
@@ -269,6 +284,7 @@ public class Fragment_Procurar extends Fragment {
         myDialog.show();
     }
 
+<<<<<<< HEAD
     public int returnCount (){
         int count;
         if (dados.size() <= 0){
@@ -284,12 +300,27 @@ public class Fragment_Procurar extends Fragment {
 
         for (int i = dados.size() - 1; i >= 0; i--) {
             ordenado.add(dados.get(i));
+=======
+    public List<Caronas> ordena(){
+
+        ordenado.clear();
+
+    for (int i = dados.size()-1; i>=0;i--){
+
+
+            ordenado.add(dados.get(i));
+
+>>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
         }
 
         return ordenado;
     }
 
+<<<<<<< HEAD
     private void updateLabel() {
+=======
+    private void updateLabel () {
+>>>>>>> aedd8b6ed75ce7bf9d7783a9e8fdf1211edcab00
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
 

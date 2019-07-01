@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -23,20 +25,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.UUID;
 
 public class Fragment_Cadastrar extends Fragment {
@@ -55,6 +48,9 @@ public class Fragment_Cadastrar extends Fragment {
     EditText tell;
 
     String[] cities;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
 
     private View view;
     private Button button;
@@ -123,7 +119,7 @@ public class Fragment_Cadastrar extends Fragment {
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("hora").setValue(dados.getHora());
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("comentario").setValue(dados.getComent());
 
-                    Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "CADSTRO REALIZADO!! SUA CARONA FOI PUBLICADA COM SUCESSO!", Toast.LENGTH_SHORT).show();
                 }
             }
 
