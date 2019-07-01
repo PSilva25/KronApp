@@ -130,7 +130,7 @@ public class Fragment_Cadastrar extends Fragment {
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("hora").setValue(dados.getHora());
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(data_completa + " - " + x).child("comentario").setValue(dados.getComent());
 
-                    Toast.makeText(getContext(), "Cadastro concluído!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "CADSTRO REALIZADO!! SUA CARONA FOI PUBLICADA COM SUCESSO!", Toast.LENGTH_SHORT).show();
                 }
             }
 

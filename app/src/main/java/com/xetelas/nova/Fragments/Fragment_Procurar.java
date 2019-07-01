@@ -48,6 +48,8 @@ public class Fragment_Procurar extends Fragment {
     DatabaseReference databaseReference;
     FloatingActionButton fab, fabdelete;
     List<Caronas> dados = new ArrayList<>();
+    List<Caronas> ordenado = new ArrayList<>();
+
     List<Caronas> dados2 = new ArrayList<>();
     CaronasAdapter ad;
 
@@ -128,13 +130,15 @@ public class Fragment_Procurar extends Fragment {
                         car.setHora((String) objSnapshot.child("hora").getValue());
                         car.setComent((String)objSnapshot.child("comentario").getValue());
 
-                        Collections.sort(dados, car);
+
 
                         dados.add(car);
                     }
                 }
 
-                ad = new CaronasAdapter(context, dados);
+
+
+                ad = new CaronasAdapter(context, ordena());
 
                 lv.setAdapter(ad);
             }
@@ -268,6 +272,20 @@ public class Fragment_Procurar extends Fragment {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
+    }
+
+    public List<Caronas> ordena(){
+
+        ordenado.clear();
+
+    for (int i = dados.size()-1; i>=0;i--){
+
+
+            ordenado.add(dados.get(i));
+
+        }
+
+        return ordenado;
     }
 
     private void updateLabel () {
