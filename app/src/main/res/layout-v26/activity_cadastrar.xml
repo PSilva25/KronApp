@@ -128,14 +128,8 @@
 
     <EditText
         android:id="@+id/edit_coment"
-<<<<<<< HEAD
-        android:layout_width="434dp"
-        android:layout_height="294dp"
-        android:layout_marginTop="20dp"
-=======
         android:layout_width="match_parent"
         android:layout_height="300dp"
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
         android:autofillHints=""
         android:gravity="start|top"
         android:hint="Comentário"

@@ -25,28 +25,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.FirebaseApp;
-<<<<<<< HEAD
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
-=======
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.xetelas.nova.Objects.Caronas;
-import com.xetelas.nova.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
 import java.util.UUID;
 
 public class Fragment_Cadastrar extends Fragment {
@@ -97,42 +80,6 @@ public class Fragment_Cadastrar extends Fragment {
             @Override
             public void onClick(View v) {
 
-<<<<<<< HEAD
-                FirebaseApp.initializeApp(getContext());
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference();
-
-                Caronas dados = new Caronas();
-
-                String x = UUID.randomUUID().toString().replace("-","");
-
-                dados.setId(x);
-
-                dados.setOrigem(de.getSelectedItem().toString());
-                dados.setDestino(para.getSelectedItem().toString());
-                dados.setData(data.getText().toString());
-                dados.setHora(hora.getText().toString());
-                dados.setComent(coment.getText().toString());
-
-
-
-                Toast.makeText(getContext(), "Cadastro concluído!! id -> "+x, Toast.LENGTH_LONG).show();
-                de.setAdapter(adapter);
-                para.setAdapter(adapter);
-                data.setText("");
-                hora.setText("");
-                coment.setText("");
-
-
-
-            databaseReference.child("id").setValue(x);
-
-            databaseReference.child("users").child("origem").setValue(dados.getOrigem());
-            databaseReference.child("users").child("destino").setValue(dados.getDestino());
-            databaseReference.child("users").child("data").setValue(dados.getData());
-            databaseReference.child("users").child("hora").setValue(dados.getHora());
-            databaseReference.child("users").child("comentario").setValue(dados.getComent());
-=======
                 int z;
                 z = verify();
 
@@ -206,7 +153,6 @@ public class Fragment_Cadastrar extends Fragment {
                 new DatePickerDialog(getContext(), date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
             }
         });
 
@@ -234,10 +180,6 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-<<<<<<< HEAD
-
-}
-=======
     public void ShowPopup() {
         myDialog.setContentView(R.layout.tell_popup);
         tell = myDialog.findViewById(R.id.edit_tell);
@@ -310,4 +252,3 @@ public class Fragment_Cadastrar extends Fragment {
         return z;
     }
 }
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958

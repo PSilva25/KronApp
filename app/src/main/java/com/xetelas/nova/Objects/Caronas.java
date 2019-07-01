@@ -2,13 +2,7 @@ package com.xetelas.nova.Objects;
 
 import java.util.Comparator;
 
-<<<<<<< HEAD
-public class Caronas {
-
-    String Id,origem, destino, data, hora, coment;
-=======
 public class Caronas implements Comparator<Caronas> {
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
 
     String Id, id_post, origem, destino, data, hora, coment, nome, tell;
 
@@ -18,22 +12,12 @@ public class Caronas implements Comparator<Caronas> {
         return id_post;
     }
 
-<<<<<<< HEAD
-    public Caronas(String Id, String origem, String destino, String data, String hora, String coment) {
-        this.Id = Id;
-        this.origem = origem;
-        this.destino = destino;
-        this.data = data;
-        this.hora = hora;
-        this.coment = coment;
-=======
     public void setId_post(String id_post) {
         this.id_post = id_post;
     }
 
     public String getTell() {
         return tell;
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
     }
 
     public void setTell(String tell) {

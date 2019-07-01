@@ -1,42 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<<<<<<< HEAD
-<android.support.v4.widget.SwipeRefreshLayout
-=======
 <FrameLayout
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_refresh_container"
     android:layout_width="match_parent"
-<<<<<<< HEAD
-    android:layout_height="match_parent">
-=======
     android:layout_height="match_parent"
     android:padding="10dp"
     tools:context=".Fragments.Fragment_Minhas">
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
-        tools:context=".Fragments.Fragment_Minhas">
-
-        <ListView
-            android:id="@+id/lista_minhas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:choiceMode="singleChoice"
-            android:scrollbars="vertical"></ListView>
-=======
         android:choiceMode="multipleChoice"
         android:dividerHeight="10dp"
         android:divider="#FFFFFFFF"
         tools:listitem="@layout/linha2"/>
->>>>>>> 9f2ba8f934ce166562758df55419ff7596d72958
 
     </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
