@@ -38,7 +38,7 @@ public class Fragment_Minhas extends Fragment {
     ListView lv;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference,databaseref;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -46,6 +46,7 @@ public class Fragment_Minhas extends Fragment {
     ArrayList<Caronas> dados = new ArrayList<>();
     Context context;
     CaronasAdapterMinhas ad;
+    long maxid=0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

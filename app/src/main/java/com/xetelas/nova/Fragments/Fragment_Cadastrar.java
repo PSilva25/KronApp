@@ -34,6 +34,7 @@ import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -43,7 +44,7 @@ public class Fragment_Cadastrar extends Fragment {
     EditText data, hora, coment;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseref,databaserefcont,databasetell;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
@@ -52,10 +53,16 @@ public class Fragment_Cadastrar extends Fragment {
     Dialog myDialog;
     EditText tell;
 
+    String telefone="";
+
+    String contadora = "0";
+
     String[] cities;
 
     private View view;
     private Button button;
+    long maxid=0;
+
 
     @Nullable
     @Override
@@ -78,6 +85,68 @@ public class Fragment_Cadastrar extends Fragment {
         de.setAdapter(adapter);
         para.setAdapter(adapter);
 
+        databaseref = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("Caronas");
+
+        databaseref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    maxid = (dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaserefcont = firebaseDatabase.getReference().child("total_caronas");
+
+        databaserefcont.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+
+
+                    contadora = dataSnapshot.getValue().toString();
+
+                    Toast.makeText(getContext(),"aaaaaaaaaaaaaaaaa",Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
+
+        databasetell.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+
+                    ShowPopup();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
         button = view.findViewById(R.id.bot_cadastrar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,31 +164,31 @@ public class Fragment_Cadastrar extends Fragment {
                 }
                 if (z == 2) {
 
-                    String countId = String.valueOf(pegaId.returnCount());
-
                     Caronas dados = new Caronas();
 
-                    dados.setId(countId);
-                    dados.setOrigem(de.getText().toString());
-                    dados.setDestino(para.getText().toString());
+                    dados.setId(String.valueOf(maxid+1));
+                    dados.setOrigem(de.getText().toString().trim());
+                    dados.setDestino(para.getText().toString().trim());
                     dados.setData(data.getText().toString());
                     dados.setHora(hora.getText().toString());
                     dados.setComent(coment.getText().toString());
-
+                    long contadora1 = Long.valueOf(contadora);
                     de.setText("");
                     para.setText("");
                     data.setText("");
                     hora.setText("");
                     coment.setText("");
 
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("id").setValue(user.getUid());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("id_post").setValue(countId);
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("usuario").setValue(user.getDisplayName());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("origem").setValue(dados.getOrigem());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("destino").setValue(dados.getDestino());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("data").setValue(dados.getData());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("hora").setValue(dados.getHora());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(countId).child("comentario").setValue(dados.getComent());
+                    databaseReference.child("total_caronas").setValue(String.valueOf(contadora1+1));
+
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("id").setValue(user.getUid());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("id_post").setValue(String.valueOf(contadora1+1));
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("usuario").setValue(user.getDisplayName());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("origem").setValue(dados.getOrigem());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("destino").setValue(dados.getDestino());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("data").setValue(dados.getData());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("hora").setValue(dados.getHora());
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1+1)).child("comentario").setValue(dados.getComent());
 
                     Toast.makeText(getContext(), "CADSTRO REALIZADO!! SUA CARONA FOI PUBLICADA COM SUCESSO!", Toast.LENGTH_SHORT).show();
                 }
@@ -225,14 +294,14 @@ public class Fragment_Cadastrar extends Fragment {
         int z = 0;
 
         for (int i = 0; i < cities.length; i++) {
-            if (de.getText().toString().equals(cities[i])) {
+            if (de.getText().toString().trim().equals(cities[i])) {
                 x = x + 1;
                 break;
             }
         }
 
         for (int j = 0; j < cities.length; j++) {
-            if (para.getText().toString().equals(cities[j])) {
+            if (para.getText().toString().trim().equals(cities[j])) {
                 y = y + 1;
                 break;
             }
@@ -240,7 +309,7 @@ public class Fragment_Cadastrar extends Fragment {
 
         z = x + y;
 
-        if (para.getText().toString().equals(de.getText().toString())) {
+        if (para.getText().toString().trim().equals(de.getText().toString().trim())) {
             z = -1;
         }
 

@@ -15,6 +15,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        email = findViewById(R.id.email);
+        FacebookSdk.setApplicationId(getResources().getString(R.string.facebook_app_id));
         firebaseAuth = FirebaseAuth.getInstance();
         callbackManager = CallbackManager.Factory.create();
         loginButton = findViewById(R.id.login_button);
