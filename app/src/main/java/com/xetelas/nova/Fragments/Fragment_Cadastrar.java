@@ -118,7 +118,7 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
-      
+
         button = view.findViewById(R.id.bot_cadastrar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,15 +144,20 @@ public class Fragment_Cadastrar extends Fragment {
 
                 SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
                 Date data2 = new Date();
-                String[] dataFormatada;
-                dataFormatada = formataData.format(data2).split("-");
+                String dataFormatada;
+                dataFormatada = formataData.format(data2);
 
                  //   int date = (int) Integer.valueOf(String.valueOf(dataFormatada));
 
-                    String[] pegadata = data.getText().toString().split("/");
+                    String[] pega = dataFormatada.split("-");
+                    String[] pegadataentrada = data.getText().toString().split("/");
 
-
-                   // int dateentrada = (int) Integer.valueOf(String.valueOf(pegadata));
+                   int diaatual= Integer.valueOf(pega[0]);
+                   int mesatual=Integer.valueOf(pega[1]);
+                   int anoatual = Integer.valueOf(pega[2]);
+                   int diacadastrado = Integer.valueOf(pegadataentrada[0]);
+                   int mescadastrado = Integer.valueOf(pegadataentrada[1]);
+                   int anocadastrado= Integer.valueOf(pegadataentrada[2]);
 
 
                 int z;
@@ -164,7 +169,23 @@ public class Fragment_Cadastrar extends Fragment {
                     Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG).show();
                 } else if (z == 1 || z == 0) {
                     Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG).show();
-                }else  if (z == 2) {
+                }else if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
+
+                    Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG).show();
+
+                }else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado) ) {
+
+                    Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG).show();
+
+                }else if ((diaatual <= diacadastrado && mesatual< mescadastrado && anoatual>anocadastrado)) {
+
+                    Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG).show();
+
+                }else if ((diaatual<=diacadastrado && mesatual>mescadastrado && anoatual>anocadastrado)  ) {
+
+                    Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG).show();
+
+                }else if (z == 2) {
 
                     Caronas dados = new Caronas();
 
@@ -192,7 +213,7 @@ public class Fragment_Cadastrar extends Fragment {
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
 
-                    Toast.makeText(getContext(), "SUA CARONA FOI PUBLICADA COM SUCESSO! data:"+dataFormatada+"data: "+pegadata, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "atual"+diaatual+mesatual+anoatual+" cadastrada "+diacadastrado+mescadastrado+anocadastrado, Toast.LENGTH_SHORT).show();
                 }
             }
 
