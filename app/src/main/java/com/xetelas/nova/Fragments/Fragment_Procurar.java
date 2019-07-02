@@ -271,28 +271,16 @@ public class Fragment_Procurar extends Fragment {
         myDialog.show();
     }
 
-    public int returnCount (){
-        int count;
-        if (dados.size() <= 0){
-            count = 0;
-        } else {
-            count = Integer.parseInt(dados.get(dados.size()).getId_post());
-        }
-        return count + 1;
-    }
-
     public List<Caronas> ordena() {
         ordenado.clear();
 
-    for (int i = dados.size()-1; i>=0;i--){
+        for (int i = dados.size() - 1; i >= 0; i--) {
             ordenado.add(dados.get(i));
-
         }
-
         return ordenado;
     }
 
-    private void updateLabel () {
+    private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, new Locale("pt", "BR"));
 

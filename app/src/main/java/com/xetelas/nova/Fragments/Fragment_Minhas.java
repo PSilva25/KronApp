@@ -24,6 +24,7 @@ import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Fragment_Minhas extends Fragment {
     ListView lv;
@@ -34,7 +35,8 @@ public class Fragment_Minhas extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
 
-    ArrayList<Caronas> dados = new ArrayList<>();
+    List<Caronas> dados = new ArrayList<>();
+    List<Caronas> ordenado = new ArrayList<>();
     Context context;
     CaronasAdapterMinhas ad;
     long maxid=0;
@@ -74,7 +76,7 @@ public class Fragment_Minhas extends Fragment {
 
                 Collections.sort(dados);
 
-                ad = new CaronasAdapterMinhas(context,dados);
+                ad = new CaronasAdapterMinhas(context,ordena());
 
                 lv.setAdapter(ad);
             }
@@ -86,5 +88,14 @@ public class Fragment_Minhas extends Fragment {
         });
 
         return view;
+    }
+
+    public List<Caronas> ordena() {
+        ordenado.clear();
+
+        for (int i = dados.size() - 1; i >= 0; i--) {
+            ordenado.add(dados.get(i));
+        }
+        return ordenado;
     }
 }
