@@ -36,6 +36,7 @@ import com.xetelas.nova.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class Fragment_Cadastrar extends Fragment {
@@ -56,6 +57,7 @@ public class Fragment_Cadastrar extends Fragment {
     String contadora = "0";
 
     String[] cities;
+    final String[] verifica = {""};
 
     private View view;
     private Button button;
@@ -116,28 +118,42 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
-        databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
-
-        databasetell.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-                    myDialog = new Dialog(getContext());
-                    ShowPopup();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
+      
         button = view.findViewById(R.id.bot_cadastrar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
+
+                databasetell.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.exists()) {
+                            myDialog = new Dialog(getContext());
+                            ShowPopup();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+                SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+                Date data2 = new Date();
+                String[] dataFormatada;
+                dataFormatada = formataData.format(data2).split("-");
+
+                 //   int date = (int) Integer.valueOf(String.valueOf(dataFormatada));
+
+                    String[] pegadata = data.getText().toString().split("/");
+
+
+                   // int dateentrada = (int) Integer.valueOf(String.valueOf(pegadata));
+
 
                 int z;
                 z = verify();
@@ -148,8 +164,7 @@ public class Fragment_Cadastrar extends Fragment {
                     Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG).show();
                 } else if (z == 1 || z == 0) {
                     Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG).show();
-                }
-                if (z == 2) {
+                }else  if (z == 2) {
 
                     Caronas dados = new Caronas();
 
@@ -177,7 +192,7 @@ public class Fragment_Cadastrar extends Fragment {
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
 
-                    Toast.makeText(getContext(), "SUA CARONA FOI PUBLICADA COM SUCESSO!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "SUA CARONA FOI PUBLICADA COM SUCESSO! data:"+dataFormatada+"data: "+pegadata, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -231,9 +246,11 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-    public void ShowPopup() {
+    public String ShowPopup() {
         myDialog.setContentView(R.layout.tell_popup);
         tell = myDialog.findViewById(R.id.edit_tell);
+
+        final String[] cadastrou = {""};
 
         Button filtro = myDialog.findViewById(R.id.bot_addtell);
         filtro.setOnClickListener(new View.OnClickListener() {
@@ -242,11 +259,18 @@ public class Fragment_Cadastrar extends Fragment {
                 num = tell.getText().toString();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
                 myDialog.dismiss();
+
             }
         });
 
+
+
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
+
+        Toast.makeText(getContext(),"VEREMOS"+cadastrou[0],Toast.LENGTH_LONG).show();
+        return cadastrou[0];
     }
 
     public boolean isTelefone(String numeroTelefone) {
