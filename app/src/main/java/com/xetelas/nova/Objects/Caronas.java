@@ -1,8 +1,6 @@
 package com.xetelas.nova.Objects;
 
-import java.util.Comparator;
-
-public class Caronas implements Comparator<Caronas> {
+public class Caronas implements Comparable<Caronas> {
 
     String Id, id_post, origem, destino, data, hora, coment, nome, tell;
 
@@ -76,7 +74,26 @@ public class Caronas implements Comparator<Caronas> {
         this.coment = coment;
     }
 
-    public int compare(Caronas o1, Caronas o2) {
-        return o1.getId_post().compareTo(o2.getId()) * -1;
+    @Override
+    public int compareTo(Caronas carona) {
+        int esse, oto;
+        try {
+            esse = Integer.parseInt(this.id_post);
+        } catch(NumberFormatException e) {
+            esse = 0;
+        }
+        try {
+            oto = Integer.parseInt(carona.id_post);
+        } catch(NumberFormatException e) {
+            oto = 0;
+        }
+
+        if (esse < oto) {
+            return -1;
+        }
+        if (esse > oto) {
+            return 1;
+        }
+        return 0;
     }
 }

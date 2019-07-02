@@ -53,8 +53,6 @@ public class Fragment_Cadastrar extends Fragment {
     Dialog myDialog;
     EditText tell;
 
-    String telefone = "";
-
     String contadora = "0";
 
     String[] cities;
@@ -249,27 +247,6 @@ public class Fragment_Cadastrar extends Fragment {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
-    }
-
-    public String verificaTell() {
-        final String[] num = new String[0];
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot objSnapshot : dataSnapshot.getChildren()) {
-                    num[0] = (String) objSnapshot.child("telefone").getValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        return num[0];
     }
 
     public boolean isTelefone(String numeroTelefone) {

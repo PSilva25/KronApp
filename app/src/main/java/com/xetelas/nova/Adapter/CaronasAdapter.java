@@ -1,15 +1,12 @@
 package com.xetelas.nova.Adapter;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +18,12 @@ import java.util.List;
 
 public class CaronasAdapter extends BaseAdapter {
 
-
     private Context context;
     private List<Caronas> fragments;
 
     public CaronasAdapter(Context context, List<Caronas> fragments) {
         this.context = context;
         this.fragments = fragments;
-
     }
 
     @Override
@@ -41,12 +36,11 @@ public class CaronasAdapter extends BaseAdapter {
         return position;
     }
 
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(context, R.layout.linha,null);
-        TextView usuario,origem, or, destino, des, data, da, hora, ho, comentario, coment2;
-        ImageView button;
+        View view = View.inflate(context, R.layout.linha, null);
+        TextView usuario, origem, or, destino, des, data, da, hora, ho, comentario, coment2;
+        ImageView whats, face;
 
         usuario = view.findViewById(R.id.usuario);
         origem = view.findViewById(R.id.origem);
@@ -60,9 +54,10 @@ public class CaronasAdapter extends BaseAdapter {
         comentario = view.findViewById(R.id.comentario);
         coment2 = view.findViewById(R.id.comentario2);
 
-        button = view.findViewById(R.id.whats);
+        whats = view.findViewById(R.id.whats);
+        face = view.findViewById(R.id.face);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        whats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String contact = "+55 "; // use country code with your phone number
@@ -78,6 +73,17 @@ public class CaronasAdapter extends BaseAdapter {
                     Toast.makeText(context, "Whatsapp app not installed in your phone", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
+            }
+        });
+
+        face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.facebook.com/RaahPSilva";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
             }
         });
 

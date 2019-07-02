@@ -132,6 +132,9 @@ public class Fragment_Procurar extends Fragment {
                         dados.add(car);
                     }
                 }
+
+                Collections.sort(dados);
+
                 ad = new CaronasAdapter(context, ordena());
 
                 lv.setAdapter(ad);
@@ -202,9 +205,9 @@ public class Fragment_Procurar extends Fragment {
         car.setHora(dados.get(x).getHora());
         car.setComent(dados.get(x).getComent());
 
-        Collections.sort(dados2, car);
-
         dados2.add(car);
+
+        Collections.sort(dados2);
     }
 
     public void ShowPopup() {

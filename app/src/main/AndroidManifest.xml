@@ -24,19 +24,6 @@
 
         <activity android:name=".Profile"/>
 
-        <!-- Inbox Activity -->
-        <activity android:name=".Activities.ActivityMinhas" />
-
-        <!-- Outbox Activity -->
-        <activity android:name=".Activities.ActivityCadastrar" />
-
-        <!-- Profile Activity -->
-        <activity android:name=".Activities.ActivityProcurar" />
-
-
-
-
-
     </application>
 
 
