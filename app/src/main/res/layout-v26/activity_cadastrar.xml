@@ -129,21 +129,15 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <FrameLayout
+    <EditText
+        android:id="@+id/edit_coment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edit_coment"
-            android:layout_width="match_parent"
-            android:layout_height="395dp"
-            android:autofillHints=""
-            android:gravity="start|top"
-            android:hint="Comentário"
-            android:inputType="textMultiLine"
-            android:maxLength="150" />
-
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:gravity="start|top"
+        android:hint="Comentário"
+        android:inputType="textMultiLine"
+        android:maxLength="150" />
 
     <FrameLayout
         android:layout_width="match_parent"
