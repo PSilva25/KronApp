@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,7 +116,7 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
-      
+
         button = view.findViewById(R.id.bot_cadastrar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,55 +142,122 @@ public class Fragment_Cadastrar extends Fragment {
 
                 SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
                 Date data2 = new Date();
-                String[] dataFormatada;
-                dataFormatada = formataData.format(data2).split("-");
-
-                 //   int date = (int) Integer.valueOf(String.valueOf(dataFormatada));
-
-                    String[] pegadata = data.getText().toString().split("/");
+                String dataFormatada;
+                dataFormatada = formataData.format(data2);
 
 
-                   // int dateentrada = (int) Integer.valueOf(String.valueOf(pegadata));
+                String[] pegaHoraatual = null, pegaHoracadastrada = null, pega = null, pegadataentrada = null;
+
+
+                int horaatual = 0, horacadastrada = 0, diaatual = 0, diacadastrado = 0, mesatual = 0, mescadastrado = 0, anoatual = 0, anocadastrado = 0, minatual = 0, mincadastrado = 0;
 
 
                 int z;
                 z = verify();
 
                 if (de.getText().toString().equals("") || de.getText().toString().equals("") || data.toString().equals("") || hora.getText().toString().equals("")) {
-                    Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS *  ", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS *  ", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else if (z == -1) {
-                    Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else if (z == 1 || z == 0) {
-                    Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG).show();
-                }else  if (z == 2) {
+                    Toast toast = Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (z == 2) {
 
-                    Caronas dados = new Caronas();
+                    SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+                    Calendar cal = Calendar.getInstance();
+                    Date data_atual = cal.getTime();
+                    String hora_atual = dateFormat_hora.format(data_atual);
 
-                    dados.setId(String.valueOf(maxid + 1));
-                    dados.setOrigem(de.getText().toString().trim());
-                    dados.setDestino(para.getText().toString().trim());
-                    dados.setData(data.getText().toString());
-                    dados.setHora(hora.getText().toString());
-                    dados.setComent(coment.getText().toString());
-                    long contadora1 = Long.valueOf(contadora);
-                    de.setText("");
-                    para.setText("");
-                    data.setText("");
-                    hora.setText("");
-                    coment.setText("");
+                    pegaHoraatual = hora_atual.split(":");
+                    pegaHoracadastrada = hora.getText().toString().split(":");
 
-                    databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
+                    horaatual = Integer.valueOf(pegaHoraatual[0]);
+                    minatual = Integer.valueOf(pegaHoraatual[1]);
+                    horacadastrada = Integer.valueOf(pegaHoracadastrada[0]);
+                    mincadastrado = Integer.valueOf(pegaHoracadastrada[1]);
 
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("destino").setValue(dados.getDestino());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
 
-                    Toast.makeText(getContext(), "SUA CARONA FOI PUBLICADA COM SUCESSO! data:"+dataFormatada+"data: "+pegadata, Toast.LENGTH_SHORT).show();
+                    //   int date = (int) Integer.valueOf(String.valueOf(dataFormatada));
+
+                    pega = dataFormatada.split("-");
+                    pegadataentrada = data.getText().toString().split("/");
+
+                    diaatual = Integer.valueOf(pega[0]);
+                    mesatual = Integer.valueOf(pega[1]);
+                    anoatual = Integer.valueOf(pega[2]);
+                    diacadastrado = Integer.valueOf(pegadataentrada[0]);
+                    mescadastrado = Integer.valueOf(pegadataentrada[1]);
+                    anocadastrado = Integer.valueOf(pegadataentrada[2]);
+
+
+                    if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual <= diacadastrado && mesatual < mescadastrado && anoatual > anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual > anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UMA NOVA DATA", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+
+                    } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diacadastrado == diacadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "IMPOSSIBEL CADASTRAR UMA CARONA NO PASSADO! ESCOLHA UM NOVO HORARIO", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    } else {
+
+                        Caronas dados = new Caronas();
+
+                        dados.setId(String.valueOf(maxid + 1));
+                        dados.setOrigem(de.getText().toString().trim());
+                        dados.setDestino(para.getText().toString().trim());
+                        dados.setData(data.getText().toString());
+                        dados.setHora(hora.getText().toString());
+                        dados.setComent(coment.getText().toString());
+                        long contadora1 = Long.valueOf(contadora);
+                        de.setText("");
+                        para.setText("");
+                        data.setText("");
+                        hora.setText("");
+                        coment.setText("");
+
+                        databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
+
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("destino").setValue(dados.getDestino());
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
+
+                        Toast toast = Toast.makeText(getContext(), "TUDO PRONTO! SUA CARONA FOI PUBLICADA!!!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
                 }
             }
 
@@ -266,7 +334,7 @@ public class Fragment_Cadastrar extends Fragment {
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
 
-        Toast.makeText(getContext(),"VEREMOS"+cadastrou[0],Toast.LENGTH_LONG).show();
+
         return cadastrou[0];
     }
 
