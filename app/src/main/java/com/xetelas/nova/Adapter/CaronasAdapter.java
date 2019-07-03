@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xetelas.nova.FireMissilesDialogFacebook;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
@@ -20,10 +22,12 @@ public class CaronasAdapter extends BaseAdapter {
 
     private Context context;
     private List<Caronas> fragments;
+    private FragmentManager fragmentManager;
 
-    public CaronasAdapter(Context context, List<Caronas> fragments) {
+    public CaronasAdapter(Context context, List<Caronas> fragments, FragmentManager fragmentManager) {
         this.context = context;
         this.fragments = fragments;
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -79,11 +83,13 @@ public class CaronasAdapter extends BaseAdapter {
         face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://www.facebook.com/RaahPSilva";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+//                String url = "https://www.facebook.com/RaahPSilva";
+//                Intent i = new Intent(Intent.ACTION_VIEW);
+//                i.setData(Uri.parse(url));
+//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                context.startActivity(i);
+                FireMissilesDialogFacebook opa = new FireMissilesDialogFacebook();
+                opa.show(fragmentManager,"missiles");
             }
         });
 
