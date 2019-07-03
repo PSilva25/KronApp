@@ -10,10 +10,10 @@
     android:layout_gravity="center">
 
     <TextView
-        android:id="@+id/insert_tell"
+        android:id="@+id/atualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insira seu número telefone"
+        android:text="Atualizar telefone"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/para_oferecer_uma_carona"
+        android:text="Insira abaixo o número atualizado:"
         android:textColor="#000"
         android:textStyle="bold"
         android:textSize="18sp"/>

@@ -22,7 +22,7 @@
         android:id="@+id/deseja"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Tem certeza de que quer excluir essa carona?"
         android:textColor="#000"
         android:textSize="18sp" />
@@ -30,13 +30,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="40dp">
 
         <Button
             android:id="@+id/bot_nao"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_alignParentLeft="true"
             android:background="@drawable/buttonshape2"
             android:text="Cancelar"
             android:textColor="#FFFFFF" />

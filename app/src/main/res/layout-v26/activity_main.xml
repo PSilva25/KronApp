@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".MainActivity">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:contentDescription="TODO"
+            app:srcCompat="@mipmap/imagekrona" />
 
         <ImageView
             android:id="@+id/imageView1"
-            android:background="@drawable/buttonshape4"
-            android:shadowColor="#6D6D6D"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_kroninha_tam"
             android:contentDescription="TODO" />
@@ -31,9 +33,9 @@
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center"
-            android:layout_marginVertical="50dp"
             android:background="@drawable/buttonshape4"
             android:drawableStart="@mipmap/face_icon"
+            android:layout_marginBottom="40dp"
             android:onClick="onClickFacebookButton"
             android:shadowDx="0"
             android:shadowDy="0"

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@drawable/buttonshape3"
     tools:context=".Fragments.Fragment_Procurar">
 
     <ListView
@@ -24,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:src="@android:drawable/ic_menu_search"
-        app:backgroundTint="#315A96" />
+        app:maxImageSize="50dp"
+        app:backgroundTint="@color/colorPrimary" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/delete"
@@ -33,6 +35,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="70dp"
         android:src="@android:drawable/ic_menu_revert"
+        app:maxImageSize="50dp"
         app:backgroundTint="@color/colorAccent" />
 
 </FrameLayout>
