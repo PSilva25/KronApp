@@ -135,7 +135,7 @@ public class Fragment_Procurar extends Fragment {
 
                 Collections.sort(dados);
 
-                ad = new CaronasAdapter(context, ordena());
+                ad = new CaronasAdapter(context, ordena(), getFragmentManager());
 
                 lv.setAdapter(ad);
             }
@@ -187,7 +187,7 @@ public class Fragment_Procurar extends Fragment {
                 }
             }
 
-            ad = new CaronasAdapter(getContext().getApplicationContext(), dados2);
+            ad = new CaronasAdapter(getContext(), dados2, getFragmentManager());
 
             lv.setAdapter(ad);
         }
