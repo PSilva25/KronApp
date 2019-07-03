@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/buttonshape3"
+    android:background="@drawable/buttonshape5"
     android:padding="10dp"
     android:layout_gravity="center">
 
@@ -38,14 +38,28 @@
         android:hint="(99) 999999999"
         android:textAlignment="center"/>
 
-    <Button
-        android:id="@+id/bot_addtell"
-        android:layout_width="130dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="right"
-        android:background="@drawable/buttonshape"
-        android:text="Feito"
-        android:textColor="#FFFFFF" />
+        android:layout_marginTop="40dp">
+
+        <Button
+            android:id="@+id/bot_cancel"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:background="@drawable/buttonshape2"
+            android:textColor="#FFFFFF"/>
+
+        <Button
+            android:id="@+id/bot_addtell"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/buttonshape"
+            android:text="Feito"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
 
 </LinearLayout>
