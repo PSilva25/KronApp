@@ -23,35 +23,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Deseja mesmo excluir essa carona?"
+        android:text="Tem certeza de que quer excluir essa carona?"
         android:textColor="#000"
-        android:textSize="15sp" />
-
-
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="30dp">
 
         <Button
-            android:id="@+id/bot_cancel"
-            android:layout_width="130dp"
+            android:id="@+id/bot_nao"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Cancelar"
             android:background="@drawable/buttonshape2"
-            android:textColor="#FFFFFF"/>
+            android:text="Cancelar"
+            android:textColor="#FFFFFF" />
 
 
         <Button
-            android:id="@+id/bot_filtro"
-            android:layout_width="130dp"
+            android:id="@+id/bot_deleta"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/bot_cancel"
+            android:layout_alignTop="@+id/bot_nao"
             android:layout_alignParentRight="true"
             android:background="@drawable/buttonshape"
-            android:text="Deletar"
+            android:text="Excluir"
             android:textColor="#FFFFFF" />
 
     </RelativeLayout>

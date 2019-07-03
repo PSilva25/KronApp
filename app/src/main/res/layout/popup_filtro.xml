@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/id_de"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="De:"
             android:textColor="@color/colorPrimary"
@@ -24,15 +24,16 @@
 
         <AutoCompleteTextView
             android:id="@+id/spinner_de"
-            android:layout_width="330dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/id_de"
             android:layout_alignParentRight="true"
+            android:layout_toEndOf="@id/id_de"
+            android:layout_marginStart="10dp"
             android:entries="@array/cidades"
-            android:gravity="center"
             android:hint="Origem"
             android:textAlignment="center"
             android:textSize="20sp" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,7 +43,7 @@
 
         <TextView
             android:id="@+id/id_para"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
@@ -51,11 +52,11 @@
 
         <AutoCompleteTextView
             android:id="@+id/spinner_para"
-            android:layout_width="330dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/id_para"
             android:layout_alignParentRight="true"
-            android:gravity="center"
+            android:layout_toEndOf="@id/id_para"
+            android:layout_marginStart="10dp"
             android:entries="@array/cidades"
             android:textSize="20sp"
             android:hint="Destino"
@@ -70,7 +71,7 @@
 
         <TextView
             android:id="@+id/text_date"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:text="Data:"
             android:textColor="@color/colorPrimary"
@@ -79,13 +80,14 @@
 
         <EditText
             android:id="@+id/edit_Data"
-            android:layout_width="330dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/text_date"
             android:layout_alignParentRight="true"
+            android:layout_toEndOf="@id/text_date"
+            android:layout_marginStart="10dp"
             android:clickable="true"
             android:focusable="false"
-            android:gravity="center"
+            android:textAlignment="center"
             android:hint="@string/dd_mm"
             android:inputType="date" />
 
@@ -95,13 +97,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/bot_cancel"
-            android:layout_width="130dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="Cancelar"
             android:background="@drawable/buttonshape2"
             android:textColor="#FFFFFF"/>
@@ -109,9 +110,8 @@
 
         <Button
             android:id="@+id/bot_filtro"
-            android:layout_width="130dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/bot_cancel"
             android:layout_alignParentRight="true"
             android:text="Filtrar"
             android:background="@drawable/buttonshape"

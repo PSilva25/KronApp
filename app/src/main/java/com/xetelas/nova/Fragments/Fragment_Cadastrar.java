@@ -5,11 +5,9 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +32,6 @@ import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -247,7 +244,7 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public String ShowPopup() {
-        myDialog.setContentView(R.layout.tell_popup);
+        myDialog.setContentView(R.layout.popup_tell);
         tell = myDialog.findViewById(R.id.edit_tell);
 
         final String[] cadastrou = {""};

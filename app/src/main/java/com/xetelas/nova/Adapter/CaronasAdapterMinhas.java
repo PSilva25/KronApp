@@ -28,7 +28,6 @@ public class CaronasAdapterMinhas extends BaseAdapter {
 
     private Context context;
     private List<Caronas> fragments;
-    boolean confirmar;
     Dialog myDialog;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -76,24 +75,7 @@ public class CaronasAdapterMinhas extends BaseAdapter {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                myDialog = new Dialog(context);
-                //if (ShowPopup()){
-                    confirmar = false;
-                    DatabaseReference desertRef = databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(fragments.get(position).getId_post());
-
-                    desertRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Uh-oh, an error occurred!
-                        }
-                    });
-                //}
+                ShowPopup(position);
             }
         });
 
@@ -113,24 +95,41 @@ public class CaronasAdapterMinhas extends BaseAdapter {
         return view;
     }
 
+    public void deleta(int position){
+        DatabaseReference desertRef = databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(fragments.get(position).getId_post());
+
+        desertRef.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Uh-oh, an error occurred!
+            }
+        });
+    }
+
     @Override
     public int getCount() {
         return this.fragments.size();
     }
 
-    public boolean ShowPopup() {
+    public void ShowPopup(final int position) {
+        myDialog = new Dialog(context);
         myDialog.setContentView(R.layout.popup_delete);
 
-        Button filtro = myDialog.findViewById(R.id.bot_filtro);
+        Button filtro = myDialog.findViewById(R.id.bot_deleta);
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmar = true;
+                deleta(position);
                 myDialog.dismiss();
             }
         });
 
-        Button cancel = myDialog.findViewById(R.id.bot_cancel);
+        Button cancel = myDialog.findViewById(R.id.bot_nao);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,8 +139,6 @@ public class CaronasAdapterMinhas extends BaseAdapter {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
-
-        return confirmar;
     }
 
 }

@@ -11,13 +11,12 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:padding="40dp"
             android:background="@drawable/buttonshape4"
             android:shadowColor="#6D6D6D"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_logo2"
+            app:srcCompat="@drawable/ic_kroninha_tam"
             android:contentDescription="TODO" />
 
 

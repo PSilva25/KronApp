@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/usuario"
-            android:layout_width="268dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="textview"
             android:textColor="@color/colorPrimary"
@@ -26,25 +26,18 @@
             android:id="@+id/face"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_alignTop="@+id/usuario"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/usuario"
+            android:layout_toLeftOf="@+id/whats"
+            android:layout_marginEnd="10dp"
             android:contentDescription="TODO"
-            android:foreground="@drawable/com_facebook_button_icon_blue"
-            android:gravity="end" />
+            android:foreground="@drawable/com_facebook_button_icon_blue" />
 
         <ImageView
             android:id="@+id/whats"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:layout_alignTop="@id/usuario"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="3.5dp"
-            android:layout_toRightOf="@+id/usuario"
+            android:layout_alignParentEnd="true"
             android:contentDescription="TODO"
-            android:foreground="@mipmap/ic_whatsapp2"
-            android:gravity="end" />
+            android:foreground="@mipmap/ic_whatsapp2" />
 
     </RelativeLayout>
 
@@ -65,7 +58,6 @@
             android:id="@+id/origem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/origem"
             android:layout_toEndOf="@+id/origem"
             android:layout_toRightOf="@+id/origem"
             android:textColor="@color/title_text_color"

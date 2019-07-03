@@ -212,7 +212,7 @@ public class Fragment_Procurar extends Fragment {
 
     public void ShowPopup() {
 
-        myDialog.setContentView(R.layout.filtro_popup);
+        myDialog.setContentView(R.layout.popup_filtro);
 
         origem = myDialog.findViewById(R.id.id_de);
         destino = myDialog.findViewById(R.id.id_para);

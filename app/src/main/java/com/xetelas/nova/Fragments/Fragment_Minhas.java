@@ -39,7 +39,6 @@ public class Fragment_Minhas extends Fragment {
     List<Caronas> ordenado = new ArrayList<>();
     Context context;
     CaronasAdapterMinhas ad;
-    long maxid=0;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class Fragment_Minhas extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_minhas, container, false);
 
-        context=getContext().getApplicationContext();
+        context = getContext();
         lv = view.findViewById(R.id.lista_minhas);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
