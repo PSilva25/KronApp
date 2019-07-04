@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:contentDescription="TODO"
+        app:srcCompat="@mipmap/imagekrona" />
 
     <ImageView
         android:id="@+id/imageView1"
-        android:padding="40dp"
-        android:background="@drawable/buttonshape4"
-        android:shadowColor="#6D6D6D"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_logo2"
+        app:srcCompat="@drawable/ic_kroninha_tam"
         android:contentDescription="TODO" />
 
 
@@ -32,9 +33,9 @@
         android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginVertical="50dp"
         android:background="@drawable/buttonshape4"
-        android:drawableStart="@mipmap/face_icon"
+        android:layout_marginBottom="40dp"
+        android:drawableLeft="@mipmap/face_icon"
         android:onClick="onClickFacebookButton"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -42,8 +43,7 @@
         android:text="Entre com Facebook"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:drawableLeft="@mipmap/face_icon" />
+        android:textStyle="bold" />
 
 
 </FrameLayout>
