@@ -121,15 +121,7 @@ public class Fragment_Cadastrar extends Fragment {
             public void onClick(View v) {
 
 
-                int contadatas = verificaQuantPosts();
-
-                if (contadatas > 7) {
-
-                    Toast toast = Toast.makeText(getContext(), "LIMITE DE CARONAS DIARIAS EXCEDIDO!!!!", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-
-                } else if (!verificaTell()) {
+                if (!verificaTell()) {
 
                     SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
                     Date data2 = new Date();
@@ -210,40 +202,14 @@ public class Fragment_Cadastrar extends Fragment {
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
 
-                        } else {
+                        } else
+
+                            verificaQuantPosts();
+                        onStop();
+
+                        {
 
 
-                            Caronas dados = new Caronas();
-
-                            dados.setId(String.valueOf(maxid + 1));
-                            dados.setOrigem(de.getText().toString().trim());
-                            dados.setDestino(para.getText().toString().trim());
-                            dados.setData(data.getText().toString());
-                            dados.setHora(hora.getText().toString());
-                            dados.setComent(coment.getText().toString());
-                            long contadora1 = Long.valueOf(contadora);
-                            de.setText("");
-                            para.setText("");
-                            data.setText("");
-                            hora.setText("");
-                            coment.setText("");
-
-                            databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
-
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data_postagem").setValue(dataFormatada);
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("destino").setValue(dados.getDestino());
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
-                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
-
-
-                            Toast toast = Toast.makeText(getContext(), "contagem" + contadatas, Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
                         }
                     }
                 } else {
@@ -382,15 +348,15 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
 
-    public int verificaQuantPosts() {
-
+    public void verificaQuantPosts() {
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
         final String dataFormatada;
         dataFormatada = formataData.format(data2);
 
 
-        final int[][] contaT = {{0}};
+        final int[][] contaT = new int[1][1];
+
         databaseverifica = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid());
 
         databaseverifica.addValueEventListener(new ValueEventListener() {
@@ -402,23 +368,36 @@ public class Fragment_Cadastrar extends Fragment {
 
                     conta = 0;
 
+
                 } else if (dataSnapshot.child("Caronas").exists()) {
+
 
                     for (DataSnapshot objSnapshot : dataSnapshot.child("Caronas").getChildren()) {
 
                         if (objSnapshot.child("data_postagem").exists()) {
+
                             String datacadastrada = objSnapshot.child("data_postagem").getValue().toString();
 
                             if (datacadastrada.equals(dataFormatada)) {
-                                conta = conta + 1;
+
+                                conta++;
                             }
+
                         }
                     }
                 }
-                Toast toast = Toast.makeText(getContext(), "Contagem " + conta, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-                contaT[0] = new int[]{conta};
+
+                if (conta > 2) {
+
+                    Toast toast = Toast.makeText(getContext(), "LIMITE DE CARONAS DIARIAS EXCEDIDO!!!!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+
+                } else {
+
+                    cadastra();
+
+                }
 
             }
 
@@ -429,9 +408,45 @@ public class Fragment_Cadastrar extends Fragment {
         });
 
 
-        int total = contaT[0][0];
+    }
 
 
-        return total;
+    public void cadastra() {
+
+        SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+        Date data2 = new Date();
+        final String dataFormatada;
+        dataFormatada = formataData.format(data2);
+
+        Caronas dados = new Caronas();
+
+        dados.setId(String.valueOf(maxid + 1));
+        dados.setOrigem(de.getText().toString().trim());
+        dados.setDestino(para.getText().toString().trim());
+        dados.setData(data.getText().toString());
+        dados.setHora(hora.getText().toString());
+        dados.setComent(coment.getText().toString());
+        long contadora1 = Long.valueOf(contadora);
+        de.setText("");
+        para.setText("");
+        data.setText("");
+        hora.setText("");
+        coment.setText("");
+
+        if (!dados.getComent().equals("")) {
+            databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
+
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data_postagem").setValue(dataFormatada);
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("destino").setValue(dados.getDestino());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
+
+        }
+
     }
 }
