@@ -43,7 +43,7 @@ public class Fragment_Cadastrar extends Fragment {
     EditText data, hora, coment;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell,databaseverifica;
+    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell, databaseverifica;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
@@ -122,15 +122,14 @@ public class Fragment_Cadastrar extends Fragment {
 
 
                 int contadatas = verificaQuantPosts();
-                int c = 7;
 
-                if (contadatas>7) {
+                if (contadatas > 7) {
 
                     Toast toast = Toast.makeText(getContext(), "LIMITE DE CARONAS DIARIAS EXCEDIDO!!!!", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
 
-                }else  if (!verificaTell()) {
+                } else if (!verificaTell()) {
 
                     SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
                     Date data2 = new Date();
@@ -179,7 +178,6 @@ public class Fragment_Cadastrar extends Fragment {
                         diacadastrado = Integer.valueOf(pegadataentrada[0]);
                         mescadastrado = Integer.valueOf(pegadataentrada[1]);
                         anocadastrado = Integer.valueOf(pegadataentrada[2]);
-
 
 
                         if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
@@ -243,7 +241,7 @@ public class Fragment_Cadastrar extends Fragment {
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
 
 
-                            Toast toast = Toast.makeText(getContext(), "contagem"+contadatas, Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getContext(), "contagem" + contadatas, Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
@@ -304,7 +302,7 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-    public boolean verificaTell(){
+    public boolean verificaTell() {
         final boolean[] ver = {false};
         databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
 
@@ -314,7 +312,7 @@ public class Fragment_Cadastrar extends Fragment {
                 if (!dataSnapshot.exists()) {
                     myDialog = new Dialog(getContext());
                     ver[0] = ShowPopup();
-                } else if (dataSnapshot.getValue().toString().equals("")){
+                } else if (dataSnapshot.getValue().toString().equals("")) {
                     myDialog = new Dialog(getContext());
                     ver[0] = ShowPopup();
                 }
@@ -384,7 +382,8 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
 
-    public int verificaQuantPosts(){
+    public int verificaQuantPosts() {
+
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
         final String dataFormatada;
@@ -399,32 +398,27 @@ public class Fragment_Cadastrar extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 int conta = 0;
-                if(!dataSnapshot.child("Caronas").exists()){
+                if (!dataSnapshot.child("Caronas").exists()) {
 
                     conta = 0;
 
-
-                }else if(dataSnapshot.child("Caronas").exists()){
-
+                } else if (dataSnapshot.child("Caronas").exists()) {
 
                     for (DataSnapshot objSnapshot : dataSnapshot.child("Caronas").getChildren()) {
 
-                        if(objSnapshot.child("data_postagem").exists()){
-
+                        if (objSnapshot.child("data_postagem").exists()) {
                             String datacadastrada = objSnapshot.child("data_postagem").getValue().toString();
 
-                            if(datacadastrada.equals(dataFormatada)){
-
-                                conta = conta+1;
+                            if (datacadastrada.equals(dataFormatada)) {
+                                conta = conta + 1;
                             }
-
                         }
                     }
                 }
-                Toast toast = Toast.makeText(getContext(), "contagem"+conta, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getContext(), "Contagem " + conta, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
-             contaT[0] = new int[]{conta};
+                contaT[0] = new int[]{conta};
 
             }
 
@@ -435,10 +429,7 @@ public class Fragment_Cadastrar extends Fragment {
         });
 
 
-
-
         int total = contaT[0][0];
-
 
 
         return total;
