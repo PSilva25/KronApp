@@ -98,6 +98,14 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        Button cancel = myDialog.findViewById(R.id.bot_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
     }

@@ -3,35 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/buttonshape5"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@drawable/buttonshape5"
     tools:context=".Fragments.Fragment_Minhas">
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/id_de"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:labelFor="@+id/spinner_de"
             android:text="@string/de"
             android:textColor="@color/colorPrimary"
-            android:labelFor="@+id/spinner_de"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <AutoCompleteTextView
             android:id="@+id/spinner_de"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toEndOf="@id/id_de"
+            android:layout_marginStart="7dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
             android:entries="@array/cidades"
-            android:hint="Cidade de saida"
+            android:hint="CIDADE ORIGEM"
             android:textAlignment="center"
             android:textSize="20sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -43,76 +49,86 @@
             android:id="@+id/id_para"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
             android:labelFor="@+id/spinner_para"
             android:text="@string/para"
-            android:textSize="18sp"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <AutoCompleteTextView
             android:id="@+id/spinner_para"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_marginStart="7dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
             android:entries="@array/cidades"
-            android:textSize="20sp"
-            android:hint="Cidade de destino"
-            android:textAlignment="center"/>
+            android:hint="CIDADE DESTINO"
+            android:textAlignment="center"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/text_date"
-            android:layout_width="55dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
+            android:layout_weight="1"
             android:labelFor="@+id/edit_Data"
             android:text="@string/data"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            /> <!--Text Data-->
+            android:textStyle="bold" /> <!--Text Data-->
+
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:labelFor="@+id/edit_Hora"
+            android:text="Hora:*"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/edit_Data"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
             android:focusable="false"
             android:hint="@string/dd_mm"
             android:inputType="date"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:id="@+id/text_time"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:labelFor="@+id/edit_Hora"
-            android:text="Hora:*"
-            android:textSize="18sp"/> <!--Text Hora-->
+        <!--Text Hora-->
 
         <EditText
             android:id="@+id/edit_Hora"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:focusable="false"
             android:hint="@string/xx_xx"
             android:inputType="time"
-            android:focusable="false"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <TextView
@@ -120,41 +136,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:labelFor="@+id/edit_coment"
         android:text="Informações Adicionais:"
         android:textColor="@color/colorPrimary"
-        android:labelFor="@+id/edit_coment"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edit_coment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:autofillHints=""
-        android:hint="Comentário"
-        android:lines="5"
+        android:backgroundTint="@color/colorPrimary"
+        android:gravity="start"
+        android:hint="COMENTÁRIO"
         android:maxLength="150"
         android:maxLines="5"
-        android:textAlignment="center"/>
+        android:layout_marginBottom="20dp"/>
 
-    <FrameLayout
+    <Button
+        android:id="@+id/bot_cadastrar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_weight="0"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowRadius="5"
+        android:text="@string/cadastrar"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/bot_cadastrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:background="@drawable/buttonshape"
-            android:shadowColor="#A8A8A8"
-            android:shadowRadius="5"
-            android:text="@string/cadastrar"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_marginBottom="20dp"/>
-
-    </FrameLayout>
 
 </LinearLayout>
