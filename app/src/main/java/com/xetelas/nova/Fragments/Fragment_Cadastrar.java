@@ -43,7 +43,7 @@ public class Fragment_Cadastrar extends Fragment {
     EditText data, hora, coment;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell;
+    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell,databaseverifica;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
@@ -120,7 +120,17 @@ public class Fragment_Cadastrar extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!verificaTell()) {
+
+                int contadatas = verificaQuantPosts();
+                int c = 7;
+
+                if (contadatas>7) {
+
+                    Toast toast = Toast.makeText(getContext(), "LIMITE DE CARONAS DIARIAS EXCEDIDO!!!!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+
+                }else  if (!verificaTell()) {
 
                     SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
                     Date data2 = new Date();
@@ -171,6 +181,7 @@ public class Fragment_Cadastrar extends Fragment {
                         anocadastrado = Integer.valueOf(pegadataentrada[2]);
 
 
+
                         if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
 
                             Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
@@ -203,6 +214,7 @@ public class Fragment_Cadastrar extends Fragment {
 
                         } else {
 
+
                             Caronas dados = new Caronas();
 
                             dados.setId(String.valueOf(maxid + 1));
@@ -221,6 +233,7 @@ public class Fragment_Cadastrar extends Fragment {
                             databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
 
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
+                            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data_postagem").setValue(dataFormatada);
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
@@ -229,7 +242,8 @@ public class Fragment_Cadastrar extends Fragment {
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
                             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
 
-                            Toast toast = Toast.makeText(getContext(), "TUDO PRONTO! SUA CARONA FOI PUBLICADA!!!", Toast.LENGTH_SHORT);
+
+                            Toast toast = Toast.makeText(getContext(), "contagem"+contadatas, Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
@@ -367,5 +381,66 @@ public class Fragment_Cadastrar extends Fragment {
         }
 
         return z;
+    }
+
+
+    public int verificaQuantPosts(){
+        SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+        Date data2 = new Date();
+        final String dataFormatada;
+        dataFormatada = formataData.format(data2);
+
+
+        final int[][] contaT = {{0}};
+        databaseverifica = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid());
+
+        databaseverifica.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                int conta = 0;
+                if(!dataSnapshot.child("Caronas").exists()){
+
+                    conta = 0;
+
+
+                }else if(dataSnapshot.child("Caronas").exists()){
+
+
+                    for (DataSnapshot objSnapshot : dataSnapshot.child("Caronas").getChildren()) {
+
+                        if(objSnapshot.child("data_postagem").exists()){
+
+                            String datacadastrada = objSnapshot.child("data_postagem").getValue().toString();
+
+                            if(datacadastrada.equals(dataFormatada)){
+
+                                conta = conta+1;
+                            }
+
+                        }
+                    }
+                }
+                Toast toast = Toast.makeText(getContext(), "contagem"+conta, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+             contaT[0] = new int[]{conta};
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+        int total = contaT[0][0];
+
+
+
+        return total;
     }
 }
