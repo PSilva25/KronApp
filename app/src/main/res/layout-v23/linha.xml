@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/buttonshape3"
+    android:orientation="vertical"
     android:padding="10dp"
     tools:context=".Fragments.Fragment_Procurar">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/usuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/face"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_marginEnd="10dp"
+            android:layout_toLeftOf="@+id/face"
             android:text="textview"
             android:textColor="@color/colorPrimary"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/face"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_toLeftOf="@+id/whats"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="TODO"
-            android:foreground="@drawable/com_facebook_button_icon_blue" />
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/whats"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="TODO"
-            android:foreground="@mipmap/ic_whatsapp2" />
+            <ImageView
+                android:id="@+id/face"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="TODO"
+                android:foreground="@drawable/com_facebook_button_icon_blue" />
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/whats"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="10dp"
+                android:contentDescription="TODO"
+                android:foreground="@mipmap/whatsapp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,9 +58,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="textview"
-            android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/origem2"
@@ -62,9 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/origem"
             android:layout_toRightOf="@+id/origem"
+            android:text="textview"
             android:textColor="@color/title_text_color"
-            android:textSize="15sp"
-            android:text="textview" />
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -75,10 +81,10 @@
             android:id="@+id/destino"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:text="textview"
             android:textColor="@color/colorPrimary"
-            android:text="textview" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/destino2"
@@ -87,9 +93,9 @@
             android:layout_alignTop="@+id/destino"
             android:layout_toEndOf="@+id/destino"
             android:layout_toRightOf="@+id/destino"
+            android:text="textview"
             android:textColor="@color/title_text_color"
-            android:textSize="15sp"
-            android:text="textview" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -101,10 +107,10 @@
             android:id="@+id/data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:text="textview"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
-            android:text="textview" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/data2"
@@ -113,9 +119,9 @@
             android:layout_alignTop="@+id/data"
             android:layout_toEndOf="@+id/data"
             android:layout_toRightOf="@+id/data"
+            android:text="textview"
             android:textColor="@color/title_text_color"
-            android:textSize="15sp"
-            android:text="textview" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
 
@@ -127,10 +133,10 @@
             android:id="@+id/hora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textStyle="bold"
+            android:text="textview"
             android:textColor="@color/colorPrimary"
-            android:text="textview" />
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/hora2"
@@ -139,32 +145,30 @@
             android:layout_alignTop="@+id/hora"
             android:layout_toEndOf="@+id/hora"
             android:layout_toRightOf="@+id/hora"
+            android:text="textview"
             android:textColor="@color/title_text_color"
-            android:textSize="15sp"
-            android:text="textview" />
+            android:textSize="15sp" />
 
     </RelativeLayout>
-
-
 
     <TextView
         android:id="@+id/comentario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textStyle="bold"
+        android:text="textview"
         android:textColor="@color/colorPrimary"
-        android:text="textview" />
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
 
     <TextView
         android:id="@+id/comentario2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textStyle="italic"
-        android:layout_marginLeft="30dp"
-        android:textColor="@color/title_text_color"
         android:text="TextView"
-        android:layout_marginStart="30dp" />
+        android:background="@android:drawable/editbox_background"
+        android:textColor="@color/title_text_color"
+        android:textSize="15sp"
+        android:textStyle="italic" />
 
 </LinearLayout>
