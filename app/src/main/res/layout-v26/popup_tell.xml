@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/buttonshape3"
+    android:background="@drawable/buttonshape5"
     android:padding="10dp"
     android:layout_gravity="center">
 
@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/bot_addtell"
-        android:layout_width="130dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_gravity="right"

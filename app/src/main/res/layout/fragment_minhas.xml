@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="@drawable/buttonshape3"
+    android:background="@drawable/buttonshape5"
     tools:context=".Fragments.Fragment_Minhas">
 
     <ListView

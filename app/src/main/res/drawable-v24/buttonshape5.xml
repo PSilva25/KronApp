@@ -8,11 +8,5 @@
         android:startColor="#FFFFFFFF"
         android:endColor="@color/colorPrimary"
         android:gradientRadius="4000"/>
-    <corners
-        android:radius="5dp"/>
-    <stroke
-        android:width="0.7dp"
-        android:color="@color/colorPrimary"
-        />
 
 </shape>
