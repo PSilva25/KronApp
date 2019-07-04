@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -108,34 +110,70 @@ public class Fragment_Procurar extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+
+        SimpleDateFormat formataData1 = new SimpleDateFormat("dd-MM-yyyy");
+        Date data1 = new Date();
+        String dataFormatada1;
+        dataFormatada1 = formataData1.format(data1);
+
+        String[] pegadata = dataFormatada1.split("-");
+
+        final int pegadia = Integer.valueOf(pegadata[0]);
+        final int pegames = Integer.valueOf(pegadata[1]);
+        final int pegaano = Integer.valueOf(pegadata[2]);
+
+
         databaseReference.addValueEventListener(new ValueEventListener() {
+
+
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dados.clear();
-
+                String[] datapost={""};
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     tellphone = (String) userSnapshot.child("telefone").getValue();
                     for (DataSnapshot objSnapshot : userSnapshot.child("Caronas").getChildren()) {
-                        Caronas car = new Caronas();
 
-                        car.setTell(tellphone);
-                        car.setId_post((String) objSnapshot.child("id_post").getValue());
-                        car.setNome((String) objSnapshot.child("usuario").getValue());
-                        car.setOrigem((String) objSnapshot.child("origem").getValue());
-                        car.setDestino((String) objSnapshot.child("destino").getValue());
-                        car.setData((String) objSnapshot.child("data").getValue());
-                        car.setId((String) objSnapshot.child("id").getValue());
-                        car.setHora((String) objSnapshot.child("hora").getValue());
-                        car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                        dados.add(car);
+                        if(objSnapshot.child("data_postagem").exists()){
+
+                        datapost = objSnapshot.child("data_postagem").getValue().toString().split("-");
+
+
+                        int diapost = Integer.valueOf(datapost[0]);
+                        int mespost = Integer.valueOf(datapost[1]);
+                        int anopost = Integer.valueOf(datapost[2]);
+
+
+                        if (diapost >= pegadia && mespost >= pegames && anopost >= pegaano) {
+
+                            Toast toast = Toast.makeText(getContext(), "dia" + pegadia + "mes" + pegames + "ano" + pegaano, Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+
+                            Caronas car = new Caronas();
+
+                            car.setTell(tellphone);
+                            car.setId_post((String) objSnapshot.child("id_post").getValue());
+                            car.setNome((String) objSnapshot.child("usuario").getValue());
+                            car.setOrigem((String) objSnapshot.child("origem").getValue());
+                            car.setDestino((String) objSnapshot.child("destino").getValue());
+                            car.setData((String) objSnapshot.child("data").getValue());
+                            car.setId((String) objSnapshot.child("id").getValue());
+                            car.setHora((String) objSnapshot.child("hora").getValue());
+                            car.setComent((String) objSnapshot.child("comentario").getValue());
+
+                            dados.add(car);
+                        }
                     }
                 }
+                    }
 
                 Collections.sort(dados);
 
                 ad = new CaronasAdapter(context, ordena(), getFragmentManager());
+                if(!ad.isEmpty())
 
                 lv.setAdapter(ad);
             }
