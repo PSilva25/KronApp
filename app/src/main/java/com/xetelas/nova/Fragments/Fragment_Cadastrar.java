@@ -438,7 +438,7 @@ public class Fragment_Cadastrar extends Fragment {
         hora.setText("");
         coment.setText("");
 
-        if(!dados.getComent().equals("")) {
+        if(!dados.getOrigem().equals("")) {
             databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
 
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
