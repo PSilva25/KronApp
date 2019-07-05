@@ -43,7 +43,7 @@ public class Fragment_Cadastrar extends Fragment {
     EditText data, hora, coment;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell, databaseverifica;
+    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell,databaseverifica;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
@@ -121,6 +121,8 @@ public class Fragment_Cadastrar extends Fragment {
             public void onClick(View v) {
 
 
+
+
                 if (!verificaTell()) {
 
                     SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
@@ -172,6 +174,7 @@ public class Fragment_Cadastrar extends Fragment {
                         anocadastrado = Integer.valueOf(pegadataentrada[2]);
 
 
+
                         if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
 
                             Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
@@ -208,6 +211,7 @@ public class Fragment_Cadastrar extends Fragment {
                         onStop();
 
                         {
+
 
 
                         }
@@ -268,7 +272,7 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-    public boolean verificaTell() {
+    public boolean verificaTell(){
         final boolean[] ver = {false};
         databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
 
@@ -278,7 +282,7 @@ public class Fragment_Cadastrar extends Fragment {
                 if (!dataSnapshot.exists()) {
                     myDialog = new Dialog(getContext());
                     ver[0] = ShowPopup();
-                } else if (dataSnapshot.getValue().toString().equals("")) {
+                } else if (dataSnapshot.getValue().toString().equals("")){
                     myDialog = new Dialog(getContext());
                     ver[0] = ShowPopup();
                 }
@@ -348,7 +352,7 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
 
-    public void verificaQuantPosts() {
+    public void verificaQuantPosts(){
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
         final String dataFormatada;
@@ -364,21 +368,21 @@ public class Fragment_Cadastrar extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 int conta = 0;
-                if (!dataSnapshot.child("Caronas").exists()) {
+                if(!dataSnapshot.child("Caronas").exists()){
 
                     conta = 0;
 
 
-                } else if (dataSnapshot.child("Caronas").exists()) {
+                }else if(dataSnapshot.child("Caronas").exists()){
 
 
                     for (DataSnapshot objSnapshot : dataSnapshot.child("Caronas").getChildren()) {
 
-                        if (objSnapshot.child("data_postagem").exists()) {
+                        if(objSnapshot.child("data_postagem").exists()){
 
                             String datacadastrada = objSnapshot.child("data_postagem").getValue().toString();
 
-                            if (datacadastrada.equals(dataFormatada)) {
+                            if(datacadastrada.equals(dataFormatada)){
 
                                 conta++;
                             }
@@ -387,13 +391,13 @@ public class Fragment_Cadastrar extends Fragment {
                     }
                 }
 
-                if (conta > 2) {
+                if (conta>2) {
 
                     Toast toast = Toast.makeText(getContext(), "LIMITE DE CARONAS DIARIAS EXCEDIDO!!!!", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
 
-                } else {
+                }else{
 
                     cadastra();
 
@@ -411,7 +415,8 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
 
-    public void cadastra() {
+
+    public void cadastra(){
 
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
@@ -433,7 +438,7 @@ public class Fragment_Cadastrar extends Fragment {
         hora.setText("");
         coment.setText("");
 
-        if (!dados.getComent().equals("")) {
+        if(!dados.getComent().equals("")) {
             databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
 
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
@@ -445,7 +450,11 @@ public class Fragment_Cadastrar extends Fragment {
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
-
+            dados.setComent("");
+            dados.setHora("");
+            dados.setOrigem("");
+            dados.setDestino("");
+            dados.setData("");
         }
     }
 }
