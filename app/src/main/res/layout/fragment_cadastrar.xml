@@ -145,14 +145,14 @@
         android:id="@+id/edit_coment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
         android:layout_weight="1"
         android:autofillHints=""
         android:background="@android:drawable/editbox_background"
+        android:focusable="auto"
         android:gravity="start"
         android:hint="COMENTÁRIO"
-        android:maxLength="150"
-        android:maxLines="5"
-        android:layout_marginBottom="20dp"/>
+        android:maxLength="150" />
 
     <Button
         android:id="@+id/bot_cadastrar"
