@@ -147,11 +147,6 @@ public class Fragment_Procurar extends Fragment {
 
 
                         if (diapost >= pegadia && mespost >= pegames && anopost >= pegaano) {
-
-                            Toast toast = Toast.makeText(getContext(), "dia" + pegadia + "mes" + pegames + "ano" + pegaano, Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
                             Caronas car = new Caronas();
 
                             car.setTell(tellphone);

@@ -68,7 +68,7 @@ public class Fragment_Cadastrar extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        view = inflater.inflate(R.layout.activity_cadastrar, container, false);
+        view = inflater.inflate(R.layout.fragment_cadastrar, container, false);
 
         de = view.findViewById(R.id.spinner_de);
         para = view.findViewById(R.id.spinner_para);

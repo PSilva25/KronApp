@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:dividerHeight="10dp"
         android:divider="#00000000"
-        tools:listitem="@layout/linha2">
+        tools:listitem="@layout/listview_minhas">
 
     </ListView>
 

@@ -42,7 +42,7 @@ public class CaronasAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(context, R.layout.linha, null);
+        View view = View.inflate(context, R.layout.listview_procurar, null);
         TextView usuario, origem, or, destino, des, data, da, hora, ho, comentario, coment2;
         ImageView whats, face;
 

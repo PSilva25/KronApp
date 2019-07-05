@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/face"
             android:text="textview"
             android:textColor="@color/colorPrimary"
@@ -42,7 +42,7 @@
                 android:id="@+id/whats"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
                 android:contentDescription="TODO"
                 android:foreground="@mipmap/whatsapp" />
         </LinearLayout>
@@ -101,7 +101,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
 
         <TextView
             android:id="@+id/data"
