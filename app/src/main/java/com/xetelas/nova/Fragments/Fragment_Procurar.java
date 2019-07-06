@@ -136,9 +136,9 @@ public class Fragment_Procurar extends Fragment {
                     for (DataSnapshot objSnapshot : userSnapshot.child("Caronas").getChildren()) {
 
 
-                        if(objSnapshot.child("data_postagem").exists()){
+                        if(objSnapshot.child("data").exists()){
 
-                        datapost = objSnapshot.child("data_postagem").getValue().toString().split("-");
+                        datapost = objSnapshot.child("data").getValue().toString().split("/");
 
 
                         int diapost = Integer.valueOf(datapost[0]);
@@ -147,6 +147,11 @@ public class Fragment_Procurar extends Fragment {
 
 
                         if (diapost >= pegadia && mespost >= pegames && anopost >= pegaano) {
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> e7a1e43bfd6bfd357e5d47b498cf718268d9bb9f
                             Caronas car = new Caronas();
 
                             car.setTell(tellphone);
