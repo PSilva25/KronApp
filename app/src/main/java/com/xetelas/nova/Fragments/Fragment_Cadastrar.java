@@ -3,6 +3,7 @@ package com.xetelas.nova.Fragments;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -37,13 +38,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class Fragment_Cadastrar extends Fragment {
 
     AutoCompleteTextView de, para;
     EditText data, hora, coment;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell,databaseverifica;
+    DatabaseReference databaseReference, databaseref, databaserefcont, databasetell, databaseverifica, dataBasedata;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
@@ -52,6 +55,9 @@ public class Fragment_Cadastrar extends Fragment {
     EditText tell;
 
     String contadora = "0";
+    int conta2 = 0;
+
+    int diax = 0, mesx = 0, anox = 0, diaatual = 0, mesatual = 0, anoatual = 0, quantidade = 0;
 
     String[] cities;
     final String[] verifica = {""};
@@ -59,6 +65,10 @@ public class Fragment_Cadastrar extends Fragment {
     private View view;
     private Button button;
     long maxid = 0;
+
+    Context  context;
+
+    int veri = 0;
 
 
     @Nullable
@@ -75,6 +85,8 @@ public class Fragment_Cadastrar extends Fragment {
         data = view.findViewById(R.id.edit_Data);
         hora = view.findViewById(R.id.edit_Hora);
         coment = view.findViewById(R.id.edit_coment);
+
+        context = getApplicationContext();
 
         cities = getResources().getStringArray(R.array.cidades);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
@@ -114,13 +126,10 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
-
         button = view.findViewById(R.id.bot_cadastrar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
 
 
                 if (!verificaTell()) {
@@ -174,7 +183,6 @@ public class Fragment_Cadastrar extends Fragment {
                         anocadastrado = Integer.valueOf(pegadataentrada[2]);
 
 
-
                         if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
 
                             Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
@@ -199,6 +207,12 @@ public class Fragment_Cadastrar extends Fragment {
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
 
+                        } else if ((diaatual > diacadastrado && mesatual == mescadastrado && anoatual <= anocadastrado)) {
+
+                            Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+
                         } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diacadastrado == diacadastrado)) {
 
                             Toast toast = Toast.makeText(getContext(), "ESSA HORA JÁ PASSOU! ESCOLHA UM NOVO HORARIO", Toast.LENGTH_LONG);
@@ -211,7 +225,6 @@ public class Fragment_Cadastrar extends Fragment {
                         onStop();
 
                         {
-
 
 
                         }
@@ -272,7 +285,7 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-    public boolean verificaTell(){
+    public boolean verificaTell() {
         final boolean[] ver = {false};
         databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
 
@@ -280,9 +293,9 @@ public class Fragment_Cadastrar extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
-                    myDialog = new Dialog(getContext());
+                    myDialog = new Dialog(context);
                     ver[0] = ShowPopup();
-                } else if (dataSnapshot.getValue().toString().equals("")){
+                } else if (dataSnapshot.getValue().toString().equals("")) {
                     myDialog = new Dialog(getContext());
                     ver[0] = ShowPopup();
                 }
@@ -319,8 +332,8 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public boolean isTelefone(String numeroTelefone) {
-        return numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}") ||
-                numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
+        return numeroTelefone.matches("^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$") ||
+                numeroTelefone.matches("^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$");
     }
 
     public int verify() {
@@ -352,12 +365,13 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
 
-    public void verificaQuantPosts(){
+    public void verificaQuantPosts() {
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
         final String dataFormatada;
         dataFormatada = formataData.format(data2);
 
+        long a;
 
         final int[][] contaT = new int[1][1];
 
@@ -368,21 +382,27 @@ public class Fragment_Cadastrar extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 int conta = 0;
-                if(!dataSnapshot.child("Caronas").exists()){
+
+                if (dataSnapshot.child("Qtd_caronas").exists()) {
+
+                    veri = 1;
+                }
+
+                if (!dataSnapshot.child("Caronas").exists()) {
 
                     conta = 0;
 
 
-                }else if(dataSnapshot.child("Caronas").exists()){
+                } else if (dataSnapshot.child("Caronas").exists()) {
 
 
                     for (DataSnapshot objSnapshot : dataSnapshot.child("Caronas").getChildren()) {
 
-                        if(objSnapshot.child("data_postagem").exists()){
+                        if (objSnapshot.child("data_postagem").exists()) {
 
                             String datacadastrada = objSnapshot.child("data_postagem").getValue().toString();
 
-                            if(datacadastrada.equals(dataFormatada)){
+                            if (datacadastrada.equals(dataFormatada)) {
 
                                 conta++;
                             }
@@ -390,19 +410,54 @@ public class Fragment_Cadastrar extends Fragment {
                         }
                     }
                 }
+                conta2 = conta;
+                if (veri == 1) {
 
-                if (conta>2) {
+                    dataBasedata = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid());
 
-                    Toast toast = Toast.makeText(getContext(), "LIMITE DE CARONAS DIARIAS EXCEDIDO!!!!", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
 
-                }else{
+                    dataBasedata.addValueEventListener(new ValueEventListener() {
+                        String pegatab = null;
 
-                    cadastra();
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                pegatab = dataSnapshot.child("Qtd_caronas").getValue().toString();
+
+                                String[] x = pegatab.split("-");
+                                String[] y = dataFormatada.split("-");
+                                int diatual = Integer.valueOf(y[0]);
+                                int mesatual = Integer.valueOf(y[1]);
+                                int anotual = Integer.valueOf(y[2]);
+
+
+                                int diatab = Integer.valueOf(x[1]);
+                                int mestab = Integer.valueOf(x[2]);
+                                int anotab = Integer.valueOf(x[3]);
+
+
+                                quantidade = Integer.valueOf(x[0]);
+                                diax = diatab;
+                                mesx = mestab;
+                                anox = anotab;
+                                diaatual = diatual;
+                                mesatual = mesatual;
+                                anoatual = anotual;
+
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+
+
+                    });
+
 
                 }
-
             }
 
             @Override
@@ -412,7 +467,46 @@ public class Fragment_Cadastrar extends Fragment {
         });
 
 
+        if (quantidade>0) {
+
+
+            if(quantidade<=3){
+
+                cadastra();
+                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
+
+
+            }else if (quantidade>3){
+
+                Toast toast2 = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
+                toast2.setGravity(Gravity.CENTER, 0, 0);
+                toast2.show();
+
+                if ((diaatual > diax && mesatual >= mesx && anoatual >= anox) || (diaatual < diax && mesatual > mesx && anoatual >= anox)) {
+
+                    Toast toast5 = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
+                    toast5.setGravity(Gravity.CENTER, 0, 0);
+                    toast5.show();
+
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf(quantidade + "-" + dataFormatada));
+
+
+            } else if (diaatual == diax && mesatual == mesx && anoatual == anox) {
+
+
+                Toast toastT = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
+                toastT.setGravity(Gravity.CENTER, 0, 0);
+                toastT.show();
+            }
+            }
+        } else if(veri==0||quantidade==0) {
+
+        cadastra();
+        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
+
     }
+
+}
 
 
 
@@ -438,7 +532,12 @@ public class Fragment_Cadastrar extends Fragment {
         hora.setText("");
         coment.setText("");
 
+<<<<<<< HEAD
+        if(!dados.getComent().equals("")) {
+
+=======
         if(!dados.getOrigem().equals("")) {
+>>>>>>> e7a1e43bfd6bfd357e5d47b498cf718268d9bb9f
             databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
 
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
