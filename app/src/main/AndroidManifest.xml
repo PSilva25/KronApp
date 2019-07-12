@@ -11,6 +11,7 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:supportsRtl="true"
+        android:windowSoftInputMode="adjustResize|stateHidden"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -30,6 +31,8 @@
             android:name=".Profile"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden"/>
+
+
 
     </application>
 

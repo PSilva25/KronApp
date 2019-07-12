@@ -12,10 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenSource;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,11 +30,21 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.xetelas.nova.Objects.dados_face;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     LoginButton loginButton;
+    String link;
 
     Button fb;
     FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
@@ -49,34 +64,30 @@ public class MainActivity extends AppCompatActivity {
 
         fb = findViewById(R.id.fb);
 
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
 
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
     }
 
     public void onClickFacebookButton(View view) {
         if (view == fb) {
             loginButton.performClick();
 
+
+            loginButton.setReadPermissions(Arrays.asList("email","user_link"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
-                public void onSuccess(LoginResult loginResult) {
+                public void onSuccess(final LoginResult loginResult) {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                    handleFacebookAccessToken(loginResult.getAccessToken());
+
+
+
+
+                    loadUserprofile(loginResult.getAccessToken());
+
+
+
+
+
+
                 }
 
                 @Override
@@ -92,23 +103,72 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
+
+
+
+private void loadUserprofile(final AccessToken newAccessToken){
+
+    GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+        @Override
+        public void onCompleted(JSONObject object, GraphResponse response) {
+
+            try {
+
+                link = object.getString("link");
+                dados_face x = new dados_face();
+                x.setToken(link);
+
+
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+                FirebaseDatabase firebaseDatabase;
+                DatabaseReference databaseReference;
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                databaseReference = firebaseDatabase.getReference();
+
+                databaseReference.child("link_facebook").setValue(link);
+
+
+
+                handleFacebookAccessToken(newAccessToken);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    });
+
+    Bundle bundle = new Bundle();
+
+    bundle.putString("fields","first_name,last_name,email,id,link");
+    graphRequest.setParameters(bundle);
+    graphRequest.executeAsync();
+
+
+
+
+
+    }
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         updateUI(currentUser, true);
     }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void handleFacebookAccessToken(AccessToken accessToken) {
+    private void handleFacebookAccessToken(final AccessToken accessToken) {
         Log.d(TAG, "handleFacebookAccessToken:" + accessToken);
 
-        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        final AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -116,6 +176,17 @@ public class MainActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                    FirebaseDatabase firebaseDatabase;
+                    DatabaseReference databaseReference;
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    databaseReference = firebaseDatabase.getReference();
+
+
+                    AccessToken.getCurrentAccessToken().getPermissions();
+
+                    databaseReference.child("Info3").setValue(accessToken.getToken()+"login "+credential.toString()+"link"+link);
+
 
                     updateUI(user, false);
                 } else {
@@ -136,4 +207,5 @@ public class MainActivity extends AppCompatActivity {
             opa.show(getSupportFragmentManager(), "missiles");
         }
     }
+
 }

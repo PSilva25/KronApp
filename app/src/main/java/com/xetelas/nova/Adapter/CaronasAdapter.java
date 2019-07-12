@@ -83,11 +83,11 @@ public class CaronasAdapter extends BaseAdapter {
         face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String url = "https://www.facebook.com/RaahPSilva";
-//                Intent i = new Intent(Intent.ACTION_VIEW);
-//                i.setData(Uri.parse(url));
-//                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(i);
+               String url = "https://www.facebook.com/RaahPSilva";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
                 FireMissilesDialogFacebook opa = new FireMissilesDialogFacebook();
                 opa.show(fragmentManager,"missiles");
             }

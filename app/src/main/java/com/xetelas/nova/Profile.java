@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
-import com.xetelas.nova.Fragments.Fragment_Cadastrar;
 import com.xetelas.nova.Fragments.Fragment_Minhas;
 import com.xetelas.nova.Fragments.Fragment_Procurar;
 

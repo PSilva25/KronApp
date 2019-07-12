@@ -147,12 +147,7 @@ public class Fragment_Procurar extends Fragment {
 
 
                         if (diapost >= pegadia && mespost >= pegames && anopost >= pegaano) {
-<<<<<<< HEAD
-
-
-=======
->>>>>>> e7a1e43bfd6bfd357e5d47b498cf718268d9bb9f
-                            Caronas car = new Caronas();
+          Caronas car = new Caronas();
 
                             car.setTell(tellphone);
                             car.setId_post((String) objSnapshot.child("id_post").getValue());
