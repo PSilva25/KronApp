@@ -116,12 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                     link = object.getString("link");
 
-                    FirebaseDatabase firebaseDatabase;
-                    DatabaseReference databaseReference;
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference();
 
-                    databaseReference.child("link_facebook").setValue(link);
 
                     handleFacebookAccessToken(newAccessToken);
 
@@ -160,15 +155,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                    FirebaseDatabase firebaseDatabase;
-                    DatabaseReference databaseReference;
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference();
-
-
-                    AccessToken.getCurrentAccessToken().getPermissions();
-
-                    databaseReference.child("Info3").setValue(accessToken.getToken() + "login " + credential.toString() + "link" + link);
 
 
                     updateUI(user, false);

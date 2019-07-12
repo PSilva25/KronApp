@@ -217,7 +217,7 @@ public class Fragment_Cadastrar extends Fragment {
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
 
-                        } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diacadastrado == diacadastrado)) {
+                        } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diaatual == diacadastrado)) {
 
                             Toast toast = Toast.makeText(getContext(), "ESSA HORA JÁ PASSOU! ESCOLHA UM NOVO HORARIO", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -323,10 +323,18 @@ public class Fragment_Cadastrar extends Fragment {
             @Override
             public void onClick(View v) {
                 num = tell.getText().toString();
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
-                myDialog.dismiss();
-                conf[0] = true;
+
+                boolean a = isTelefone(num);
+                if (a == true) {
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
+                    myDialog.dismiss();
+                    conf[0] = true;
+                }else{
+                    Toast toast = Toast.makeText(getContext(), "INSIRA UM NUMERO DE TELEFONE SEM O 9 ADCIONAL ", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         });
 
@@ -337,8 +345,8 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public boolean isTelefone(String numeroTelefone) {
-        return numeroTelefone.matches("^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$") ||
-                numeroTelefone.matches("^(\\([0-9]{2}\\))\\s([9]{1})?([0-9]{4})-([0-9]{4})$");
+        return numeroTelefone.matches("^([0-9]{2})([0-9]{4})([0-9]{4})") ||
+                numeroTelefone.matches("^([0-9]{2})([0-9]{4})-([0-9]{4})");
     }
 
     public int verify() {
@@ -557,15 +565,6 @@ public class Fragment_Cadastrar extends Fragment {
                 dados.setOrigem("");
                 dados.setDestino("");
                 dados.setData("");
-
-                dados_face token = new dados_face();
-
-                String pega = token.getToken();
-
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("link").setValue(pega+"aaaa");
-
-
-
 
 
 
