@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/buttonshape3"
+    android:background="@drawable/background_item_list"
     android:padding="10dp"
     android:layout_gravity="center">
 
@@ -123,7 +123,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Cancelar"
-            android:background="@drawable/buttonshape2"
+            android:background="@drawable/button_gradient_red"
             android:textColor="#FFFFFF"/>
 
 
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="Filtrar"
-            android:background="@drawable/buttonshape"
+            android:background="@drawable/button_gradient_blue"
             android:textColor="#FFFFFF"/>
 
     </RelativeLayout>

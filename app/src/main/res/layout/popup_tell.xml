@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/buttonshape3"
+    android:background="@drawable/background_item_list"
     android:padding="10dp"
     android:layout_gravity="center">
 
@@ -37,7 +37,7 @@
         android:textSize="20sp"
         android:inputType="phone"
         android:hint="@string/_99_999999999"
-        android:textAlignment="center"/>
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/bot_addtell"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_gravity="end"
-        android:background="@drawable/buttonshape"
+        android:background="@drawable/button_gradient_blue"
         android:text="@string/feito"
         android:textColor="#FFFFFF" />
 

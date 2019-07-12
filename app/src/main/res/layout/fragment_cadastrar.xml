@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/buttonshape5"
+    android:background="@drawable/background_lists"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".Fragments.Fragment_Minhas">
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/buttonshape"
+        android:background="@drawable/button_gradient_blue"
         android:shadowColor="#A8A8A8"
         android:shadowRadius="5"
         android:text="@string/cadastrar"
