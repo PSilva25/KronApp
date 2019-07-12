@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.FirebaseApp;
@@ -92,8 +94,17 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 num = tell.getText().toString();
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
-                myDialog.dismiss();
+
+                boolean a = isTelefone(num);
+                if (a == true) {
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
+                    myDialog.dismiss();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "INSIRA UM NUMERO DE TELEFONE SEM O 9 ADCIONAL ", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+
             }
         });
 
@@ -107,6 +118,11 @@ public class Profile extends AppCompatActivity {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
+    }
+
+    public boolean isTelefone(String numeroTelefone) {
+        return numeroTelefone.matches("^([0-9]{2})([0-9]{4})([0-9]{4})") ||
+                numeroTelefone.matches("^([0-9]{2})([0-9]{4})-([0-9]{4})");
     }
 
 }
