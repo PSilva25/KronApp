@@ -112,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     link = object.getString("link");
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f8a4f8a98b7f45bff64fe3c64a8c0891122ec340
                     handleFacebookAccessToken(newAccessToken);
 
                 } catch (JSONException e) {
@@ -148,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f8a4f8a98b7f45bff64fe3c64a8c0891122ec340
                     updateUI(user, false);
                 } else {
                     // If sign in fails, display a message to the user.
