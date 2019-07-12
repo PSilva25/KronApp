@@ -1,4 +1,4 @@
-package com.xetelas.nova;
+package com.xetelas.nova.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -22,9 +22,6 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,10 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.Objects.dados_face;
+import com.xetelas.nova.MainActivity;
 import com.xetelas.nova.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,6 +46,8 @@ public class Fragment_Cadastrar extends Fragment {
 
     AutoCompleteTextView de, para;
     EditText data, hora, coment;
+
+    final String opaLink = MainActivity.link;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, databaseref, databaserefcont, databasetell, databaseverifica, dataBasedata;
@@ -93,7 +90,7 @@ public class Fragment_Cadastrar extends Fragment {
         hora = view.findViewById(R.id.edit_Hora);
         coment = view.findViewById(R.id.edit_coment);
 
-        context = getApplicationContext();
+        context = getContext();
 
         cities = getResources().getStringArray(R.array.cidades);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
@@ -327,6 +324,7 @@ public class Fragment_Cadastrar extends Fragment {
             public void onClick(View v) {
                 num = tell.getText().toString();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
+                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
                 myDialog.dismiss();
                 conf[0] = true;
             }

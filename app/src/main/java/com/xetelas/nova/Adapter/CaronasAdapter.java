@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xetelas.nova.FireMissilesDialogFacebook;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
@@ -83,13 +82,11 @@ public class CaronasAdapter extends BaseAdapter {
         face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String url = "https://www.facebook.com/RaahPSilva";
+                String url = fragments.get(position).getLink();
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
-                FireMissilesDialogFacebook opa = new FireMissilesDialogFacebook();
-                opa.show(fragmentManager,"missiles");
             }
         });
 

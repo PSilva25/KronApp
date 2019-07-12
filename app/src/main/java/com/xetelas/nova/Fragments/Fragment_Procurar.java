@@ -56,7 +56,7 @@ public class Fragment_Procurar extends Fragment {
     List<Caronas> dados2 = new ArrayList<>();
     CaronasAdapter ad;
     Context context;
-    String tellphone;
+    String tellphone, link;
     Boolean isFilter = false;
     Dialog myDialog;
     TextView origem, destino, date;
@@ -72,8 +72,7 @@ public class Fragment_Procurar extends Fragment {
         fab = view.findViewById(R.id.fab);
         fabdelete = view.findViewById(R.id.delete);
 
-
-        context = getApplicationContext();
+        context = getContext();
 
         if (isFilter) {
             fabdelete.show();
@@ -130,47 +129,49 @@ public class Fragment_Procurar extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dados.clear();
-                String[] datapost={""};
+                String[] datapost = {""};
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     tellphone = (String) userSnapshot.child("telefone").getValue();
+                    link = (String) userSnapshot.child("linkFace").getValue();
                     for (DataSnapshot objSnapshot : userSnapshot.child("Caronas").getChildren()) {
 
 
-                        if(objSnapshot.child("data").exists()){
+                        if (objSnapshot.child("data").exists()) {
 
-                        datapost = objSnapshot.child("data").getValue().toString().split("/");
-
-
-                        int diapost = Integer.valueOf(datapost[0]);
-                        int mespost = Integer.valueOf(datapost[1]);
-                        int anopost = Integer.valueOf(datapost[2]);
+                            datapost = objSnapshot.child("data").getValue().toString().split("/");
 
 
-                        if (diapost >= pegadia && mespost >= pegames && anopost >= pegaano) {
-          Caronas car = new Caronas();
+                            int diapost = Integer.valueOf(datapost[0]);
+                            int mespost = Integer.valueOf(datapost[1]);
+                            int anopost = Integer.valueOf(datapost[2]);
 
-                            car.setTell(tellphone);
-                            car.setId_post((String) objSnapshot.child("id_post").getValue());
-                            car.setNome((String) objSnapshot.child("usuario").getValue());
-                            car.setOrigem((String) objSnapshot.child("origem").getValue());
-                            car.setDestino((String) objSnapshot.child("destino").getValue());
-                            car.setData((String) objSnapshot.child("data").getValue());
-                            car.setId((String) objSnapshot.child("id").getValue());
-                            car.setHora((String) objSnapshot.child("hora").getValue());
-                            car.setComent((String) objSnapshot.child("comentario").getValue());
 
-                            dados.add(car);
+                            if (diapost >= pegadia && mespost >= pegames && anopost >= pegaano) {
+                                Caronas car = new Caronas();
+
+                                car.setTell(tellphone);
+                                car.setLink(link);
+                                car.setId_post((String) objSnapshot.child("id_post").getValue());
+                                car.setNome((String) objSnapshot.child("usuario").getValue());
+                                car.setOrigem((String) objSnapshot.child("origem").getValue());
+                                car.setDestino((String) objSnapshot.child("destino").getValue());
+                                car.setData((String) objSnapshot.child("data").getValue());
+                                car.setId((String) objSnapshot.child("id").getValue());
+                                car.setHora((String) objSnapshot.child("hora").getValue());
+                                car.setComent((String) objSnapshot.child("comentario").getValue());
+
+                                dados.add(car);
+                            }
                         }
                     }
                 }
-                    }
 
                 Collections.sort(dados);
 
                 ad = new CaronasAdapter(context, ordena(), getFragmentManager());
-                if(!ad.isEmpty())
+                if (!ad.isEmpty())
 
-                lv.setAdapter(ad);
+                    lv.setAdapter(ad);
             }
 
             @Override

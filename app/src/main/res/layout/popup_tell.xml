@@ -13,7 +13,7 @@
         android:id="@+id/insert_tell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insira seu número telefone"
+        android:text="@string/insira_seu_n_mero_telefone"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -36,7 +36,7 @@
         android:background="@android:drawable/editbox_background"
         android:textSize="20sp"
         android:inputType="phone"
-        android:hint="(99) 999999999"
+        android:hint="@string/_99_999999999"
         android:textAlignment="center"/>
 
     <Button
@@ -44,9 +44,9 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:background="@drawable/buttonshape"
-        android:text="Feito"
+        android:text="@string/feito"
         android:textColor="#FFFFFF" />
 
 </LinearLayout>

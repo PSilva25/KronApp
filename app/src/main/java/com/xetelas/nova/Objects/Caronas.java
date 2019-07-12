@@ -2,9 +2,17 @@ package com.xetelas.nova.Objects;
 
 public class Caronas implements Comparable<Caronas> {
 
-    String Id, id_post, origem, destino, data, hora, coment, nome, tell;
+    String Id, id_post, origem, destino, data, hora, coment, nome, tell, link;
 
     public Caronas() {}
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 
     public String getId_post() {
         return id_post;
