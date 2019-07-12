@@ -98,11 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 
 
@@ -113,15 +110,7 @@ public class MainActivity extends AppCompatActivity {
             public void onCompleted(JSONObject object, GraphResponse response) {
 
                 try {
-
                     link = object.getString("link");
-
-                    FirebaseDatabase firebaseDatabase;
-                    DatabaseReference databaseReference;
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference();
-
-                    databaseReference.child("link_facebook").setValue(link);
 
                     handleFacebookAccessToken(newAccessToken);
 
@@ -137,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("fields", "first_name,last_name,email,id,link");
         graphRequest.setParameters(bundle);
         graphRequest.executeAsync();
-
 
     }
 
@@ -159,17 +147,6 @@ public class MainActivity extends AppCompatActivity {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                    FirebaseDatabase firebaseDatabase;
-                    DatabaseReference databaseReference;
-                    firebaseDatabase = FirebaseDatabase.getInstance();
-                    databaseReference = firebaseDatabase.getReference();
-
-
-                    AccessToken.getCurrentAccessToken().getPermissions();
-
-                    databaseReference.child("Info3").setValue(accessToken.getToken() + "login " + credential.toString() + "link" + link);
-
 
                     updateUI(user, false);
                 } else {

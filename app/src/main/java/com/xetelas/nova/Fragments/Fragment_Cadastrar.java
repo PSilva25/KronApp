@@ -40,15 +40,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class Fragment_Cadastrar extends Fragment {
 
     AutoCompleteTextView de, para;
     EditText data, hora, coment;
-
     final String opaLink = MainActivity.link;
-
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, databaseref, databaserefcont, databasetell, databaseverifica, dataBasedata;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -57,21 +53,15 @@ public class Fragment_Cadastrar extends Fragment {
     String num = null;
     Dialog myDialog;
     EditText tell;
-
     String contadora = "0";
     int conta2 = 0;
-
     int diax = 0, mesx = 0, anox = 0, diaatual = 0, mesatual = 0, anoatual = 0, quantidade = 0;
-
     String[] cities;
     final String[] verifica = {""};
-
     private View view;
     private Button button;
     long maxid = 0;
-
     Context context;
-
     int veri = 0;
 
 
@@ -135,109 +125,96 @@ public class Fragment_Cadastrar extends Fragment {
             @Override
             public void onClick(View v) {
 
+                SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+                Date data2 = new Date();
+                String dataFormatada;
+                dataFormatada = formataData.format(data2);
 
-                if (!verificaTell()) {
+                String[] pegaHoraatual = null, pegaHoracadastrada = null, pega = null, pegadataentrada = null;
+                int horaatual = 0, horacadastrada = 0, diaatual = 0, diacadastrado = 0, mesatual = 0, mescadastrado = 0, anoatual = 0, anocadastrado = 0, minatual = 0, mincadastrado = 0;
 
-                    SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
-                    Date data2 = new Date();
-                    String dataFormatada;
-                    dataFormatada = formataData.format(data2);
+                int z;
+                z = verify();
 
-                    String[] pegaHoraatual = null, pegaHoracadastrada = null, pega = null, pegadataentrada = null;
-                    int horaatual = 0, horacadastrada = 0, diaatual = 0, diacadastrado = 0, mesatual = 0, mescadastrado = 0, anoatual = 0, anocadastrado = 0, minatual = 0, mincadastrado = 0;
-
-                    int z;
-                    z = verify();
-
-                    if (de.getText().toString().equals("") || de.getText().toString().equals("") || data.toString().equals("") || hora.getText().toString().equals("")) {
-                        Toast toast = Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS (*)  ", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                    } else if (z == -1) {
-                        Toast toast = Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                    } else if (z == 1 || z == 0) {
-                        Toast toast = Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                    } else if (z == 2) {
-
-                        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
-                        Calendar cal = Calendar.getInstance();
-                        Date data_atual = cal.getTime();
-                        String hora_atual = dateFormat_hora.format(data_atual);
-
-                        pegaHoraatual = hora_atual.split(":");
-                        pegaHoracadastrada = hora.getText().toString().split(":");
-
-                        horaatual = Integer.valueOf(pegaHoraatual[0]);
-                        minatual = Integer.valueOf(pegaHoraatual[1]);
-                        horacadastrada = Integer.valueOf(pegaHoracadastrada[0]);
-                        mincadastrado = Integer.valueOf(pegaHoracadastrada[1]);
-
-                        pega = dataFormatada.split("-");
-                        pegadataentrada = data.getText().toString().split("/");
-
-                        diaatual = Integer.valueOf(pega[0]);
-                        mesatual = Integer.valueOf(pega[1]);
-                        anoatual = Integer.valueOf(pega[2]);
-                        diacadastrado = Integer.valueOf(pegadataentrada[0]);
-                        mescadastrado = Integer.valueOf(pegadataentrada[1]);
-                        anocadastrado = Integer.valueOf(pegadataentrada[2]);
-
-
-                        if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
-
-                            Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
-                        } else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
-
-                            Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
-                        } else if ((diaatual <= diacadastrado && mesatual < mescadastrado && anoatual > anocadastrado)) {
-
-                            Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
-                        } else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual > anocadastrado)) {
-
-                            Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
-                        } else if ((diaatual > diacadastrado && mesatual == mescadastrado && anoatual <= anocadastrado)) {
-
-                            Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
-                        } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diacadastrado == diacadastrado)) {
-
-                            Toast toast = Toast.makeText(getContext(), "ESSA HORA JÁ PASSOU! ESCOLHA UM NOVO HORARIO", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-
-                        } else
-
-                            verificaQuantPosts();
-                        onStop();
-
-                        {
-
-
-                        }
-                    }
-                } else {
-                    Toast toast = Toast.makeText(getContext(), "CARONA NÃO CADASTRADA! POR FAVOR, INSIRA SEU TELEFONE...", Toast.LENGTH_LONG);
+                if (de.getText().toString().equals("") || de.getText().toString().equals("") || data.toString().equals("") || hora.getText().toString().equals("")) {
+                    Toast toast = Toast.makeText(getContext(), "PREENCHA OS CAMPOS OBRIGATORIOS (*)  ", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                } else if (z == -1) {
+                    Toast toast = Toast.makeText(getContext(), "ORIGEM E DESTINO PRECISAM SER DIFERENTES", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (z == 1 || z == 0) {
+                    Toast toast = Toast.makeText(getContext(), "CIDADE NAO ENCONTRADA", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else if (z == 2) {
+
+                    SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+                    Calendar cal = Calendar.getInstance();
+                    Date data_atual = cal.getTime();
+                    String hora_atual = dateFormat_hora.format(data_atual);
+
+                    pegaHoraatual = hora_atual.split(":");
+                    pegaHoracadastrada = hora.getText().toString().split(":");
+
+                    horaatual = Integer.valueOf(pegaHoraatual[0]);
+                    minatual = Integer.valueOf(pegaHoraatual[1]);
+                    horacadastrada = Integer.valueOf(pegaHoracadastrada[0]);
+                    mincadastrado = Integer.valueOf(pegaHoracadastrada[1]);
+
+                    pega = dataFormatada.split("-");
+                    pegadataentrada = data.getText().toString().split("/");
+
+                    diaatual = Integer.valueOf(pega[0]);
+                    mesatual = Integer.valueOf(pega[1]);
+                    anoatual = Integer.valueOf(pega[2]);
+                    diacadastrado = Integer.valueOf(pegadataentrada[0]);
+                    mescadastrado = Integer.valueOf(pegadataentrada[1]);
+                    anocadastrado = Integer.valueOf(pegadataentrada[2]);
+
+
+                    if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual <= diacadastrado && mesatual < mescadastrado && anoatual > anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual <= diacadastrado && mesatual > mescadastrado && anoatual > anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((diaatual > diacadastrado && mesatual == mescadastrado && anoatual <= anocadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "ESSA DATA JÁ PASSOU! ESCOLHA UMA NOVA DATA...", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diacadastrado == diacadastrado)) {
+
+                        Toast toast = Toast.makeText(getContext(), "ESSA HORA JÁ PASSOU! ESCOLHA UM NOVO HORARIO", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    } else {
+                        verificaTell();
+                    }
                 }
+
             }
 
         });
@@ -289,8 +266,7 @@ public class Fragment_Cadastrar extends Fragment {
         return view;
     }
 
-    public boolean verificaTell() {
-        final boolean[] ver = {false};
+    public void verificaTell() {
         databasetell = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("telefone");
 
         databasetell.addValueEventListener(new ValueEventListener() {
@@ -298,10 +274,12 @@ public class Fragment_Cadastrar extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     myDialog = new Dialog(context);
-                    ver[0] = ShowPopup();
+                    ShowPopup();
                 } else if (dataSnapshot.getValue().toString().equals("")) {
                     myDialog = new Dialog(getContext());
-                    ver[0] = ShowPopup();
+                    ShowPopup();
+                } else if (dataSnapshot.exists()) {
+                    verificaQuantPosts();
                 }
             }
 
@@ -309,12 +287,9 @@ public class Fragment_Cadastrar extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
-        return ver[0];
     }
 
-    public boolean ShowPopup() {
-        final boolean[] conf = {false};
+    public void ShowPopup() {
         myDialog.setContentView(R.layout.popup_tell);
         tell = myDialog.findViewById(R.id.edit_tell);
 
@@ -325,15 +300,13 @@ public class Fragment_Cadastrar extends Fragment {
                 num = tell.getText().toString();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
+                verificaQuantPosts();
                 myDialog.dismiss();
-                conf[0] = true;
             }
         });
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
-
-        return conf[0];
     }
 
     public boolean isTelefone(String numeroTelefone) {
@@ -365,7 +338,6 @@ public class Fragment_Cadastrar extends Fragment {
         if (para.getText().toString().trim().equals(de.getText().toString().trim())) {
             z = -1;
         }
-
         return z;
     }
 
@@ -376,57 +348,37 @@ public class Fragment_Cadastrar extends Fragment {
         final String dataFormatada;
         dataFormatada = formataData.format(data2);
 
-        long a;
-
-        final int[][] contaT = new int[1][1];
-
         databaseverifica = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid());
-
         databaseverifica.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 int conta = 0;
 
                 if (dataSnapshot.child("Qtd_caronas").exists()) {
-
                     veri = 1;
                 }
 
                 if (!dataSnapshot.child("Caronas").exists()) {
-
                     conta = 0;
-
-
                 } else if (dataSnapshot.child("Caronas").exists()) {
-
-
                     for (DataSnapshot objSnapshot : dataSnapshot.child("Caronas").getChildren()) {
-
                         if (objSnapshot.child("data_postagem").exists()) {
-
                             String datacadastrada = objSnapshot.child("data_postagem").getValue().toString();
-
                             if (datacadastrada.equals(dataFormatada)) {
-
                                 conta++;
                             }
-
                         }
                     }
                 }
+
                 conta2 = conta;
                 if (veri == 1) {
-
                     dataBasedata = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid());
-
-
                     dataBasedata.addValueEventListener(new ValueEventListener() {
                         String pegatab = null;
 
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                             pegatab = dataSnapshot.child("Qtd_caronas").getValue().toString();
 
                             String[] x = pegatab.split("-");
@@ -435,11 +387,9 @@ public class Fragment_Cadastrar extends Fragment {
                             int mesatual = Integer.valueOf(y[1]);
                             int anotual = Integer.valueOf(y[2]);
 
-
                             int diatab = Integer.valueOf(x[1]);
                             int mestab = Integer.valueOf(x[2]);
                             int anotab = Integer.valueOf(x[3]);
-
 
                             quantidade = Integer.valueOf(x[0]);
                             diax = diatab;
@@ -448,68 +398,47 @@ public class Fragment_Cadastrar extends Fragment {
                             diaatual = diatual;
                             mesatual = mesatual;
                             anoatual = anotual;
-
-
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
                         }
-
-
                     });
-
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
 
         if (quantidade > 0) {
-
-
             if (quantidade <= 3) {
-
                 cadastra();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
 
-
             } else if (quantidade > 3) {
-
                 Toast toast2 = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
                 toast2.setGravity(Gravity.CENTER, 0, 0);
                 toast2.show();
 
                 if ((diaatual > diax && mesatual >= mesx && anoatual >= anox) || (diaatual < diax && mesatual > mesx && anoatual >= anox)) {
-
                     Toast toast5 = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
                     toast5.setGravity(Gravity.CENTER, 0, 0);
                     toast5.show();
-
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf(quantidade + "-" + dataFormatada));
 
-
                 } else if (diaatual == diax && mesatual == mesx && anoatual == anox) {
-
-
                     Toast toastT = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
                     toastT.setGravity(Gravity.CENTER, 0, 0);
                     toastT.show();
                 }
             }
         } else if (veri == 0 || quantidade == 0) {
-
             cadastra();
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
-
         }
-
     }
 
 
@@ -529,16 +458,14 @@ public class Fragment_Cadastrar extends Fragment {
         dados.setHora(hora.getText().toString());
         dados.setComent(coment.getText().toString());
         long contadora1 = Long.valueOf(contadora);
+
         de.setText("");
         para.setText("");
         data.setText("");
         hora.setText("");
         coment.setText("");
 
-
         if (!dados.getComent().equals("")) {
-
-
             if (!dados.getOrigem().equals("")) {
 
                 databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
@@ -557,19 +484,6 @@ public class Fragment_Cadastrar extends Fragment {
                 dados.setOrigem("");
                 dados.setDestino("");
                 dados.setData("");
-
-                dados_face token = new dados_face();
-
-                String pega = token.getToken();
-
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("link").setValue(pega+"aaaa");
-
-
-
-
-
-
-
             }
         }
     }
