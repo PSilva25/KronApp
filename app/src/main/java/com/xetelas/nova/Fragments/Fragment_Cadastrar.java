@@ -310,7 +310,7 @@ public class Fragment_Cadastrar extends Fragment {
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
                     myDialog.dismiss();
                 } else {
-                    Toast toast = Toast.makeText(getContext(), "INSIRA UM NUMERO DE TELEFONE SEM O 9 ADCIONAL ", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "INSIRA UM NUMERO DE TELEFONE VÁLIDO...", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
@@ -322,8 +322,8 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public boolean isTelefone(String numeroTelefone) {
-        return numeroTelefone.matches("^([0-9]{2})([0-9]{4})([0-9]{4})") ||
-                numeroTelefone.matches("^([0-9]{2})([0-9]{4})-([0-9]{4})");
+        return numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}") ||
+                numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
     }
 
     public int verify() {

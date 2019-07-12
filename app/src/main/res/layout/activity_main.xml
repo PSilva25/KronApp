@@ -24,14 +24,12 @@
         android:id="@+id/login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:visibility="gone" />
 
     <Button
         android:id="@+id/fb"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:layout_gravity="bottom|center"
         android:background="@drawable/button_gradient_blue"
         android:layout_marginBottom="40dp"

@@ -64,14 +64,11 @@ public class MainActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
 
         fb = findViewById(R.id.fb);
-
-
     }
 
     public void onClickFacebookButton(View view) {
         if (view == fb) {
             loginButton.performClick();
-
 
             loginButton.setReadPermissions(Arrays.asList("email", "user_link"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -80,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
 
                     loadUserprofile(loginResult.getAccessToken());
-
                 }
 
                 @Override
@@ -108,16 +104,14 @@ public class MainActivity extends AppCompatActivity {
         GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
+            try {
+                link = object.getString("link");
 
-                try {
-                    link = object.getString("link");
+                handleFacebookAccessToken(newAccessToken);
 
-                    handleFacebookAccessToken(newAccessToken);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             }
         });
 
