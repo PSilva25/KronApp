@@ -496,6 +496,10 @@ public class Fragment_Cadastrar extends Fragment {
                 dados.setOrigem("");
                 dados.setDestino("");
                 dados.setData("");
+
+                Toast toast2 = Toast.makeText(getContext(), "CADASTRO EFETUADO COM SUCESSO!!", Toast.LENGTH_LONG);
+                toast2.setGravity(Gravity.CENTER, 0, 0);
+                toast2.show();
             }
         }
     }
