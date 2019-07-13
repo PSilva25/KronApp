@@ -3,8 +3,9 @@
 
     <gradient
         android:angle="270"
-        android:startColor="@color/colorPrimary"
-        android:endColor="@color/colorPrimaryDark"/>
+        android:startColor="#3D5AFE"
+        android:centerColor="@color/colorPrimary"
+        android:endColor="@color/fab_background_tint"/>
 
     <padding
         android:bottom="10dp"

@@ -205,7 +205,7 @@ public class Fragment_Cadastrar extends Fragment {
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
-                    } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diacadastrado == diacadastrado)) {
+                    } else if ((horacadastrada < horaatual && diaatual == diacadastrado) || (horacadastrada == horaatual && mincadastrado < minatual && diaatual == diacadastrado)) {
 
                         Toast toast = Toast.makeText(getContext(), "ESSA HORA JÁ PASSOU! ESCOLHA UM NOVO HORARIO", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -310,7 +310,7 @@ public class Fragment_Cadastrar extends Fragment {
                     databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
                     myDialog.dismiss();
                 } else {
-                    Toast toast = Toast.makeText(getContext(), "INSIRA UM NUMERO DE TELEFONE VÁLIDO...", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(), "INSIRA UM NUMERO DE TELEFONE VÁLIDO (DD000000000)", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
@@ -322,8 +322,8 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public boolean isTelefone(String numeroTelefone) {
-        return numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s9?[6-9][0-9]{3}-[0-9]{4}") ||
-                numeroTelefone.matches(".((10)|([1-9][1-9]).)\\s[2-5][0-9]{3}-[0-9]{4}");
+        return numeroTelefone.matches("^([0-9]{2})([0-9]{4})([0-9]{4})") ||
+                numeroTelefone.matches("^([0-9]{2})([0-9]{4})-([0-9]{4})");
     }
 
     public int verify() {
@@ -408,7 +408,6 @@ public class Fragment_Cadastrar extends Fragment {
                             mesx = mestab;
                             anox = anotab;
                             diaatual = diatual;
-                            mesatual = mesatual;
                             anoatual = anotual;
                         }
 
@@ -477,7 +476,6 @@ public class Fragment_Cadastrar extends Fragment {
         hora.setText("");
         coment.setText("");
 
-        if (!dados.getComent().equals("")) {
             if (!dados.getOrigem().equals("")) {
 
                 databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
@@ -502,5 +500,4 @@ public class Fragment_Cadastrar extends Fragment {
                 toast2.show();
             }
         }
-    }
 }

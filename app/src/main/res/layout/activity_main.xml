@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="40dp"
+    android:background="@drawable/background_gradient_blue"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="fitCenter"
-        android:background="@drawable/background_gradient_blue"
-        app:srcCompat="@drawable/ic_kroninha_tam"
+        android:layout_height="match_parent"
+        app:srcCompat="@drawable/ic_logo_"
         android:layout_marginBottom="40dp"
         android:contentDescription="TODO" />
 
@@ -30,14 +29,13 @@
         android:id="@+id/fb"
         android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
         android:background="@drawable/button_gradient_blue"
-        android:layout_marginBottom="40dp"
         android:drawableLeft="@mipmap/face_icon"
         android:onClick="onClickFacebookButton"
         android:text="Entre com Facebook"
         android:textColor="#ffffff"
         android:textSize="20sp"
+        android:layout_gravity="bottom|center"
         android:textStyle="bold" />
 
-</LinearLayout>
+</FrameLayout>
