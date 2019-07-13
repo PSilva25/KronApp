@@ -28,16 +28,53 @@
         android:textStyle="bold"
         android:textSize="18sp"/>
 
-    <EditText
-        android:layout_marginTop="20dp"
-        android:id="@+id/edit_tell"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_background"
-        android:textSize="20sp"
-        android:inputType="phone"
-        android:hint="(99) 999999999"
-        android:textAlignment="center"/>
+        android:layout_marginTop="30dp"
+        android:background="@drawable/background_item_list"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edit_tell_ddd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="@android:drawable/editbox_background"
+            android:textSize="20sp"
+            android:inputType="phone"
+            android:maxLength="2"
+            android:hint="DD"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/edit_tell_5num"
+            android:background="@android:drawable/editbox_background"
+            android:textSize="20sp"
+            android:inputType="phone"
+            android:maxLength="5"
+            android:hint="XXXXX"
+            android:textAlignment="center"/>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/edit_tell_4num"
+            android:background="@android:drawable/editbox_background"
+            android:textSize="20sp"
+            android:inputType="phone"
+            android:maxLength="4"
+            android:hint="XXXX"
+            android:textAlignment="center"/>
+
+
+    </LinearLayout>
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"

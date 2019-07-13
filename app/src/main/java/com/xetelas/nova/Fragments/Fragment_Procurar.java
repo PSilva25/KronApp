@@ -238,6 +238,8 @@ public class Fragment_Procurar extends Fragment {
         car.setId_post(dados.get(x).getId_post());
         car.setHora(dados.get(x).getHora());
         car.setComent(dados.get(x).getComent());
+        car.setTell(dados.get(x).getTell());
+        car.setLink(dados.get(x).getLink());
 
         dados2.add(car);
 

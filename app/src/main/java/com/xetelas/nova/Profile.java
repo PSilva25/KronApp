@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -87,24 +89,34 @@ public class Profile extends AppCompatActivity {
 
     public void ShowPopup() {
         myDialog.setContentView(R.layout.popup_tell_att);
-        tell = myDialog.findViewById(R.id.edit_tell);
+        final EditText dd = myDialog.findViewById(R.id.edit_tell_ddd);
+        final EditText x5 = myDialog.findViewById(R.id.edit_tell_5num);
+        final EditText x4 = myDialog.findViewById(R.id.edit_tell_4num);
+
+        dd.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                if(dd.length() > 1) x5.requestFocus();
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        x5.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                if(x5.length() > 4) x4.requestFocus();
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
 
         Button filtro = myDialog.findViewById(R.id.bot_addtell);
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num = tell.getText().toString();
-
-                boolean a = isTelefone(num);
-                if (a == true) {
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
-                    myDialog.dismiss();
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "INSIRA UM NUMERO DE TELEFONE VÁLIDO (DDXXXXXXXXX)", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-
+                String tell = dd.getText().toString() + x5.getText().toString() + x4.getText().toString();
+                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(tell);
+                myDialog.dismiss();
             }
         });
 
@@ -118,11 +130,6 @@ public class Profile extends AppCompatActivity {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
-    }
-
-    public boolean isTelefone(String numeroTelefone) {
-        return numeroTelefone.matches("^([0-9]{2})([0-9]{4})([0-9]{4})") ||
-                numeroTelefone.matches("^([0-9]{2})([0-9]{4})-([0-9]{4})");
     }
 }
 

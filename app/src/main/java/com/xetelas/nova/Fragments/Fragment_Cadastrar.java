@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +33,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.xetelas.nova.Objects.Caronas;
-import com.xetelas.nova.Objects.dados_face;
 import com.xetelas.nova.MainActivity;
 import com.xetelas.nova.R;
 
@@ -44,7 +45,7 @@ public class Fragment_Cadastrar extends Fragment {
 
     AutoCompleteTextView de, para;
     EditText data, hora, coment;
-    final String opaLink = MainActivity.link;
+    String opaLink = MainActivity.link;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, databaseref, databaserefcont, databasetell, databaseverifica, dataBasedata;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -82,6 +83,7 @@ public class Fragment_Cadastrar extends Fragment {
 
         context = getContext();
 
+
         cities = getResources().getStringArray(R.array.cidades);
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
 
@@ -90,6 +92,7 @@ public class Fragment_Cadastrar extends Fragment {
 
         databaseref = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("Caronas");
 
+        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
         databaseref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -172,6 +175,10 @@ public class Fragment_Cadastrar extends Fragment {
                     diacadastrado = Integer.valueOf(pegadataentrada[0]);
                     mescadastrado = Integer.valueOf(pegadataentrada[1]);
                     anocadastrado = Integer.valueOf(pegadataentrada[2]);
+
+                   // if(veriFuturo(pegadataentrada,pega)>0){
+
+                   // }else
 
 
                     if ((diaatual >= diacadastrado && mesatual > mescadastrado && anoatual == anocadastrado)) {
@@ -292,38 +299,47 @@ public class Fragment_Cadastrar extends Fragment {
 
     public void ShowPopup() {
         myDialog.setContentView(R.layout.popup_tell);
-        tell = myDialog.findViewById(R.id.edit_tell);
+        final EditText dd = myDialog.findViewById(R.id.edit_tell_ddd);
+        final EditText x5 = myDialog.findViewById(R.id.edit_tell_5num);
+        final EditText x4 = myDialog.findViewById(R.id.edit_tell_4num);
+
+        dd.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                if (dd.length() > 1) x5.requestFocus();
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
+
+        x5.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                if (x5.length() > 4) x4.requestFocus();
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+        });
 
         Button filtro = myDialog.findViewById(R.id.bot_addtell);
         filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                num = tell.getText().toString();
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
+                String tell = dd.getText().toString() + x5.getText().toString() + x4.getText().toString();
+                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(tell);
                 verificaQuantPosts();
                 myDialog.dismiss();
-
-                boolean a = isTelefone(num);
-                if (a == true) {
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(num);
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
-                    myDialog.dismiss();
-                } else {
-                    Toast toast = Toast.makeText(getContext(), "INSIRA UM NUMERO DE TELEFONE VÁLIDO (DD000000000)", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
             }
         });
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         myDialog.show();
-    }
-
-    public boolean isTelefone(String numeroTelefone) {
-        return numeroTelefone.matches("^([0-9]{2})([0-9]{4})([0-9]{4})") ||
-                numeroTelefone.matches("^([0-9]{2})([0-9]{4})-([0-9]{4})");
     }
 
     public int verify() {
@@ -476,28 +492,77 @@ public class Fragment_Cadastrar extends Fragment {
         hora.setText("");
         coment.setText("");
 
-            if (!dados.getOrigem().equals("")) {
+        if (!dados.getOrigem().equals("")) {
 
-                databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
+            databaseReference.child("total_caronas").setValue(String.valueOf(contadora1 + 1));
 
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id").setValue(user.getUid());
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data_postagem").setValue(dataFormatada);
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("destino").setValue(dados.getDestino());
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
-                dados.setComent("");
-                dados.setHora("");
-                dados.setOrigem("");
-                dados.setDestino("");
-                dados.setData("");
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data_postagem").setValue(dataFormatada);
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("id_post").setValue(String.valueOf(contadora1 + 1));
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("usuario").setValue(user.getDisplayName());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("origem").setValue(dados.getOrigem());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("destino").setValue(dados.getDestino());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
+            dados.setComent("");
+            dados.setHora("");
+            dados.setOrigem("");
+            dados.setDestino("");
+            dados.setData("");
 
-                Toast toast2 = Toast.makeText(getContext(), "CADASTRO EFETUADO COM SUCESSO!!", Toast.LENGTH_LONG);
-                toast2.setGravity(Gravity.CENTER, 0, 0);
-                toast2.show();
-            }
+            Toast toast2 = Toast.makeText(getContext(), "CADASTRO EFETUADO COM SUCESSO!!", Toast.LENGTH_LONG);
+            toast2.setGravity(Gravity.CENTER, 0, 0);
+            toast2.show();
         }
+    }
+/*
+    public int veriFuturo(String pegadataentrada, String pega){
+
+        int x=0;
+        SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+        Date data2 = new Date();
+        String dataFormatada;
+        dataFormatada = formataData.format(data2);
+
+
+        int horaatual = 0, horacadastrada = 0, diaatual = 0, diacadastrado = 0, mesatual = 0, mescadastrado = 0, anoatual = 0, anocadastrado = 0, minatual = 0, mincadastrado = 0;
+
+        int xd=0, resposta = 0;
+
+        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        Date data_atual = cal.getTime();
+        String hora_atual = dateFormat_hora.format(data_atual);
+
+
+        String[] pega1 = pega.split("-");
+        String[] pegadataentrada1 = pegadataentrada.split("/");
+
+        diaatual = Integer.valueOf(pega1[0]);
+        mesatual = Integer.valueOf(pega1[1]);
+        anoatual = Integer.valueOf(pega1[2]);
+        diacadastrado = Integer.valueOf(pegadataentrada1[0]);
+        mescadastrado = Integer.valueOf(pegadataentrada1[1]);
+        anocadastrado = Integer.valueOf(pegadataentrada1[2]);
+
+        if(mesatual==1||mesatual==3||mesatual==5||mesatual==7||mesatual==8||mesatual==10||mesatual==12)
+
+            if()
+
+
+
+            xd = diaatual+diacadastrado;
+
+                    if(xd>31){
+
+                        resposta = xd-31;
+                    }
+
+
+
+
+
+        return x;
+    }
+*/
 }

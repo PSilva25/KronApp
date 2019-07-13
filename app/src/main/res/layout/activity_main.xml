@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/fb"
-        android:layout_width="290dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_gradient_blue"
         android:drawableLeft="@mipmap/face_icon"

@@ -271,9 +271,9 @@
     <string name="button">Button</string>
     <string name="nenhuma_carona_cadastrada">Nenhuma carona cadastrada</string>
     <string name="main_menu">main_menu</string>
-    <string name="para_oferecer_uma_carona">Para oferecer uma carona, é necessário inserir seu número do WhatsApp para que os usuários entrem em contato. Por favor, insira seu número válido abaixo:</string>
-    <string name="insira_seu_n_mero_telefone">Insira seu número telefone</string>
-    <string name="_99_999999999">(99) 999999999</string>
+    <string name="para_oferecer_uma_carona">Para oferecer uma carona, é necessário inserir seu número do WhatsApp para que os usuários entrem em contato. Por favor, insira seu número válido (DDD + 8 numeros) abaixo:</string>
+    <string name="insira_seu_n_mero_telefone">Insira seu número telefone (DDD + 8 numeros)</string>
+    <string name="_99_999999999">(99)99999999</string>
     <string name="feito">Feito</string>
 
 </resources>
