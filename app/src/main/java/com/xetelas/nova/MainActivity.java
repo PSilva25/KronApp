@@ -77,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onSuccess(final LoginResult loginResult) {
                     Log.d(TAG, "facebook:onSuccess:" + loginResult);
 
-                    loadUserprofile(loginResult.getAccessToken());
+                    handleFacebookAccessToken(loginResult.getAccessToken());
+
+
+
                 }
 
                 @Override
@@ -108,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 link = object.getString("link");
 
-                handleFacebookAccessToken(newAccessToken);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
 
+                    loadUserprofile(accessToken);
                     updateUI(user, false);
                 } else {
                     // If sign in fails, display a message to the user.
