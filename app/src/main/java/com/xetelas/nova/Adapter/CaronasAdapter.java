@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.xetelas.nova.FireMissilesFace;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
@@ -22,6 +22,7 @@ public class CaronasAdapter extends BaseAdapter {
     private Context context;
     private List<Caronas> fragments;
     private FragmentManager fragmentManager;
+    FireMissilesFace opa = new FireMissilesFace();
 
     public CaronasAdapter(Context context, List<Caronas> fragments, FragmentManager fragmentManager) {
         this.context = context;
@@ -82,11 +83,7 @@ public class CaronasAdapter extends BaseAdapter {
         face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = fragments.get(position).getLink();
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+                opa.show(fragmentManager, "missiles");
             }
         });
 
