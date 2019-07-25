@@ -55,8 +55,8 @@
             android:background="@android:drawable/editbox_background"
             android:textSize="20sp"
             android:inputType="phone"
-            android:maxLength="5"
-            android:hint="XXXXX"
+            android:maxLength="4"
+            android:hint="XXXX"
             android:textAlignment="center"/>
 
         <EditText

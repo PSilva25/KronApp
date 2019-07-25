@@ -27,13 +27,13 @@
             android:id="@+id/id_de"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:layout_gravity="center_vertical"
-            android:text="@string/de"
-            android:textColor="@color/colorPrimary"
+            android:layout_weight="0"
             android:labelFor="@+id/spinner_de"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:text="De:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <AutoCompleteTextView
             android:id="@+id/spinner_de"
@@ -58,11 +58,11 @@
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
             android:labelFor="@+id/spinner_para"
-            android:text="@string/para"
-            android:textSize="18sp"/>
+            android:text="Para:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <AutoCompleteTextView
             android:id="@+id/spinner_para"
@@ -88,12 +88,11 @@
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
             android:labelFor="@+id/edit_Data"
-            android:text="@string/data"
+            android:text="Data:"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
-            /> <!--Text Data-->
+            android:textStyle="bold" /> <!--Text Data-->
 
         <EditText
             android:id="@+id/edit_Data"

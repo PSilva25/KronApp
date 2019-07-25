@@ -316,7 +316,7 @@ public class Fragment_Cadastrar extends Fragment {
 
         x5.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                if (x5.length() > 4) x4.requestFocus();
+                if (x5.length() > 3) x4.requestFocus();
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
