@@ -609,6 +609,13 @@ public class Fragment_Cadastrar extends Fragment {
                     novodia = resposta;
                     novomes = mesatual+1;
 
+                }else if (xd > 29 && mesatual==2) {
+
+                    resposta = xd-29;
+
+                    novodia = resposta;
+                    novomes = mesatual+1;
+
                 }
 
         }
