@@ -56,7 +56,7 @@ public class Fragment_Cadastrar extends Fragment {
     EditText tell;
     String contadora = "0";
     int conta2 = 0;
-    int diax = 0, mesx = 0, anox = 0, diaatual = 0, mesatual = 0, anoatual = 0, quantidade = 0;
+    int diax = 0, mesx = 0, anox = 0, diaatual = 0, mesatual = 0, anoatual = 0, quantidade, MESATUAL =0;
     String[] cities;
     final String[] verifica = {""};
     private View view;
@@ -374,12 +374,13 @@ public class Fragment_Cadastrar extends Fragment {
         return z;
     }
 
-
     public void verificaQuantPosts() {
         SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
         final String dataFormatada;
         dataFormatada = formataData.format(data2);
+
+
 
         databaseverifica = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid());
         databaseverifica.addValueEventListener(new ValueEventListener() {
@@ -429,6 +430,7 @@ public class Fragment_Cadastrar extends Fragment {
                             mesx = mestab;
                             anox = anotab;
                             diaatual = diatual;
+                            MESATUAL = mesatual;
                             anoatual = anotual;
                         }
 
@@ -444,35 +446,32 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
+        if((mesx < MESATUAL) && quantidade>0){
+            quantidade = 0;
+            cadastra();
+
+        }else if((mesx==12 && MESATUAL==1)  && quantidade>0){
+            quantidade = 0;
+            cadastra();
+
+        }
 
         if (quantidade > 0) {
             if (quantidade <= 3) {
                 cadastra();
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
 
-            } else if (quantidade > 3) {
-                Toast toast2 = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
+            } else if (quantidade > 3 ) {
+                Toast toast2 = Toast.makeText(getContext(), "LIMITE MENSAL EXCEDIDO!! VOCÊ SO PODE FAZER 4 PUBLICAÇOES MENSAIS NA VERSÃO FREE, ATUALIZE PARA A VERSAO PRO PARA PUBLICAR CARONAS ILIMITADAS", Toast.LENGTH_LONG);
                 toast2.setGravity(Gravity.CENTER, 0, 0);
                 toast2.show();
 
-                if ((diaatual > diax && mesatual >= mesx && anoatual >= anox) || (diaatual < diax && mesatual > mesx && anoatual >= anox)) {
-                    Toast toast5 = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
-                    toast5.setGravity(Gravity.CENTER, 0, 0);
-                    toast5.show();
-                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf(quantidade + "-" + dataFormatada));
-
-                } else if (diaatual == diax && mesatual == mesx && anoatual == anox) {
-                    Toast toastT = Toast.makeText(getContext(), "LIMITE DIARIO EXCEDIDO", Toast.LENGTH_LONG);
-                    toastT.setGravity(Gravity.CENTER, 0, 0);
-                    toastT.show();
-                }
             }
         } else if (veri == 0 || quantidade == 0) {
             cadastra();
-            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
+
         }
     }
-
 
     public void cadastra() {
 
@@ -509,6 +508,8 @@ public class Fragment_Cadastrar extends Fragment {
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("data").setValue(dados.getData());
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("hora").setValue(dados.getHora());
             databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Caronas").child(String.valueOf(contadora1 + 1)).child("comentario").setValue(dados.getComent());
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
+
             dados.setComent("");
             dados.setHora("");
             dados.setOrigem("");
