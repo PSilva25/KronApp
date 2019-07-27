@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.xetelas.nova.FireMissilesLimit;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.MainActivity;
 import com.xetelas.nova.R;
@@ -462,10 +463,8 @@ public class Fragment_Cadastrar extends Fragment {
                 databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("Qtd_caronas").setValue(String.valueOf((quantidade + 1) + "-" + dataFormatada));
 
             } else if (quantidade > 3 ) {
-                Toast toast2 = Toast.makeText(getContext(), "LIMITE MENSAL EXCEDIDO!! VOCÊ SO PODE FAZER 4 PUBLICAÇOES MENSAIS NA VERSÃO FREE, ATUALIZE PARA A VERSAO PRO PARA PUBLICAR CARONAS ILIMITADAS", Toast.LENGTH_LONG);
-                toast2.setGravity(Gravity.CENTER, 0, 0);
-                toast2.show();
-
+                FireMissilesLimit opa = new FireMissilesLimit();
+                opa.show(getFragmentManager(), "missiles");
             }
         } else if (veri == 0 || quantidade == 0) {
             cadastra();
