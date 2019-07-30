@@ -2,9 +2,12 @@ package com.xetelas.nova.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -28,7 +31,6 @@ public class CaronasAdapterMinhas extends BaseAdapter {
 
     private Context context;
     private List<Caronas> fragments;
-    Dialog myDialog;
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -117,28 +119,27 @@ public class CaronasAdapterMinhas extends BaseAdapter {
     }
 
     public void ShowPopup(final int position) {
-        myDialog = new Dialog(context);
-        myDialog.setContentView(R.layout.popup_delete);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        Button filtro = myDialog.findViewById(R.id.bot_deleta);
-        filtro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleta(position);
-                myDialog.dismiss();
-            }
-        });
+        LayoutInflater factory = LayoutInflater.from(context);
+        View content = factory.inflate(R.layout.popup_delete, null);
 
-        Button cancel = myDialog.findViewById(R.id.bot_nao);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
+        builder.setTitle("Excluir carona");
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        myDialog.show();
+        builder.setView(content)
+                .setPositiveButton("Excluir", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleta(position);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+
+        builder.show();
     }
 
 }

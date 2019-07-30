@@ -4,12 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -52,14 +54,10 @@ public class Fragment_Cadastrar extends Fragment {
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     final Calendar myCalendar = Calendar.getInstance();
-    String num = null;
-    Dialog myDialog;
-    EditText tell;
     String contadora = "0";
     int conta2 = 0;
     int diax = 0, mesx = 0, anox = 0, diaatual = 0, mesatual = 0, anoatual = 0, quantidade, MESATUAL =0;
     String[] cities;
-    final String[] verifica = {""};
     private View view;
     private Button button;
     long maxid = 0;
@@ -280,10 +278,8 @@ public class Fragment_Cadastrar extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
-                    myDialog = new Dialog(context);
                     ShowPopup();
                 } else if (dataSnapshot.getValue().toString().equals("")) {
-                    myDialog = new Dialog(getContext());
                     ShowPopup();
                 } else if (dataSnapshot.exists()) {
 
@@ -298,10 +294,16 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public void ShowPopup() {
-        myDialog.setContentView(R.layout.popup_tell);
-        final EditText dd = myDialog.findViewById(R.id.edit_tell_ddd);
-        final EditText x5 = myDialog.findViewById(R.id.edit_tell_5num);
-        final EditText x4 = myDialog.findViewById(R.id.edit_tell_4num);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        LayoutInflater factory = LayoutInflater.from(getContext());
+        View content = factory.inflate(R.layout.popup_tell, null);
+
+        builder.setTitle("Insira seu número telefone (DDD + 8 numeros)");
+
+        final EditText dd = content.findViewById(R.id.edit_tell_ddd);
+        final EditText x5 = content.findViewById(R.id.edit_tell_5num);
+        final EditText x4 = content.findViewById(R.id.edit_tell_4num);
 
         dd.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
@@ -327,25 +329,26 @@ public class Fragment_Cadastrar extends Fragment {
             }
         });
 
-        Button filtro = myDialog.findViewById(R.id.bot_addtell);
-        filtro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String tell = dd.getText().toString() + x5.getText().toString() + x4.getText().toString();
-                databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(tell);
-                myDialog.dismiss();
 
-                Toast toast5 = Toast.makeText(getContext(), "TELEFONE CADASTRADO COM SUCESSO!!", Toast.LENGTH_LONG);
-                toast5.setGravity(Gravity.CENTER, 0, 0);
-                toast5.show();
-                verificaTell();
+        builder.setView(content)
+                .setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String tell = dd.getText().toString() + x5.getText().toString() + x4.getText().toString();
+                        databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(tell);
+                        Toast toast5 = Toast.makeText(getContext(), "TELEFONE CADASTRADO COM SUCESSO!!", Toast.LENGTH_LONG);
+                        toast5.setGravity(Gravity.CENTER, 0, 0);
+                        toast5.show();
+                        verificaTell();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
 
+                    }
+                });
 
-            }
-        });
-
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        myDialog.show();
+        builder.show();
     }
 
     public int verify() {
