@@ -109,13 +109,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
             try {
-                FirebaseDatabase firebaseDatabase;
-                DatabaseReference databaseReference;
-                firebaseDatabase = FirebaseDatabase.getInstance();
-                databaseReference = firebaseDatabase.getReference();
 
                 link = object.getString("link");
-                databaseReference.child("link_teste").setValue(link);
+
 
             } catch (JSONException e) {
                 e.printStackTrace();

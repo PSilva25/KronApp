@@ -222,7 +222,7 @@ public class Fragment_Procurar extends Fragment {
 
                             }
 
-                            if ((diapost >= diaatual || diapost <= novodia ) && (mespost>=mesatual || mespost >= novomes) && (anopost>=anoatual || anopost <= novoano)) {
+                            if ((diapost >= diaatual && diapost <= novodia ) && (mespost>=mesatual || mespost >= novomes) && (anopost>=anoatual || anopost <= novoano)) {
                                 Caronas car = new Caronas();
 
                                 car.setTell(tellphone);
