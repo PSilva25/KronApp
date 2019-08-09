@@ -1,12 +1,9 @@
 package com.xetelas.nova.Fragments;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,7 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.xetelas.nova.FireMissilesLimit;
+import com.xetelas.nova.FireMissiles.FireMissilesLimit;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.MainActivity;
 import com.xetelas.nova.R;

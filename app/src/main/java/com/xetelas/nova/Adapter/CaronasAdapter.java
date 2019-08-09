@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.xetelas.nova.FireMissilesFace;
+import com.xetelas.nova.FireMissiles.FireMissilesFace;
 import com.xetelas.nova.Objects.Caronas;
 import com.xetelas.nova.R;
 
