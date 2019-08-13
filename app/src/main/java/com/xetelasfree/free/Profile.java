@@ -1,10 +1,7 @@
-package com.xetelas.nova;
+package com.xetelasfree.free;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -17,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,10 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.xetelas.nova.Adapter.MyFragmentPagerAdapter;
-import com.xetelas.nova.Fragments.Fragment_Cadastrar;
-import com.xetelas.nova.Fragments.Fragment_Minhas;
-import com.xetelas.nova.Fragments.Fragment_Procurar;
+import com.xetelasfree.free.Adapter.MyFragmentPagerAdapter;
+import com.xetelasfree.free.Fragments.Fragment_Cadastrar;
+import com.xetelasfree.free.Fragments.Fragment_Minhas;
+import com.xetelasfree.free.Fragments.Fragment_Procurar;
 
 
 public class Profile extends AppCompatActivity {

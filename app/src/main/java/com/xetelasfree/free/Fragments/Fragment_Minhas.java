@@ -1,4 +1,4 @@
-package com.xetelas.nova.Fragments;
+package com.xetelasfree.free.Fragments;
 
 import android.content.Context;
 import android.os.Build;
@@ -19,9 +19,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.xetelas.nova.Adapter.CaronasAdapterMinhas;
-import com.xetelas.nova.Objects.Caronas;
-import com.xetelas.nova.R;
+import com.xetelasfree.free.Adapter.CaronasAdapterMinhas;
+import com.xetelasfree.free.Objects.Caronas;
+import com.xetelasfree.free.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

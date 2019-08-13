@@ -1,4 +1,4 @@
-package com.xetelas.nova.Adapter;
+package com.xetelasfree.free.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.xetelas.nova.FireMissiles.FireMissilesFace;
-import com.xetelas.nova.Objects.Caronas;
-import com.xetelas.nova.R;
+import com.xetelasfree.free.FireMissiles.FireMissilesFace;
+import com.xetelasfree.free.Objects.Caronas;
+import com.xetelasfree.free.R;
 
 import java.util.List;
 

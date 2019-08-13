@@ -1,17 +1,13 @@
-package com.xetelas.nova.Adapter;
+package com.xetelasfree.free.Adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.xetelas.nova.Objects.Caronas;
-import com.xetelas.nova.R;
+import com.xetelasfree.free.Objects.Caronas;
+import com.xetelasfree.free.R;
 
 import java.util.List;
 

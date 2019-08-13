@@ -1,4 +1,4 @@
-package com.xetelas.nova;
+package com.xetelasfree.free;
 
 import org.junit.Test;
 

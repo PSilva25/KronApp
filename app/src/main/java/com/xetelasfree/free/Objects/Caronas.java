@@ -1,4 +1,4 @@
-package com.xetelas.nova.Objects;
+package com.xetelasfree.free.Objects;
 
 public class Caronas implements Comparable<Caronas> {
 

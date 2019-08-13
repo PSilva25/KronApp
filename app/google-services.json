@@ -42,6 +42,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83303964525:android:d9a087e20d2b4f57",
+        "android_client_info": {
+          "package_name": "com.xetelasfree.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83303964525-791c9di5knq7b18etq5139e6eneqvavs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xetelasfree.free",
+            "certificate_hash": "c1e769e9c803b1864e7ba568e15b58a462593268"
+          }
+        },
+        {
+          "client_id": "83303964525-6tm5ll3l44672kv4gev7abp51p460j0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCqD5gSKCtnSpgZHNP3jzd-kAcqNVKS3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83303964525-6tm5ll3l44672kv4gev7abp51p460j0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

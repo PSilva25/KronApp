@@ -1,4 +1,4 @@
-package com.xetelas.nova;
+package com.xetelasfree.free;
 
 import android.content.Intent;
 import android.os.Build;
@@ -27,7 +27,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.xetelas.nova.FireMissiles.FireMissilesConcordar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.xetelasfree.free.FireMissiles.FireMissilesConcordar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     LoginButton loginButton;
     public static String link;
 
+    AccessToken x;
     Button fb;
     FireMissilesConcordar opa = new FireMissilesConcordar();
     private static final String TAG = "FacebookLogin";
@@ -58,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
         fb = findViewById(R.id.fb);
     }
-
     public void onClickFacebookButton(View view) {
         if (view == fb) {
             loginButton.performClick();
@@ -100,14 +102,14 @@ public class MainActivity extends AppCompatActivity {
         GraphRequest graphRequest = GraphRequest.newMeRequest(newAccessToken, new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
-            try {
+                try {
 
-                link = object.getString("link");
+                    link = object.getString("link");
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -138,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, "signInWithCredential:success");
                     FirebaseUser user = firebaseAuth.getCurrentUser();
 
+                    x = accessToken;
                     loadUserprofile(accessToken);
                     updateUI(user, false);
                 } else {
@@ -151,6 +154,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user, Boolean sim) {
         if (user != null && sim) {
+
+            DatabaseReference databaseReference;
+            FirebaseDatabase firebaseDatabase;
+
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference();
+            databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(link);
+
+
+
+
+
             Intent intent = new Intent(MainActivity.this, Profile.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

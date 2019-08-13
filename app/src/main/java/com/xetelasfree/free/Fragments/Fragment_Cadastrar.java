@@ -1,4 +1,4 @@
-package com.xetelas.nova.Fragments;
+package com.xetelasfree.free.Fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -31,10 +31,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.xetelas.nova.FireMissiles.FireMissilesLimit;
-import com.xetelas.nova.Objects.Caronas;
-import com.xetelas.nova.MainActivity;
-import com.xetelas.nova.R;
+import com.xetelasfree.free.FireMissiles.FireMissilesLimit;
+import com.xetelasfree.free.Objects.Caronas;
+import com.xetelasfree.free.MainActivity;
+import com.xetelasfree.free.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

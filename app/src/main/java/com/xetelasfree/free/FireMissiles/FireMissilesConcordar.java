@@ -1,4 +1,4 @@
-package com.xetelas.nova.FireMissiles;
+package com.xetelasfree.free.FireMissiles;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-import com.xetelas.nova.Profile;
-import com.xetelas.nova.R;
+import com.xetelasfree.free.Profile;
+import com.xetelasfree.free.R;
 
 public class FireMissilesConcordar extends DialogFragment {
 

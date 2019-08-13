@@ -1,4 +1,4 @@
-package com.xetelas.nova.Adapter;
+package com.xetelasfree.free.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

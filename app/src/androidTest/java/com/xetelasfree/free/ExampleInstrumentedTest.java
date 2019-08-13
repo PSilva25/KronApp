@@ -1,4 +1,4 @@
-package com.xetelas.nova;
+package com.xetelasfree.free;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.xetelas.nova", appContext.getPackageName());
+        assertEquals("com.xetelasfree.free", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.xetelas.nova.FireMissiles;
+package com.xetelasfree.free.FireMissiles;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -17,7 +17,7 @@ public class FireMissilesFace extends DialogFragment {
         builder.setMessage("Atualize para a versão PRO para utilizar essa funcionalidade.")
                 .setPositiveButton("Ir", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        String url = "https://play.google.com/store/apps/details?id=com.xetelas.nova";
+                        String url = "https://play.google.com/store/apps/details?id=com.xetelasfree.free";
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
