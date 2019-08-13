@@ -61,7 +61,7 @@ public class Fragment_Procurar extends Fragment {
     Calendar myCalendar = Calendar.getInstance();
     ListView lv;
     int xd, resposta = 0, novodia = 0, novomes = 0, novoano = 0;
-    int diaatual = 0,mesatual = 0,anoatual = 0;
+    int diaatual = 0, mesatual = 0, anoatual = 0;
 
 
     @Override
@@ -107,7 +107,6 @@ public class Fragment_Procurar extends Fragment {
         databaseReference = firebaseDatabase.getReference();
 
 
-
         SimpleDateFormat formataData1 = new SimpleDateFormat("dd-MM-yyyy");
         Date data1 = new Date();
         String dataFormatada1;
@@ -119,10 +118,6 @@ public class Fragment_Procurar extends Fragment {
         final int pegames = Integer.valueOf(pegadata[1]);
         final int pegaano = Integer.valueOf(pegadata[2]);
         int x = 0;
-
-
-
-
 
 
         diaatual = Integer.valueOf(pegadata[0]);
@@ -186,7 +181,6 @@ public class Fragment_Procurar extends Fragment {
         }
 
 
-
         databaseReference.addValueEventListener(new ValueEventListener() {
 
 
@@ -210,13 +204,13 @@ public class Fragment_Procurar extends Fragment {
                             int mespost = Integer.valueOf(datapost[1]);
                             int anopost = Integer.valueOf(datapost[2]);
 
-                            if (diapost>diaatual){
+                            if (diapost > diaatual) {
 
                                 diapost = diaatual;
 
                             }
 
-                            if ((diapost >= diaatual && diapost <= novodia ) && (mespost>=mesatual || mespost >= novomes) && (anopost>=anoatual || anopost <= novoano)) {
+                            if ((diapost >= diaatual && diapost <= novodia) && (mespost >= mesatual || mespost >= novomes) && (anopost >= anoatual || anopost <= novoano)) {
                                 Caronas car = new Caronas();
 
                                 car.setTell(tellphone);

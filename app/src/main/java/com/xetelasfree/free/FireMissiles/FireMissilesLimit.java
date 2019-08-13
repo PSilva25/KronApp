@@ -17,7 +17,7 @@ public class FireMissilesLimit extends DialogFragment {
         builder.setMessage("Limite mensal excedido! Na versão gratuita, o limite máximo de publicação de caronas mensais é 4 (quatro), atualize para a versão Pro e tenha publicações ilimitadas...")
                 .setPositiveButton("Ir", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        String url = "https://play.google.com/store/apps/details?id=com.xetelasfree.free";
+                        String url = "https://play.google.com/store/apps/details?id=com.xetelas.nova";
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(url));
                         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
