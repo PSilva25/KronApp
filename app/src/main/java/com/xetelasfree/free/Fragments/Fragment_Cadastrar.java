@@ -23,6 +23,9 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +38,9 @@ import com.xetelasfree.free.FireMissiles.FireMissilesLimit;
 import com.xetelasfree.free.Objects.Caronas;
 import com.xetelasfree.free.MainActivity;
 import com.xetelasfree.free.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -89,7 +95,9 @@ public class Fragment_Cadastrar extends Fragment {
         databaseref = firebaseDatabase.getReference().child(user.getDisplayName() + " - " + user.getUid()).child("Caronas");
 
         databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(opaLink);
+        loadUserprofile();
         verificaTell();
+
         databaseref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -333,6 +341,7 @@ public class Fragment_Cadastrar extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         String tell = dd.getText().toString() + x5.getText().toString() + x4.getText().toString();
                         databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("telefone").setValue(tell);
+                        loadUserprofile();
                         Toast toast5 = Toast.makeText(getContext(), "TELEFONE CADASTRADO COM SUCESSO!!", Toast.LENGTH_LONG);
                         toast5.setGravity(Gravity.CENTER, 0, 0);
                         toast5.show();
@@ -376,7 +385,7 @@ public class Fragment_Cadastrar extends Fragment {
     }
 
     public void verificaQuantPosts() {
-        SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
+       /* SimpleDateFormat formataData = new SimpleDateFormat("dd-MM-yyyy");
         Date data2 = new Date();
         final String dataFormatada;
         dataFormatada = formataData.format(data2);
@@ -467,9 +476,11 @@ public class Fragment_Cadastrar extends Fragment {
                 opa.show(getFragmentManager(), "missiles");
             }
         } else if (veri == 0 || quantidade == 0) {
-            cadastra();
+
 
         }
+        */
+        cadastra();
     }
 
     public void cadastra() {
@@ -629,5 +640,34 @@ public class Fragment_Cadastrar extends Fragment {
 
         return x;
     }
+
+
+
+
+    private void loadUserprofile() {
+
+        GraphRequest graphRequest = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
+
+                    String link = object.getString("link");
+
+                    databaseReference.child(user.getDisplayName() + " - " + user.getUid()).child("linkFace").setValue(link);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("fields", "first_name,last_name,email,id,link");
+        graphRequest.setParameters(bundle);
+        graphRequest.executeAsync();
+
+    }
+
 
 }
